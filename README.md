@@ -1,70 +1,93 @@
-# Getting Started with Create React App
+# Project Name
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> Description of the project.
 
-## Available Scripts
+This repository contains the source code for the project **[Project Name]**. The project aims to develop an applicant management platform that allows users to register, log in, submit application forms with personal data and CVs, and apply for programs or seminars. The system also includes a CV builder feature that automatically generates a new CV for the user based on their details. Additionally, the system automates data analysis to identify common reasons for rejection by analyzing factors such as education level, work experience, recommended seminars, and user location.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- User registration and login
+- Application form submission
+- Application form review by administrators
+- Feedback generation for rejected applications
+- CV builder for generating updated CVs
+- Data analysis for identifying rejection reasons and trends
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Technologies Used
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Front-end: React, Tailwind CSS
+- Back-end: Java
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+To get started with the project, follow the instructions below:
 
-### `npm run build`
+### Prerequisites
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- Node.js (version X.X.X)
+- Java (version X.X.X)
+- Any additional prerequisites...
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Installation
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+1. Clone the repository.
 
-### `npm run eject`
+```bash
+git clone https://github.com/your-username/project-name.git
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+2. Install dependencies for the front-end.
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+```bash
+cd project-name/frontend
+npm install
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+3. Install dependencies for the back-end.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```bash
+cd ../backend
+# Install Java dependencies (e.g., using Maven)
+```
 
-## Learn More
+### Configuration
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+1. Configure the front-end.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```bash
+cd ../frontend
+# Add any necessary configuration steps...
+```
 
-### Code Splitting
+2. Configure the back-end.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+```bash
+cd ../backend
+# Add any necessary configuration steps...
+```
 
-### Analyzing the Bundle Size
+### Usage
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. Start the front-end development server.
 
-### Making a Progressive Web App
+```bash
+cd ../frontend
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+2. Start the back-end server.
 
-### Advanced Configuration
+```bash
+cd ../backend
+# Start the Java server (e.g., using Maven or your preferred method)
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+3. Access the application in your browser.
 
-### Deployment
+```bash
+Open http://localhost:3000/ in your browser.
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## License
 
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](LICENSE).
