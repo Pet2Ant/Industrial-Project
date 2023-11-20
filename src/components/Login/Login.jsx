@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
@@ -39,12 +40,12 @@ function Login() {
         );
     };
     return (
-        <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
-            <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen ">
+        <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
+            <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen overflow-y-auto ">
                 <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 ">
                     <a
                         href="https://joinwelead.org/"
-                        className="flex flex-row items-center justify-center gap-2 mt-40   sm:mt-50"
+                        className="flex flex-row items-center justify-center gap-2 mt-20   sm:mt-50"
                     >
                         <img
                             src={logo}
@@ -52,21 +53,21 @@ function Login() {
                             className="hidden sm:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
                         />
                     </a>
-                    <h1 className="text-3xl font-bold sm:text-left text-center text-white">
+                    <img
+                        src={login}
+                        alt="loginPicture"
+                        className="hidden sm:block object-cover rounded-3xl mt-10 h-1/2 w-2/3 ml-auto mr-auto"
+                    />
+                    <h1 className="text-3xl font-bold sm:text-center text-right  mt-10 text-white">
                         Empowering women to shape the future of  <br /> everything
                     </h1>
-                    <div className="sm:text-left text-center text-left text-white ">
-                        If you don't have an account,
-                        <a
-                            href="/register"
-                            className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"> <br />
-                            You can register here!
-                        </a>
-                    </div>
+                    
+                    
                 </div>
 
                 {/* Login form */}
-                <form className="flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12 mt-40   sm:mt-60">
+                {/* //overflow-y-auto overflow-x-hidden */}
+                <form className="flex flex-col pr-12 w-full sm:w-[28rem]  h-screen py-12 mt-40   sm:mt-60">
                     <a
                         href="https://joinwelead.org/"
                         className="flex flex-row items-center justify-center gap-2"
@@ -108,15 +109,23 @@ function Login() {
                         />
                     </div>
                     <p className="text-white mt-4  text-right w-full   ">
-                       
-                         <a
+
+                        <a
                             href="/placeholder"
                             className="hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
                         >
-                             Forgot your password?
+                            Forgot your password?
                         </a>
                     </p>
                     <Button buttonName="Login" onClick={handleLogin} />
+                    <div className="sm:text-center text-white mt-6">
+                        If you don't have an account,
+                        <a
+                            href="/register"
+                            className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"> <br />
+                            You can register here!
+                        </a> 
+                    </div>
                 </form>
             </div>
         </div>
