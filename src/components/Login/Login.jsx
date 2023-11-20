@@ -59,10 +59,21 @@ function Login() {
                         className="hidden sm:block object-cover rounded-3xl mt-10 h-1/2 w-2/3 ml-auto mr-auto"
                     />
                     {/* font-bold */}
+                    {/* <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
+                        Empowering women to shape the future of  everything
+                    </h1> */}
                     <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
-                        Empowering women to shape the future of  <br /> everything
+                        Our Vision & Mission
                     </h1>
-                    
+                    <p className=" sm:text-center italic text-right  mt-10 text-white">We envision a world where women are empowered to shape the future of everything. 
+                    <br /> We train, mentor and empower women to pursue leadership positions in business and technology.</p>
+
+                    <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
+                        What We Do
+                    </h1>
+                    <p className=" sm:text-center italic text-right  mt-10 text-white">WE LEAD empowers women through education, networking, mentorship, and professional development opportunities. <br />
+                    Participants emerge as well-rounded professionals ready to enter or re-enter the workforce and equipped to rise to leadership positions. <br />
+                     On top of that, WE LEAD works alongside tech and business leaders as well as local communities and authorities to achieve <br /> greater inclusivity in workplaces and foster a culture of allyship.</p>
                     
                 </div>
 
@@ -79,7 +90,7 @@ function Login() {
                             className="sm:hidden block object-scale-down h-16"
                         />
                     </a>
-                    <h1 className="text-3xl font-bold sm:text-left text-center text-white">
+                    <h1 className="text-3xl font-bold sm:text-center text-center text-white">
                         Log in
                     </h1>
                     <p className="text-white mt-6 mb-12  text-center w-full sm:hidden  ">
@@ -125,7 +136,7 @@ function Login() {
                             href="/register"
                             className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"> <br />
                             You can register here!
-                        </a> 
+                        </a>
                     </div>
                 </form>
             </div>
