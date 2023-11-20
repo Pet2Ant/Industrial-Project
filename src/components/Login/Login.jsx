@@ -107,6 +107,15 @@ function Login() {
                             id="password"
                         />
                     </div>
+                    <p className="text-white mt-4  text-right w-full   ">
+                       
+                         <a
+                            href="/placeholder"
+                            className="hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+                        >
+                             Forgot your password?
+                        </a>
+                    </p>
                     <Button buttonName="Login" onClick={handleLogin} />
                 </form>
             </div>
