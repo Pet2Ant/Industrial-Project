@@ -58,7 +58,8 @@ function Login() {
                         alt="loginPicture"
                         className="hidden sm:block object-cover rounded-3xl mt-10 h-1/2 w-2/3 ml-auto mr-auto"
                     />
-                    <h1 className="text-3xl font-bold sm:text-center text-right  mt-10 text-white">
+                    {/* font-bold */}
+                    <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
                         Empowering women to shape the future of  <br /> everything
                     </h1>
                     
