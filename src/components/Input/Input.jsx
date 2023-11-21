@@ -45,7 +45,7 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center mx-auto ">
+    <div className="flex flex-col justify-center w-screen sm:px-0 px-8">
       <label
         className="mt-4 text-left text-sm font-bold text-white"
         htmlFor={name}
