@@ -3,10 +3,14 @@
 import React from 'react';
 import Navbar from '../Navbar/Navbar';
 
+
+
+
 function Logout() {
+    const userKind = "admin";
     return (
         <div>
-            <Navbar />
+            <Navbar isAuthenticated={true} userKind={userKind}/>
             <div className="bg-[#143727] h-screen min-h-screen max-h-screen" >
                 <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen overflow-y-auto ">
                     <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 mt-14">
