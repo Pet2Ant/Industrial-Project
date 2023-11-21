@@ -87,9 +87,10 @@ function Login() {
         {/* Login form */}
         {/* //overflow-y-auto overflow-x-hidden */}
         <form className="flex flex-col pr-12 w-full sm:w-[28rem] justify-center  h-screen ">
+          <div>
           <a
             href="https://joinwelead.org/"
-            className="flex flex-row items-center justify-center gap-2"
+            className="flex flex-row items-center justify-center mx-auto gap-2"
           >
             <img
               src={logo}
@@ -100,6 +101,8 @@ function Login() {
           <h1 className="text-3xl font-bold sm:text-center text-center text-white">
             Log in
           </h1>
+          </div>
+
 
           <div className="flex flex-col items-center justify-center relative min-w-fit md:min-w-max w-full mx-auto">
             <Input
@@ -128,7 +131,7 @@ function Login() {
             </a>
           </p>
           <Button buttonName="Login" onClick={handleLogin} />
-          <div className="sm:text-center text-white mt-6 text-center">
+          <div className="sm:text-center text-white mt-6 text-center mx-auto">
             If you don't have an account,
             <a
               href="/register"

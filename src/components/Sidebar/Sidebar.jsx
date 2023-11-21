@@ -13,7 +13,7 @@ const Sidebar = ({ onCategoryChange }) => {
   ];
 
   return (
-    <div className="flex flex-col mb-auto mt-auto space-y-9 text-[#143727]">
+    <div className="flex flex-col mx-auto h-full  space-y-4 text-white font-bold font-bakbak text-3xl leading-relaxed">
       {categories.map((category) => (
         <button key={category} onClick={() => onCategoryChange(category)}>
           {category}
