@@ -38,8 +38,8 @@ function Login() {
   };
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
-      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen overflow-y-hidden ">
-        <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 ">
+      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
+        <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 pb-6 overflow-y-auto scrollbar-hide">
           <a
             href="https://joinwelead.org/"
             className="flex flex-row items-center justify-center gap-2 mt-20   sm:mt-50"
@@ -86,7 +86,7 @@ function Login() {
 
         {/* Login form */}
         {/* //overflow-y-auto overflow-x-hidden */}
-        <form className="flex flex-col pr-12 w-full sm:w-[28rem] justify-center  h-screen ">
+        <form className="flex flex-col pr-12 mr-12 w-full sm:w-[28rem] justify-center h-screen">
           <div>
           <a
             href="https://joinwelead.org/"

@@ -10,8 +10,12 @@ module.exports = {
         poppins: ['Poppins', 'sans-serif'],
         // BakbakOne-Regular.ttf
         bakbak: ['BakbakOne', 'sans-serif'],
+        // NoiGroteskTrial-Regular.ttf
+        noi: ['NoiGroteskTrial', 'sans-serif'],
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require('tailwind-scrollbar-hide')
+  ],
 }

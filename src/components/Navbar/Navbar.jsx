@@ -108,7 +108,7 @@ const UnauthenticatedNavbar = () => (
 
 const Navbar = ({ isAuthenticated, userKind }) => {
   return (
-    <nav className="absolute w-screen bg-[#e5e5e5] px-4">
+    <nav className="absolute w-screen z-50 bg-[#e5e5e5] px-4">
       <div className="md:flex justify-between items-center">
         {/* logo */}
         <a

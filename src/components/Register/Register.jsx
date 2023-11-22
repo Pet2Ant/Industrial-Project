@@ -66,7 +66,7 @@ function Register() {
         </div>
 
         {/* Register form */}
-        <form className="flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12">
+        <form className="flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-hidden overflow-x-hidden h-screen py-12">
           <a
             href="https://joinwelead.org/"
             className="flex flex-row items-center justify-center gap-2"
