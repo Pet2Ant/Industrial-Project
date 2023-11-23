@@ -4,7 +4,7 @@ import React from "react";
 // Custom component for radio button
 function RadioButton({ id, value, name, label, checked, onChange }) {
   return (
-    <div class="w-full">
+    <div className="w-full">
       <input
         id={id}
         type="radio"

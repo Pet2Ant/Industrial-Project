@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import Input from '../ApplyInput';
-import 'react-calendar/dist/Calendar.css';
+import React, { useState } from "react";
+import Calendar from "react-calendar";
+import Input from "../ApplyInput";
+import "react-calendar/dist/Calendar.css";
+import Button from "../CalendarButton";
 
 function WorkPage() {
   const [workPlace, setWorkPlace] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
-  const [experience, setExperience] = useState('');
-  const [responsibilities, setResponsibilities] = useState('');
+  const [experience, setExperience] = useState("");
+  const [responsibilities, setResponsibilities] = useState("");
 
   const handleInputChange = (event) => {
     setWorkPlace(event.target.value);
@@ -31,7 +32,9 @@ function WorkPage() {
       />
       {showCalendar && (
         <div>
-          <h2 class="text-xl font-bold text-center mt-8 mb-4">Please select the date range for which you worked:</h2>
+          <h2 className="text-xl font-bold text-center mt-8 mb-4">
+            Please select the date range for which you worked:
+          </h2>
           <Calendar
             selectRange
             className={"mx-auto"}
@@ -51,7 +54,9 @@ function WorkPage() {
       )}
       {dateRange[0] && dateRange[1] && (
         <div>
-            <h2 class="text-xl font-bold text-center mt-8 mb-4">Please provide more details about your work experience</h2>
+          <h2 className="text-xl font-bold text-center mt-8 mb-4">
+            Please provide more details about your work experience
+          </h2>
           <Input
             name="experience"
             setName={setExperience}
@@ -59,7 +64,9 @@ function WorkPage() {
             type="text"
             id="experience"
           />
-            <h2 class="text-xl font-bold text-center mt-8 mb-4">Please provide more details about your responsibilities</h2>
+          <h2 className="text-xl font-bold text-center mt-8 mb-4">
+            Please provide more details about your responsibilities
+          </h2>
           <Input
             name="responsibilities"
             setName={setResponsibilities}
@@ -67,6 +74,7 @@ function WorkPage() {
             type="text"
             id="responsibilities"
           />
+          <Button buttonName="Add Work" />
         </div>
       )}
     </div>
