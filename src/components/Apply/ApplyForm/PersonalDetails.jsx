@@ -14,7 +14,7 @@ function PersonalDetails() {
 
     return (
         <>
-            <div className="flex p-4 gap-4">
+            <div className="flex md:flex-row flex-col p-4 gap-4">
                 <ApplyInput
                     name="Name"
                     setName={setFirstName}
@@ -30,7 +30,7 @@ function PersonalDetails() {
                     id="surname"
                 />
             </div>
-            <div className="flex p-4 gap-4">
+            <div className="flex md:flex-row flex-col p-4 gap-4">
                 <ApplyInput
                     name="Country"
                     setName={setCountry}
@@ -46,7 +46,7 @@ function PersonalDetails() {
                     id="city"
                 />
             </div>
-            <div className="flex  p-4 gap-4">
+            <div className="flex md:flex-row flex-col p-4 gap-4">
                 <ApplyInput
                     name="Email"
                     setName={setEmail}
@@ -62,7 +62,7 @@ function PersonalDetails() {
                     id="phone"
                 />
             </div>
-            <div className="flex s p-4 gap-4">
+            <div className="flex md:flex-row flex-col p-4 gap-4">
                 <ApplyInput
                     name="External Links"
                     setName={setExternalLinks}

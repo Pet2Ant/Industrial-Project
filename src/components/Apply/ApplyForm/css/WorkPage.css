@@ -1,0 +1,7 @@
+@media (max-width: 640px) {
+    .custom-calendar .react-calendar__navigation__label,
+    .custom-calendar .react-calendar__navigation__arrow {
+      font-size: 0.7rem;
+    }
+  }
+  

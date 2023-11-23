@@ -1,13 +1,21 @@
 import React from "react";
 import { useState } from "react";
 
-const Input = ({ name, setName, placeholder, type, id }) => {
+const Input = ({ name, setName, placeholder, type, id, handleWorkChange }) => {
   const [inputName, setInputName] = useState("");
 
   const handleChange = (e) => {
-    const inputValue = e.target.value;
-    setName(inputValue);
-    setInputName(inputValue);
+    if (name === "workPlace") {
+      const inputValue = e.target.value;
+      setName(inputValue);
+      setInputName(inputValue);
+      handleWorkChange(e);
+    } else {
+      const inputValue = e.target.value;
+      setName(inputValue);
+      setInputName(inputValue);
+    }
+
   };
 // 
   return (
