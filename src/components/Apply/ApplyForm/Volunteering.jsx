@@ -35,7 +35,13 @@ function Volunteering() {
           </h2>
           <Calendar
             selectRange
-            className={"mx-auto"}
+            minDetail="year"
+            maxDetail="month"
+            next2Label={null}
+            prev2Label={null}
+            nextLabel={null}
+            prevLabel={null}
+            className={"mx-auto my-calendar"}
             formatShortWeekday={(locale, value) => {
               if (window.innerWidth < 640) {
                 return ["S", "M", "T", "W", "T", "F", "S"][value.getDay()];
@@ -51,7 +57,7 @@ function Volunteering() {
         </div>
       )}
       {dateRange[0] && dateRange[1] && (
-        <Button buttonName={"Add Volunteer Work/Project"} />
+        <Button buttonName={"Add"} />
       )}
     </div>
   );

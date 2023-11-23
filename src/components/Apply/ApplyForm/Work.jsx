@@ -37,7 +37,13 @@ function WorkPage() {
           </h2>
           <Calendar
             selectRange
-            className={"mx-auto"}
+            minDetail="year"
+            maxDetail="month"
+            next2Label={null}
+            prev2Label={null}
+            nextLabel={null}
+            prevLabel={null}
+            className={"mx-auto my-calendar"}
             formatShortWeekday={(locale, value) => {
               if (window.innerWidth < 640) {
                 return ["S", "M", "T", "W", "T", "F", "S"][value.getDay()];
@@ -74,7 +80,7 @@ function WorkPage() {
             type="text"
             id="responsibilities"
           />
-          <Button buttonName="Add Work" />
+          <Button buttonName="Add" />
         </div>
       )}
     </div>
