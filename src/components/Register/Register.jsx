@@ -55,13 +55,13 @@ function Register() {
             <img
               src={logo}
               alt="logo"
-              className="hidden sm:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
+              className="hidden md:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
             />
           </a>
           <img
             src={people}
             alt="registerPicture"
-            className="hidden sm:block object-cover rounded-3xl h-5/6"
+            className="hidden md:block object-cover rounded-3xl h-5/6"
           />
         </div>
 
@@ -89,7 +89,7 @@ function Register() {
               log in here!
             </a>
           </p>
-          <div className="flex flex-col items-center justify-center relative min-w-fit md:min-w-max w-full mx-auto">
+          <div className="flex flex-col items-center justify-center relative sm:min-w-fit w-full mx-auto">
             <Input
               name="Username"
               setName={setUsername}
