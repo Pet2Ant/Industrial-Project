@@ -38,11 +38,11 @@ function Login() {
   };
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
-      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
-        <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 pb-6 overflow-y-auto scrollbar-hide">
+      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto scrollbar-hide">
+        <div className="hidden sm:block flex flex-col  items-left gap-6 h-screen px-6 pb-6">
           <a
             href="https://joinwelead.org/"
-            className="flex flex-row items-center justify-center gap-2 mt-20   sm:mt-50"
+            className="flex flex-row items-center justify-center gap-2 sm:mt-10"
           >
             <img
               src={logo}
@@ -72,7 +72,7 @@ function Login() {
           <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
             What We Do
           </h1>
-          <p className=" sm:text-center italic text-right  mt-10 text-white">
+          <p className=" sm:text-center italic text-right  mt-10 pb-10 text-white">
             WE LEAD empowers women through education, networking, mentorship,
             and professional development opportunities. <br />
             Participants emerge as well-rounded professionals ready to enter or
@@ -86,61 +86,87 @@ function Login() {
 
         {/* Login form */}
         {/* //overflow-y-auto overflow-x-hidden */}
-        <form className="flex flex-col pr-12 mr-12 w-full sm:w-[28rem] justify-center h-screen">
+        <form className="flex flex-col sm:mr-12  sm:w-[28rem] w-screen sm:justify-center justify-between h-screen">
+          <div className="mt-32">
+            <a
+              href="https://joinwelead.org/"
+              className="flex flex-row items-center justify-center mx-auto gap-2"
+            >
+              <img
+                src={logo}
+                alt="logo"
+                className="sm:hidden block object-scale-down h-16"
+              />
+            </a>
+            <h1 className="text-3xl font-bold sm:text-center sm:block hidden text-center text-white">
+              Log in
+            </h1>
+          </div>
+
+          <div className="mb-32">
+            <div className="flex flex-col items-center justify-center relative min-w-fit md:min-w-max w-full mr-12 px-0">
+            <h1 className="text-3xl font-bold sm:text-center text-center text-white sm:hidden block">
+              Log in
+            </h1>
+              <Input
+                name=""
+                setName={setEmailOrUsername}
+                placeholder="Enter your email or username here"
+                type="text"
+                iconName="IoPerson"
+                id="username"
+              />
+              <Input
+                name=""
+                setName={setPassword}
+                placeholder="Enter your Password"
+                type="password"
+                iconName="IoLockClosed"
+                id="password"
+              />
+            </div>
+            <p className="text-white mt-4 text-right w-full pr-4">
+              <a
+                href="/placeholder"
+                className="hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+              >
+                Forgot your password?
+              </a>
+            </p>
+            <div className="px-12">
+              <Button buttonName="Login" onClick={handleLogin} />
+            </div>
+            <div className="sm:text-center text-white mt-6 text-center mx-auto">
+              If you don't have an account,
+              <a
+                href="/register"
+                className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+              >
+                {" "}
+                <br />
+                You can register here!
+              </a>
+            </div>
+          </div>
           <div>
-          <a
-            href="https://joinwelead.org/"
-            className="flex flex-row items-center justify-center mx-auto gap-2"
-          >
-            <img
-              src={logo}
-              alt="logo"
-              className="sm:hidden block object-scale-down h-16"
-            />
-          </a>
-          <h1 className="text-3xl font-bold sm:text-center text-center text-white">
-            Log in
-          </h1>
-          </div>
-
-
-          <div className="flex flex-col items-center justify-center relative min-w-fit md:min-w-max w-full mx-auto">
-            <Input
-              name=""
-              setName={setEmailOrUsername}
-              placeholder="Enter your email or username here"
-              type="text"
-              iconName="IoPerson"
-              id="username"
-            />
-            <Input
-              name=""
-              setName={setPassword}
-              placeholder="Enter your Password"
-              type="password"
-              iconName="IoLockClosed"
-              id="password"
-            />
-          </div>
-          <p className="text-white mt-4  text-right w-full   ">
-            <a
-              href="/placeholder"
-              className="hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
-            >
-              Forgot your password?
-            </a>
-          </p>
-          <Button buttonName="Login" onClick={handleLogin} />
-          <div className="sm:text-center text-white mt-6 text-center mx-auto">
-            If you don't have an account,
-            <a
-              href="/register"
-              className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
-            >
-              {" "}
-              <br />
-              You can register here!
-            </a>
+            <p className="text-gray-500 px-12 mb-6 text-center mx-auto absolute bottom-0">
+              By logging in, you agree to our
+              <a
+                href="/placeholder"
+                className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+              >
+                {" "}
+                Terms of Use
+              </a>{" "}
+              and{" "}
+              <a
+                href="/placeholder"
+                className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+              >
+                {" "}
+                Privacy Policy
+              </a>
+            </p>
           </div>
         </form>
       </div>

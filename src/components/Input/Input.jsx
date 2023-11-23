@@ -45,14 +45,14 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
   };
 
   return (
-    <div className="flex flex-col justify-center w-screen sm:px-0 px-8">
+    <div className="flex flex-col justify-center w-screen sm:px-0 px-8 ">
       <label
-        className="mt-4 text-left text-sm font-bold text-white"
+        className="mt-4 ml-4 text-left text-sm font-bold text-white"
         htmlFor={name}
       >
         {name}
       </label>
-      <div className="flex flex-row gap-3 items-center">
+      <div className="flex flex-row gap-3 items-center ">
         {iconName === "IoMail" ? (
           <IoMail className="text-white" />
         ) : iconName === "IoPerson" ? (
@@ -66,7 +66,7 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
         )}
 
         <input
-          className="sm:w-96 py-1 pl-2 my-2 text-sm w-full min-w-24 text-gray-400 bg-transparent border-b border-white focus:outline-none hover:-translate-y-1 ease-in-out duration-500 "
+          className="lg:w-96 md:w-1/2 sm:w-2/4 py-1 pl-2 my-2 text-sm w-full  text-gray-400 bg-transparent border-b border-white focus:outline-none hover:-translate-y-1 ease-in-out duration-500 "
           type={type}
           name={name}
           id={id}
