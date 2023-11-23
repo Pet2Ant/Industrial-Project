@@ -5,7 +5,7 @@ const Input = ({ name, setName, placeholder, type, id, handleWorkChange }) => {
   const [inputName, setInputName] = useState("");
 
   const handleChange = (e) => {
-    if (name === "workPlace") {
+    if (name === "workPlace" || name === "seminar" || name === "volunteer") {
       const inputValue = e.target.value;
       setName(inputValue);
       setInputName(inputValue);
