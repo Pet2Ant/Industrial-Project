@@ -26,7 +26,7 @@ function Apply() {
       <Navbar isAuthenticated={true} userKind={userKind} />
       <div className="items-center h-full w-full pt-[35rem] lg:pt-0 sm:pt-[40rem] md:pt-[5rem] ">
         <Sidebar onCategoryChange={handleCategoryChange} />
-        <div className="w-2/3 h-full flex flex-col justify-center m-auto">
+        <div className="w-2/3 h-full flex flex-col justify-center m-auto gap-6">
             <h1 className="text-center font-bold text-[#143727] text-4xl mb-4 break-words">
               {selectedCategory === "" ? "Personal Details" : selectedCategory}
             </h1>
