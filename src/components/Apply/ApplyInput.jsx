@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import TextareaAutosize from 'react-textarea-autosize';
 
 const Input = ({ name, setName, placeholder, type, id, handleWorkChange }) => {
   const [inputName, setInputName] = useState("");
@@ -19,8 +20,9 @@ const Input = ({ name, setName, placeholder, type, id, handleWorkChange }) => {
   };
 // 
   return (
-      <input
-      className="flex bg-gray-300 justify-center items-center h-10 w-full h-12 pl-4 py-1 my-2 rounded-2xl border border-black focus:outline-none hover:-translate-y-1 hover:translate-x-1 text-black text-[17px] text-sm font-medium ease-linear transition-all duration-150 hover:ring-2 hover:ring-offset-2 hover:ring-rose-500 rounded-xl"
+      <TextareaAutosize
+        className="flex bg-gray-300 justify-center items-center h-10 w-full h-12 pl-4 py-1 my-2 rounded-2xl border border-gray-400 shadow-xl focus:outline-none hover:-translate-y-1 hover:translate-x-1 text-black text-[17px] text-sm font-medium ease-linear transition-all duration-150 hover:ring-2 hover:ring-offset-2 hover:ring-rose-500 rounded-xl"
+        minRows={2}
         type={type}
         name={name}
         id={id}

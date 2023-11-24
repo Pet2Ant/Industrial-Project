@@ -1,10 +1,10 @@
-import React from "react";
+import React, {useState} from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 
 const AuthenticatedNavbar = ({ userKind }) =>
   userKind === "admin" ? (
-    <div className="space-x-4">
+    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
         to="https://www.joinwelead.org/el/blog"
         className="text-[#143727] hover:text-gray-300 p-2"
@@ -35,7 +35,7 @@ const AuthenticatedNavbar = ({ userKind }) =>
       </Link>
     </div>
   ) : (
-    <div className="space-x-4">
+    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
         to="https://www.joinwelead.org/el/blog"
         className="text-[#143727] hover:text-gray-300 p-2"
@@ -73,7 +73,7 @@ const AuthenticatedNavbar = ({ userKind }) =>
     </div>
   );
 const UnauthenticatedNavbar = () => (
-  <div className="space-x-4">
+  <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
     <Link
       to="https://www.joinwelead.org/el/blog"
       className="text-[#143727] hover:text-gray-300 p-2"
@@ -107,8 +107,10 @@ const UnauthenticatedNavbar = () => (
 );
 
 const Navbar = ({ isAuthenticated, userKind }) => {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
-    <nav className="absolute w-screen z-50 bg-[#e5e5e5] px-4">
+    <nav className="absolute right-0 w-screen z-50 bg-[#e5e5e5] px-4">
       <div className="md:flex justify-between items-center">
         {/* logo */}
         <a
@@ -118,17 +120,37 @@ const Navbar = ({ isAuthenticated, userKind }) => {
           <img
             src={logo}
             alt="logo"
-            className="hidden sm:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
+            className="block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
           />
         </a>
 
-        {/* menu */}
+        {/* menu button */}
+        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-0 left-0 pl-6 pt-6">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            className="h-6 w-6"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 6h16M4 12h16M4 18h16"
+            />
+          </svg>
+        </button>
 
-        {isAuthenticated ? (
-          <AuthenticatedNavbar userKind={userKind} />
-        ) : (
-          <UnauthenticatedNavbar />
-        )}
+        {/* menu */}
+        <div className={` ${isOpen ? 'flex' : 'hidden'} md:flex md:items-center md:w-auto w-full
+        `}>
+          {isAuthenticated ? (
+            <AuthenticatedNavbar userKind={userKind} />
+          ) : (
+            <UnauthenticatedNavbar />
+          )}
+        </div>
       </div>
     </nav>
   );
