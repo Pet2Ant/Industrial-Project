@@ -36,7 +36,10 @@ function PersonalDetails() {
   }, [education]);
 
   return (
-    <div className="md:grid grid-cols-12 gap-3 pb-4 w-full">
+    <div className="md:grid grid-cols-12 gap-3 pb-4 w-3/4 mx-auto ">
+      <h2 className="text-xl font-bold text-center col-span-12">
+        Please enter your highest level of education
+      </h2>
       <div className="col-span-6">
         <RadioButton
           id="default-radio-1"
@@ -80,7 +83,9 @@ function PersonalDetails() {
       {/* Conditional rendering of inputs based on showInputs */}
       {showInputs && (
         <div className="col-span-12">
-          <h2 className="text-xl font-bold text-center mt-8 mb-4">Please provide more details about your education</h2>
+          <h2 className="text-xl font-bold text-center mt-8 mb-4">
+            Please provide more details about your education
+          </h2>
           {/* Switch case to render different inputs based on education */}
           {(() => {
             switch (education) {

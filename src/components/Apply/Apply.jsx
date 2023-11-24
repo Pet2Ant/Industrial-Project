@@ -26,33 +26,32 @@ function Apply() {
       <Navbar isAuthenticated={true} userKind={userKind} />
       <div className="items-center h-full w-full pt-[35rem] lg:pt-0 sm:pt-[40rem] md:pt-[5rem] ">
         <Sidebar onCategoryChange={handleCategoryChange} />
-        <div className="w-2/3 h-full flex flex-col justify-center m-auto gap-6">
-            <h1 className="text-center font-bold text-[#143727] text-4xl mb-4 break-words">
-              {selectedCategory === "" ? "Personal Details" : selectedCategory}
-            </h1>
-            {selectedCategory === "Personal Details" ? (
-              <PersonalDetails />
-            ) : selectedCategory === "Education" ? (
-              <Education />
-            ) : selectedCategory === "Work Experience" ? (
-              <WorkPage />
-            ) : selectedCategory === "Technical Skills" ? (
-              <TechnicalSkills />
-            ) : selectedCategory === "Hobbies" ? (
-              <Hobbies />
-            ) : selectedCategory === "Seminars & Certified Courses" ? (
-              <SeminarsPage />
-            ) : selectedCategory === "Projects & Volunteering" ? (
-              <Volunteering />
-            ) : (
-              <PersonalDetails />
-            )}
+        <div className="w-full h-full flex flex-col justify-center m-auto gap-6">
+          <h1 className="text-center font-bold text-[#143727] text-4xl mb-4 break-words">
+            {selectedCategory === "" ? "Personal Details" : selectedCategory}
+          </h1>
+          {selectedCategory === "Personal Details" ? (
+            <PersonalDetails />
+          ) : selectedCategory === "Education" ? (
+            <Education />
+          ) : selectedCategory === "Work Experience" ? (
+            <WorkPage />
+          ) : selectedCategory === "Technical Skills" ? (
+            <TechnicalSkills />
+          ) : selectedCategory === "Hobbies" ? (
+            <Hobbies />
+          ) : selectedCategory === "Seminars & Certified Courses" ? (
+            <SeminarsPage />
+          ) : selectedCategory === "Projects & Volunteering" ? (
+            <Volunteering />
+          ) : (
+            <PersonalDetails />
+          )}
 
-            <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-full min-w-24 pb-12">
-              <ApplyButton buttonName="Save" />
-              <ApplyButton buttonName="Cancel" />
-            </div>
-
+          <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
+            <ApplyButton buttonName="Save" />
+            <ApplyButton buttonName="Cancel" />
+          </div>
         </div>
       </div>
     </div>
