@@ -87,7 +87,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
 
 
   return (
-    <div className="items-center flex-row bg-[#e5e5e5] Arimo-Regular">
+    <div className="items-center flex-row bg-[#e5e5e5] Arimo-Regular sm:mt-0 -mt-12">
       <div className="block rounded-lg bg-[#cccaca]">
         <div>
           {/* Header text */}
@@ -102,8 +102,8 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
           )}
         </div>
 
-        <div className="min-h-full relative sm:pb-12 md:pl-0 ">
-          <div className="items-center md:px-8 px-2 mb-12">
+        <div className="min-h-full relative sm:pb-12 md:pl-0 mb-12">
+          <div className="items-center md:px-8 px-2 md:-mb-12 sm:-mb-12 mb-0">
             <DataTable
               subHeader
               subHeaderAlign="center"
