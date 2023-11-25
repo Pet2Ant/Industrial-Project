@@ -23,7 +23,7 @@ const AuthenticatedNavbar = ({ userKind }) =>
       >
         seminars
       </Link>
-      <Link to="/cvBuilder" className="text-[#143727] hover:text-gray-300 p-2">
+      <Link to="/Applications" className="text-[#143727] hover:text-gray-300 p-2">
         <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
           See applications
         </button>
