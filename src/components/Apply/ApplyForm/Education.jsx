@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import RadioButton from "../ApplyRadio";
+import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
 
 function PersonalDetails() {
@@ -82,7 +83,7 @@ function PersonalDetails() {
       </div>
       {/* Conditional rendering of inputs based on showInputs */}
       {showInputs && (
-        <div className="col-span-12">
+        <form className="col-span-12">
           <h2 className="text-xl font-bold text-center mt-8 mb-4">
             Please provide more details about your education
           </h2>
@@ -110,8 +111,8 @@ function PersonalDetails() {
                       name="graduation-year"
                       setName={setGraduationYear}
                       placeholder="Year of graduation"
-                      type="number"
-                      id="graduation-year"
+                      type="year"
+                      id="year"
                     />
                   </div>
                 );
@@ -123,14 +124,14 @@ function PersonalDetails() {
                       setName={setUniversityName}
                       placeholder="Name of your university"
                       type="text"
-                      id="university-name"
+                      id="school-name"
                     />
                     <Input
                       name="university-location"
                       setName={setUniversityLocation}
                       placeholder="Location of your university"
                       type="text"
-                      id="university-location"
+                      id="school-location"
                     />
                     <Input
                       name="degree-name"
@@ -144,7 +145,7 @@ function PersonalDetails() {
                       setName={setDegreeYear}
                       placeholder="Year of completion"
                       type="number"
-                      id="degree-year"
+                      id="year"
                     />
                   </div>
                 );
@@ -156,14 +157,14 @@ function PersonalDetails() {
                       setName={setUniversityName}
                       placeholder="Name of your university"
                       type="text"
-                      id="university-name"
+                      id="school-name"
                     />
                     <Input
                       name="university-location"
                       setName={setUniversityLocation}
                       placeholder="Location of your university"
                       type="text"
-                      id="university-location"
+                      id="school-location"
                     />
                     <Input
                       name="degree-name"
@@ -177,7 +178,7 @@ function PersonalDetails() {
                       setName={setDegreeYear}
                       placeholder="Year of completion"
                       type="number"
-                      id="degree-year"
+                      id="year"
                     />
                     <Input
                       name="thesis-title"
@@ -196,14 +197,14 @@ function PersonalDetails() {
                       setName={setUniversityName}
                       placeholder="Name of your university"
                       type="text"
-                      id="university-name"
+                      id="school-name"
                     />
                     <Input
                       name="university-location"
                       setName={setUniversityLocation}
                       placeholder="Location of your university"
                       type="text"
-                      id="university-location"
+                      id="school-location"
                     />
                     <Input
                       name="degree-name"
@@ -217,7 +218,7 @@ function PersonalDetails() {
                       setName={setDegreeYear}
                       placeholder="Year of completion"
                       type="number"
-                      id="degree-year"
+                      id="year"
                     />
                     <Input
                       name="dissertation-title"
@@ -232,7 +233,11 @@ function PersonalDetails() {
                 return null;
             }
           })()}
-        </div>
+          <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
+            <ApplyButton buttonName="Save" />
+            <ApplyButton buttonName="Cancel" />
+          </div>
+        </form>
       )}
     </div>
   );

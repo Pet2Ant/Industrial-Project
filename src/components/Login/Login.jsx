@@ -4,6 +4,12 @@ import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
+import GoogleIcon from "../assets/images/googleIcon.png";
+import { FaFacebook } from "react-icons/fa";
+import { FaLinkedin } from "react-icons/fa";
+
+// google icon
+
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -39,7 +45,7 @@ function Login() {
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto scrollbar-hide">
-        <div className="hidden sm:block flex flex-col  items-left gap-6 h-screen px-6 pb-6">
+        <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 pb-6">
           <a
             href="https://joinwelead.org/"
             className="flex flex-row items-center justify-center gap-2 sm:mt-10"
@@ -50,38 +56,38 @@ function Login() {
               className="hidden sm:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
             />
           </a>
+
           <img
             src={login}
             alt="loginPicture"
-            className="hidden sm:block object-cover rounded-3xl mt-10 h-1/2 w-2/3 ml-auto mr-auto"
+            className="hidden sm:block object-cover rounded-3xl mt-10 h-1/2 w-2/3 mx-auto"
           />
-          {/* font-bold */}
-          {/* <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
-                        Empowering women to shape the future of  everything
-                    </h1> */}
-          <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
-            Our Vision & Mission
-          </h1>
-          <p className=" sm:text-center italic text-right  mt-10 text-white">
-            We envision a world where women are empowered to shape the future of
-            everything.
-            <br /> We train, mentor and empower women to pursue leadership
-            positions in business and technology.
-          </p>
+          <div className="w-5/6 mx-auto">
+            <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
+              Our Vision & Mission
+            </h1>
+            <p className="sm:text-center italic text-right  mt-10 text-white">
+              We envision a world where women are empowered to shape the future
+              of everything.
+              <br /> We train, mentor and empower women to pursue leadership
+              positions in business and technology.
+            </p>
 
-          <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
-            What We Do
-          </h1>
-          <p className=" sm:text-center italic text-right  mt-10 pb-10 text-white">
-            WE LEAD empowers women through education, networking, mentorship,
-            and professional development opportunities. <br />
-            Participants emerge as well-rounded professionals ready to enter or
-            re-enter the workforce and equipped to rise to leadership positions.{" "}
-            <br />
-            On top of that, WE LEAD works alongside tech and business leaders as
-            well as local communities and authorities to achieve <br /> greater
-            inclusivity in workplaces and foster a culture of allyship.
-          </p>
+            <h1 className="text-3xl  sm:text-center text-right  mt-10 text-white">
+              What We Do
+            </h1>
+            <p className=" sm:text-center italic text-right  mt-10 pb-10 text-white">
+              WE LEAD empowers women through education, networking, mentorship,
+              and professional development opportunities. <br />
+              Participants emerge as well-rounded professionals ready to enter
+              or re-enter the workforce and equipped to rise to leadership
+              positions. <br />
+              On top of that, WE LEAD works alongside tech and business leaders
+              as well as local communities and authorities to achieve <br />{" "}
+              greater inclusivity in workplaces and foster a culture of
+              allyship.
+            </p>
+          </div>
         </div>
 
         {/* Login form */}
@@ -105,9 +111,9 @@ function Login() {
 
           <div className="mb-32">
             <div className="flex flex-col items-center justify-center relative min-w-fit md:min-w-max w-full mr-12 px-0">
-            <h1 className="text-3xl font-bold sm:text-center text-center text-white sm:hidden block">
-              Log in
-            </h1>
+              <h1 className="text-3xl font-bold sm:text-center text-center text-white sm:hidden block">
+                Log in
+              </h1>
               <Input
                 name=""
                 setName={setEmailOrUsername}
@@ -146,6 +152,25 @@ function Login() {
                 <br />
                 You can register here!
               </a>
+            </div>
+            <div className="flex flex-col justify-center items-center mt-6">
+              {/* seperator */}
+              <div className="flex flex-row items-center justify-center gap-12 w-full sm:px-0 px-6">
+                <hr className="border border-1 border-gray-500 w-full" />
+                <p className="text-gray-500">or</p>
+                <hr className="border border-1 border-gray-500 w-full border-gray-500" />
+              </div>
+              <div className="flex flex-row items-center justify-center gap-2">
+                <a href="/placeholder">
+                  <FaFacebook className="text-blue-500 text-4xl mt-16 mr-4 select-none hover:scale-125 transition duration-500 ease-in-out" />
+                </a>
+                <a href="/placeholder">
+                  <img src={GoogleIcon} alt="googleIcon" className="h-10 hover:scale-125 transition duration-500 ease-in-out" />
+                </a>
+                <a href="/placeholder">
+                  <FaLinkedin className="text-blue-700 text-4xl mt-16 ml-4 hover:scale-125 transition duration-500 ease-in-out" />
+                </a>
+              </div>
             </div>
           </div>
           <div>

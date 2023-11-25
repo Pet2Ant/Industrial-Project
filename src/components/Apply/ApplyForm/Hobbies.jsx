@@ -2,6 +2,7 @@ import React from "react";
 import { useState } from "react";
 import ApplyInput from "../ApplyInput";
 import Button from "../CalendarButton";
+import ApplyButton from "../ApplyButton";
 
 function Hobbies() {
   const [hobbies, setHobbies] = useState("");
@@ -9,7 +10,10 @@ function Hobbies() {
 
   return (
     <>
-      <div className="flex flex-col p-4 gap-4 w-3/4 mx-auto">
+      <form className="flex flex-col p-4 gap-4 w-3/4 mx-auto">
+        <h2 className="text-xl font-bold text-center mt-8">
+          Please add your hobbies and achievements. (optional)
+        </h2>
         <ApplyInput
           name="Hobbies"
           setName={setHobbies}
@@ -25,7 +29,7 @@ function Hobbies() {
           id="achievements"
         />
         <Button buttonName={"Add"} />
-      </div>
+      </form>
     </>
   );
 }

@@ -2,13 +2,17 @@ import React from "react";
 import { useState } from "react";
 import ApplyInput from "../ApplyInput";
 import Button from "../CalendarButton";
+import ApplyButton from "../ApplyButton";
 
 function TechnicalSkills() {
   const [technicalSkills, setTechnicalSkills] = useState("");
 
   return (
     <>
-      <div className="flex flex-col p-4 gap-4 w-3/4 mx-auto">
+      <form className="flex flex-col p-4 gap-4 w-3/4 mx-auto">
+        <h2 className="text-xl font-bold text-center mt-8">
+          Please add your technical skills
+        </h2>
         <ApplyInput
           name="Technical Skills"
           setName={setTechnicalSkills}
@@ -17,7 +21,7 @@ function TechnicalSkills() {
           id="technicalSkills"
         />
         <Button buttonName={"Add"} />
-      </div>
+      </form>
     </>
   );
 }

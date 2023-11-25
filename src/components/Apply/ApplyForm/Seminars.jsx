@@ -3,6 +3,7 @@ import { useState } from "react";
 import Input from "../ApplyInput";
 import "react-calendar/dist/Calendar.css";
 import Button from "../CalendarButton";
+import ApplyButton from "../ApplyButton";
 
 function SeminarsPage() {
   const [seminar, setSeminar] = useState("");
@@ -11,7 +12,11 @@ function SeminarsPage() {
 
   const handleInputChange = (event) => {
     setSeminar(event.target.value);
-    setShowCalendar(true);
+    if (event.target.value.length > 0) {
+      setShowCalendar(true);
+    } else {
+      setShowCalendar(false);
+    }
   };
 
   const handleDateChange = (dateRange) => {
@@ -20,7 +25,7 @@ function SeminarsPage() {
 
   return (
     <div>
-      <div className="w-3/4 mx-auto">
+      <form className="w-3/4 mx-auto">
         <h2 className="text-xl font-bold text-center mt-8 mb-4">
           Please enter any seminars or certified courses you may have
           participated in. (optional)
@@ -62,7 +67,7 @@ function SeminarsPage() {
           </div>
         )}
         {dateRange[0] && dateRange[1] && <Button buttonName={"Add"} />}
-      </div>
+      </form>
     </div>
   );
 }
