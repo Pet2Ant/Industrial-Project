@@ -11,7 +11,11 @@ function Volunteering() {
 
   const handleInputChange = (event) => {
     setVolunteer(event.target.value);
-    setShowCalendar(true);
+    if (event.target.value.length > 0) {
+      setShowCalendar(true);
+    } else {
+      setShowCalendar(false);
+    }
   };
 
   const handleDateChange = (dateRange) => {

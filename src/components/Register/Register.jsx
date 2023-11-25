@@ -45,9 +45,9 @@ function Register() {
     );
   };
   return (
-    <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
+    <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
-        <div className="flex flex-col items-center gap-6 h-screen px-6">
+        <div className="flex flex-col items-center gap-6 h-screen px-6 ">
           <a
             href="https://joinwelead.org/"
             className="flex flex-row items-center justify-center gap-2"
@@ -66,7 +66,7 @@ function Register() {
         </div>
 
         {/* Register form */}
-        <form className="flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12">
+        <form className="scrollbar-hide flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12">
           <a
             href="https://joinwelead.org/"
             className="flex flex-row items-center justify-center gap-2"

@@ -13,7 +13,11 @@ function WorkPage() {
 
   const handleInputChange = (event) => {
     setWorkPlace(event.target.value);
-    setShowCalendar(true);
+    if (event.target.value.length >= 3) {
+      setShowCalendar(true);
+    } else {
+      setShowCalendar(false);
+    }
   };
 
   const handleDateChange = (dateRange) => {
@@ -45,9 +49,7 @@ function WorkPage() {
               maxDetail="month"
               next2Label={null}
               prev2Label={null}
-              nextLabel={null}
-              prevLabel={null}
-              className={"mx-auto my-calendar"}
+              className={"mx-auto my-calendar mb-4"}
               formatShortWeekday={(locale, value) => {
                 if (window.innerWidth < 640) {
                   return ["S", "M", "T", "W", "T", "F", "S"][value.getDay()];

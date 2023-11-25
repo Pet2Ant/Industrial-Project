@@ -24,10 +24,10 @@ function Apply() {
   return (
     <div className="bg-[#e5e5e5] h-screen min-h-screen max-h-screen overflow-auto scrollbar-hide font-noi">
       <Navbar isAuthenticated={true} userKind={userKind} />
-      <div className="items-center h-full w-full pt-[35rem] lg:pt-0 sm:pt-[40rem] md:pt-[5rem] ">
+      <div className="items-center h-full w-full flex-1 justify-start">
         <Sidebar onCategoryChange={handleCategoryChange} />
-        <div className="w-full h-full flex flex-col justify-center m-auto gap-6">
-          <h1 className="text-center font-bold text-[#143727] text-4xl mb-4 break-words">
+        <div className="w-full h-full flex flex-col justify-start m-auto gap-6">
+          <h1 className="text-center font-bold text-[#143727] text-4xl mt-24 break-words">
             {selectedCategory === "" ? "Personal Details" : selectedCategory}
           </h1>
           {selectedCategory === "Personal Details" ? (
@@ -47,11 +47,6 @@ function Apply() {
           ) : (
             <PersonalDetails />
           )}
-
-          <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
-            <ApplyButton buttonName="Save" />
-            <ApplyButton buttonName="Cancel" />
-          </div>
         </div>
       </div>
     </div>

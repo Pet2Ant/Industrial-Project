@@ -34,7 +34,7 @@ const AuthenticatedNavbar = ({ userKind }) =>
         </button>
       </Link>
     </div>
-  ) : (
+  ) : userKind === "user" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
         to="https://www.joinwelead.org/el/blog"
@@ -71,6 +71,8 @@ const AuthenticatedNavbar = ({ userKind }) =>
         </button>
       </Link>
     </div>
+  ) : (
+    <UnauthenticatedNavbar />
   );
 const UnauthenticatedNavbar = () => (
   <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -110,7 +112,7 @@ const Navbar = ({ isAuthenticated, userKind }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="absolute right-0 w-screen z-50 bg-[#e5e5e5] px-4">
+    <nav className=" absolute md:fixed w-screen z-50 bg-[#e5e5e5] px-4">
       <div className="md:flex justify-between items-center">
         {/* logo */}
         <a
