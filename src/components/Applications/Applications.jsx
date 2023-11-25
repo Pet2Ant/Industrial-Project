@@ -1,14 +1,20 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Table from "./ApplicationTable/ApplicationsTable";
+import Popup from "reactjs-popup";
 import dataJSON from "./ApplicationTable/mockData.json";
+import ApplyInput from "../Apply/ApplyInput";
+import EditPopup from "./EditPopup";
 
 function Applications() {
+  
   const currentUser = "admin";
   const [headerText, setHeaderText] = useState("Applications");
   const [subHeaderText, setSubHeaderText] = useState(
     "Here you can view all the applications that each user has submitted."
   );
+
+  const data = dataJSON;
 
   // Table columns
   const columns = [
@@ -47,9 +53,12 @@ function Applications() {
       selector: (row) => row.interests,
       sortable: true,
     },
+    {
+      cell: () => (
+        <EditPopup />
+      )
+    },
   ];
-
-  const data = dataJSON;
 
   return (
     <div className="min-h-screen bg-[#e5e5e5]">
@@ -57,15 +66,13 @@ function Applications() {
         <Navbar isAuthenticated={true} userKind="admin" />
         <div className="min-h-fit justify-center relative overflow-hidden transition-all duration-300 ease-in-out xl:mx-36 lg:mx-24">
           <div className="grid grid-cols-1 gap-2 sm:pt-24 pt-36 md:pl-0 mx-8 lg:mx-auto flex lg:flex-row flex-col items-center">
-
-              <Table
-                header={headerText}
-                subHeader={subHeaderText}
-                columns={columns}
-                data={data}
-                pagination
-              />
-
+            <Table
+              header={headerText}
+              subHeader={subHeaderText}
+              columns={columns}
+              data={data}
+              pagination
+            />
           </div>
         </div>
       </div>

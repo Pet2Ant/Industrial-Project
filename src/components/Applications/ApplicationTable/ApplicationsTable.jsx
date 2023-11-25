@@ -111,11 +111,11 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
                 // if pagination = true, show search bar
                 pagination ? (
                   <div className="flex flex-wrap gap-2 items-center sm:justify-end justify-center min-w-[99%]">
-                    <label className="text-[#143727] text-sm mr-2 Arimo-Regular sm:mb-0">
+                    <label className="text-[#143727] text-sm mr-2 font-oni sm:mb-0">
                       Search:
                     </label>
                     <input
-                      className="shadow-sm sm:w-max w-[99%] rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 mb-2 md:mb-0 Arimo-Regular transition duration-500 ease-in-out"
+                      className="shadow-sm sm:w-max w-[99%] rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 mb-2 md:mb-0 font-oni transition duration-500 ease-in-out"
                       type="text"
                       placeholder="Search"
                       value={searchText}
@@ -133,7 +133,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
             />
 
             <hr className="border-[#343d55]" />
-            <div className="flex md:flex-nowrap flex-wrap md:justify-between justify-center my-6 Arimo-Regular">
+            <div className="flex md:flex-nowrap flex-wrap md:justify-between justify-center my-6 font-oni">
               <div className="flex flex-wrap justify-center gap-2 items-center mb-4 md:mb-0">
                 <label className="text-[#143727] text-sm ">Show</label>
                 <select
@@ -151,7 +151,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
               </div>
 
               {/* Showing 1 to # of # entries */}
-              <label className="text-[#143727] text-sm text-center mr-2 Arimo-Regular mb-4 sm:mb-0">
+              <label className="text-[#143727] text-sm text-center mr-2 font-oni mb-4 sm:mb-0">
                 Showing {currentPage * pageLength + 1} to{" "}
                 {Math.min((currentPage + 1) * pageLength, data.length)} of{" "}
                 {data.length} entries
@@ -159,7 +159,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
 
               <div className="flex flex-wrap justify-center gap-2 items-center mb-4 md:mb-0">
                 <button
-                  className="mx-4 shadow-sm rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 Arimo-Regular transition duration-500 ease-in-out"
+                  className="mx-4 shadow-sm rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 font-oni transition duration-500 ease-in-out"
                   onClick={() =>
                     handlePageChange({ selected: currentPage - 1 })
                   }
@@ -167,11 +167,11 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
                 >
                   Previous
                 </button>
-                <label className="text-[#143727] text-sm Arimo-Regular flex-row flex break-keep">
+                <label className="text-[#143727] text-sm font-oni flex-row flex break-keep">
                   Page {currentPage + 1} of {totalPages}
                 </label>
                 <button
-                  className="mx-4 shadow-sm rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 Arimo-Regular transition duration-500 ease-in-out"
+                  className="mx-4 shadow-sm rounded-md focus:outline-none text-[#8c8b8b] focus:ring-2 caret-[#8c8b8b] bg-[#b0aeae] ring-0 focus:ring-[#8c8b8b] focus:bg-[#cccaca] text-sm rounded-md px-2 py-1 font-oni transition duration-500 ease-in-out"
                   onClick={() =>
                     handlePageChange({ selected: currentPage + 1 })
                   }

@@ -89,7 +89,7 @@ const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange }) 
       <TextareaAutosize
         className={`flex bg-gray-300 justify-center items-center w-full px-4 py-1 my-2 rounded-2xl border ${
           error ? "border-red-500" : "border-gray-400"
-        } shadow-xl focus:outline-none hover:-translate-y-1 hover:translate-x-1 text-black text-[17px] text-sm font-medium ease-linear transition-all duration-150 hover:ring-2 hover:ring-offset-2 hover:ring-rose-500`}
+        } shadow-xl focus:outline-none hover:-translate-y-1 hover:translate-x-1 text-black text-[17px] text-sm font-medium ease-linear transition-all duration-150 hover:ring-2 hover:ring-offset-2 hover:ring-rose-500 focus:ring-offset-2 focus:ring-2 focus:ring-rose-500`}
         minRows={2}
         maxRows={6}
         type={type}
