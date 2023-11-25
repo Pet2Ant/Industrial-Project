@@ -12,7 +12,6 @@ import Hobbies from "./ApplyForm/Hobbies";
 import SeminarsPage from "./ApplyForm/Seminars";
 import Volunteering from "./ApplyForm/Volunteering";
 
-
 function Apply() {
   const userKind = "user";
 
@@ -25,48 +24,31 @@ function Apply() {
   return (
     <div className="bg-[#e5e5e5] h-screen min-h-screen max-h-screen overflow-auto scrollbar-hide font-noi">
       <Navbar isAuthenticated={true} userKind={userKind} />
-      <div className="flex flex-row justify-around  items-stretch items-center w-full">
-        <div className="flex flex-col justify-center rounded-xl m-12 bg-[#563B40] md:flex hidden">
-          <Sidebar onCategoryChange={handleCategoryChange} />
-        </div>
-        <div className="w-2/3 h-4/5 mt-24 flex flex-col justify-center m-auto">
-
-          <div className="flex flex-col justify-center ml-10 bg-transparent w-5/6 rounded-xl sm:mx-auto">
-            {/* Content based on selected category goes here */}
-            <div className="flex flex-col justify-center rounded-xl m-12 bg-[#563B40] md:hidden">
-              <Sidebar onCategoryChange={handleCategoryChange} />
-            </div>
-            <h1 className="text-center font-bold text-[#143727] text-4xl mb-4 break-all">
+      <div className="items-center h-full w-full flex-1 justify-start">
+        <Sidebar onCategoryChange={handleCategoryChange} />
+        <div className="w-full h-full flex flex-col justify-start m-auto gap-6">
+          <h1 className="text-center font-bold text-[#143727] text-4xl mt-24 break-words">
             {selectedCategory === "" ? "Personal Details" : selectedCategory}
           </h1>
-{/* if selectedCategory === Personal Details show <PersonalDetails />, else if selectedCategory === "Education" show <Education />, else if selectedCategory === "Work Experience" show <Work />, else if selectedCategory === "Technical Skills" show <TechnicalSkills />, else if selectedCategory === "Hobbies" show <Hobbies />, else if selectedCategory === "Seminars & Certified Courses" show <Seminars />, else if selectedCategory === "Projects & Volunteering" show <Volunteering /> */}
-            {selectedCategory === "Personal Details" ? (
-              <PersonalDetails />
-            ) : selectedCategory === "Education" ? (
-              <Education />
-            ) : selectedCategory === "Work Experience" ? (
-              <WorkPage />
-            ) : selectedCategory === "Technical Skills" ? (
-              <TechnicalSkills />
-            ) : selectedCategory === "Hobbies" ? (
-              <Hobbies />
-            ) : selectedCategory === "Seminars & Certified Courses" ? (
-              <SeminarsPage />
-            ) : selectedCategory === "Projects & Volunteering" ? (
-              <Volunteering />
-            ) : (
-              <PersonalDetails />
-            )}
-
-<div className="flex md:flex-row flex-col md:gap-12 gap-2 pt-6 justify-between mx-auto w-full min-w-24 pb-12">
-            <ApplyButton buttonName="Save" />
-            <ApplyButton buttonName="Cancel" />
-          </div>
-          </div>
-
+          {selectedCategory === "Personal Details" ? (
+            <PersonalDetails />
+          ) : selectedCategory === "Education" ? (
+            <Education />
+          ) : selectedCategory === "Work Experience" ? (
+            <WorkPage />
+          ) : selectedCategory === "Technical Skills" ? (
+            <TechnicalSkills />
+          ) : selectedCategory === "Hobbies" ? (
+            <Hobbies />
+          ) : selectedCategory === "Seminars & Certified Courses" ? (
+            <SeminarsPage />
+          ) : selectedCategory === "Projects & Volunteering" ? (
+            <Volunteering />
+          ) : (
+            <PersonalDetails />
+          )}
         </div>
       </div>
-
     </div>
   );
 }
