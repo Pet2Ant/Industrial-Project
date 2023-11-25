@@ -87,7 +87,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
 
 
   return (
-    <div className="items-center flex-row bg-[#e5e5e5] Arimo-Regular sm:mt-0 -mt-12">
+    <div className="items-center flex-row bg-[#e5e5e5] sm:mt-0 -mt-12">
       <div className="block rounded-lg bg-[#cccaca]">
         <div>
           {/* Header text */}

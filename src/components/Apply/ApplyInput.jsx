@@ -62,8 +62,6 @@ const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange }) 
             inputValue.length < 3
             ? "Please enter a valid country."
             : ""
-
-
         );
         break;
       case "city":
