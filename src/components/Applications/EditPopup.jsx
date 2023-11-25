@@ -4,12 +4,25 @@ import ApplyInput from "../Apply/ApplyInput";
 import Warper from "./Warper";
 import Button from "../Apply/ApplyButton";
 
-function EditPopup() {
+function EditPopup({
+  firstName,
+  lastName,
+  pronouns,
+  age,
+  educationLevel,
+  email,
+  interests,
+}) {
   const [headerText, setHeaderText] = useState("");
   const contentStyle = {
     maxWidth: "600px",
     width: "90%",
+    // make scrollable
+    maxHeight: "90vh",
+    overflowY: "auto",
+    overflowX: "hidden",
   };
+
 
   return (
     <Popup
@@ -25,56 +38,100 @@ function EditPopup() {
     >
       {(close) => (
         <div className="modal">
-          <button className="close" onClick={close}>
+          <div className="absolute -top-0.5 right-4 text-2xl select-none cursor-pointer" onClick={close}>
             &times;
-          </button>
+          </div>
           <div className="header"> Edit User Information </div>
-          <form className="flex flex-col items-center w-full mx-auto justify-center p-6">
-            <h1 className="text-[#103022] text-lg font-bold">Name</h1>
+          <form className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Name:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {firstName + " " + lastName}
+              </p>
+            </div>
             <ApplyInput
               name="Name"
               setName={setHeaderText}
-              placeholder="Edit $user's name"
+              placeholder={`Edit ${firstName + " " + lastName}'s name`}
               type="text"
               id="editName"
             />
-            <p className="text-[#103022] text-lg font-bold">Pronouns</p>
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Pronouns:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {pronouns}
+              </p>
+            </div>
             <ApplyInput
               name="Pronouns"
               setName={setHeaderText}
-              placeholder="Edit $user's pronouns"
+              placeholder={`Edit ${firstName + " " + lastName}'s pronouns`}
               type="text"
               id="editPronouns"
             />
-            <p className="text-[#103022] text-lg font-bold">Age</p>
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Age:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {age}
+              </p>
+            </div>
             <ApplyInput
               name="Age"
               setName={setHeaderText}
-              placeholder="Edit $user's age"
+              placeholder={`Edit ${firstName + " " + lastName}'s age`}
               type="text"
               id="editAge"
             />
-            <p className="text-[#103022] text-lg font-bold">Education Level</p>
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Education Level:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {educationLevel}
+              </p>
+            </div>
             <ApplyInput
               name="Education Level"
               setName={setHeaderText}
-              placeholder="Edit $user's education level"
+              placeholder={`Edit ${
+                firstName + " " + lastName
+              }'s education level`}
               type="text"
               id="editEducationLevel"
             />
-            <p className="text-[#103022] text-lg font-bold">Email</p>
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Email:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {email}
+              </p>
+            </div>
             <ApplyInput
               name="Email"
               setName={setHeaderText}
-              placeholder="Edit $user's email"
+              placeholder={`Edit ${firstName + " " + lastName}'s email`}
               type="text"
               id="editEmail"
             />
-            <p className="text-[#103022] text-lg font-bold">Interests</p>
+            <div className="flex flex-wrap justify-between mx-auto w-full break-words">
+              <h1 className="text-[#103022] text-xl font-semibold">
+                Current Interests:
+              </h1>
+              <p className="text-[#103022] text-lg font-light mr-4">
+                {interests}
+              </p>
+            </div>
             <ApplyInput
               name="Interests"
               setName={setHeaderText}
-              placeholder="Edit $user's interests"
+              placeholder={`Edit ${firstName + " " + lastName}'s interests`}
               type="text"
               id="editInterests"
             />

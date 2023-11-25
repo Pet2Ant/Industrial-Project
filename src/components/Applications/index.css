@@ -25,7 +25,6 @@
     font-size: 14px;
     border: 3px dashed var(--ifm-link-color);
     background-color: #ffffff;
-    /* border-radius: 15px 15px 15px 15px; */
     -webkit-transition: all 0.3s;
     transition: all 0.3s;
   }
@@ -45,6 +44,7 @@
   }
   .modal {
     font-size: 12px;
+    overflow: auto;
   }
   .modal > .header {
     width: 100%;
@@ -69,15 +69,10 @@
   .modal > .close {
     cursor: pointer;
     position: absolute;
-    display: block;
-    padding: 0 5px;
-    margin: auto;
-    right: -10px;
-    top: -10px;
+    right: 10px;
+    top: -5px;
     font-size: 24px;
-    border-radius: 18px;
-    border: 1px solid #cfcece;
-    background-color: #fff;
+    background-color: transparent;
   }
   .example-warper .example-warper-start {
     width: 100%;
@@ -108,7 +103,7 @@
   }
   
   .popup-content {
-    border-radius: 5px;
+    border-radius: 30px;
     padding: 0.5rem;
   }
   

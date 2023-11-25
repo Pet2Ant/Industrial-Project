@@ -7,7 +7,6 @@ import ApplyInput from "../Apply/ApplyInput";
 import EditPopup from "./EditPopup";
 
 function Applications() {
-  
   const currentUser = "admin";
   const [headerText, setHeaderText] = useState("Applications");
   const [subHeaderText, setSubHeaderText] = useState(
@@ -15,6 +14,9 @@ function Applications() {
   );
 
   const data = dataJSON;
+
+  // Get an array of first names
+  const firstNames = data.map((row) => row.first_name);
 
   // Table columns
   const columns = [
@@ -54,9 +56,17 @@ function Applications() {
       sortable: true,
     },
     {
-      cell: () => (
-        <EditPopup />
-      )
+      cell: (row) => (
+        <EditPopup
+          firstName={row.first_name} // Pass the first name as a prop
+          lastName={row.last_name}
+          pronouns={row.pronouns}
+          age={row.age}
+          educationLevel={row.education_level}
+          email={row.email}
+          interests={row.interests}
+        />
+      ),
     },
   ];
 
