@@ -4,7 +4,8 @@ import MainPageContainer from "./MainPageContainer";
 
 function MainPage() {
   const userKind = ["admin", "user", "guest"];
-
+  console.log(localStorage.getItem("user"));
+  console.log(sessionStorage.getItem("user23"));
   const currentUser = userKind[0];
   return (
     <div className="w-screen h-screen">
