@@ -4,6 +4,7 @@ import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
+
 function Register() {
   const [data,setData] = useState([]);
   const [email, setEmail] = useState("");
@@ -27,56 +28,7 @@ function Register() {
         })
         .catch(error => console.log('There was an error!', error));
     };
-    
-    // const createData = () => {
-    //   axios.post('/api/data', { username, email, phone, password })
-    //     .then(response => setData([...data, response.data]))
-    //     .catch(error => console.log('there was an error!', error));
-    // };
-  // const handleRegister = ()=>
-  // {
-  //   console.log("registering user");
-  //   if (password === confirmPassword) {
-  //     createData();
-  //     alert("User registered");
-  //   } else {
-  //     alert("Passwords do not match");
-  //   }
-  // }
-    
-  // const handleRegister = () => {
-  //   console.log("registering user");
-  //   fetch("http://localhost:8080/api/data/", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({
-  //       email,
-  //       username,
-  //       password,
-  //       confirmPassword,
-  //       phone,
-  //     }),
-  //   })
-  //     .then((res) => res.json())
-  //     .then((json) => {
-  //       console.log(json);
-  //       if (json.error) {
-  //         alert(json.error);
-  //       } else {
-  //         alert("User registered");
-  //       }
-  //     });
-  //   console.log(
-  //     "Registering",
-  //     email,
-  //     username,
-  //     password,
-  //     confirmPassword,
-  //     phone
-  //   );
-  // };
+
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">

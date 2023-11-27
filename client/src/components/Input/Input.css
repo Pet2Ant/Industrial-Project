@@ -1,0 +1,7 @@
+
+.special-input {
+/* do not show */
+visibility: hidden;
+/* do not take up space */
+position: absolute;
+}
