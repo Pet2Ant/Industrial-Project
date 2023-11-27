@@ -25,6 +25,7 @@
     "react-svg": "^16.1.30",
     "react-textarea-autosize": "^8.5.3",
     "reactjs-popup": "^2.0.6",
+    "sweetalert2": "^11.10.1",
     "tailwind-scrollbar-hide": "^1.1.7",
     "victory": "^36.6.12",
     "web-vitals": "^2.1.4",

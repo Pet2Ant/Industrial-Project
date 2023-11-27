@@ -9,15 +9,14 @@ import GoogleIcon from "../assets/images/googleIcon.png";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
+import Popup from "../Popup/Popup";
+import { useNavigate } from "react-router-dom";
 
-
-
-// google icon
 
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const handleLogin = async () => {
 
     console.log("ME GAMISES K KANW RE-RENDED HEHEXD");
@@ -33,18 +32,38 @@ function Login() {
         localStorage.setItem("user", JSON.stringify(res.data));
         const user = localStorage.getItem("user");
         if (user) {
-          alert("Login successful");
           sessionStorage.setItem("user", JSON.stringify(res.data.user));
          console.log(user);
-        window.location.href = "/";
+         Popup({
+          title: "Success!",
+          text: "You have successfully logged in!",
+          icon: "success",
+          timer: 3000,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          navigate("/");
+        }, 3000);
         }
       } else {
-        alert(res.data);  // This will alert the error message from the server
-      }
+        Popup({
+          title: "Error!",
+          text: "An error occurred while trying to login. Please try again. Error: " + res.data,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+            }
     } catch (err) {
-      console.log(err);
-      alert("An error occurred while trying to log in.");
-    }
+      console.log("Error from server:", err);
+        Popup({
+          title: "Error!",
+          text: "An error occurred while trying to login. Please try again.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
   };
 
   return (

@@ -1,34 +1,58 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/images/WeLeadLogo.png";
 import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
+import Popup from "../Popup/Popup";
+import { useNavigate } from "react-router-dom";
+
 function Register() {
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
 
+  const navigate = useNavigate();
+
   useEffect(() => {
-    axios.get("/api/data")
-    .then(response => setData (response.data));
-    },[]);
-    const createData = () => {
-      console.log('Register button clicked');
-      console.log('Data to send:', { username, email, phone, password });
-    
-      axios.post('/api/data', { username, email, phone, password })
-        .then(response => {
-          console.log('Response from server:', response);
-          setData([...data, response.data]);
-          window.href.location = "/login";
-        })
-        .catch(error => console.log('There was an error!', error));
-    };
+    axios.get("/api/data").then((response) => setData(response.data));
+  }, []);
+  const createData = () => {
+    console.log("Register button clicked");
+    console.log("Data to send:", { username, email, phone, password });
+
+    axios
+      .post("/api/data", { username, email, phone, password })
+      .then((response) => {
+        console.log("Response from server:", response);
+        setData([...data, response.data]);
+        Popup({
+          title: "Success!",
+          text: "You have successfully registered!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          navigate("/Login");
+        }, 1500);
+      })
+      .catch((error) => {
+        console.log("Error from server:", error);
+        Popup({
+          title: "Error!",
+          text: "An error occurred while trying to register. Please try again.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      });
+  };
+
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
