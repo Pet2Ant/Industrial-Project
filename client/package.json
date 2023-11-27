@@ -8,11 +8,6 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
-<<<<<<< HEAD
-=======
-    "chart.js": "^4.4.0",
-    "d3": "^7.8.5",
->>>>>>> b8b4b50a64f9c4bd392b426317769a6ea7894965
     "formik": "^2.4.5",
     "framer-motion": "^10.16.5",
     "hamburger-react": "^2.5.0",
