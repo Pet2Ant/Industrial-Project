@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { useState } from "react";
 import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
@@ -16,9 +16,9 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const handleLogin = async () => {
-    
+
     console.log("ME GAMISES K KANW RE-RENDED HEHEXD");
     try {
       const res = await axios.post("http://localhost:8080/api/login", {
@@ -33,7 +33,9 @@ function Login() {
         const user = localStorage.getItem("user");
         if (user) {
           alert("Login successful");
-         window.location.href = "/";
+          sessionStorage.setItem("user23", JSON.stringify(res.data.user));
+         console.log(user);
+        window.location.href = "/";
         }
       } else {
         alert(res.data);  // This will alert the error message from the server
