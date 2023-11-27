@@ -33,7 +33,7 @@ function Login() {
         const user = localStorage.getItem("user");
         if (user) {
           alert("Login successful");
-          return navigate("/");
+         window.location.href = "/";
         }
       } else {
         alert(res.data);  // This will alert the error message from the server
