@@ -5,7 +5,7 @@ import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
-function Register() {
+function Register({setIsLoading}) {
   const [data,setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -13,25 +13,26 @@ function Register() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-  const navigateToLogin = () => {
-    navigate('/login');
-  };
+
   useEffect(() => {
     axios.get("/api/data")
     .then(response => setData (response.data));
     },[]);
-    const createData = () => {
+    const createData = async () => {
       console.log('Register button clicked');
       console.log('Data to send:', { username, email, phone, password });
-    
-      axios.post('/api/data', { username, email, phone, password })
-        .then(response => {
-          console.log('Response from server:', response);
-          setData([...data, response.data]);
-          navigateToLogin();
-        })
-        .catch(error => console.log('There was an error!', error));
+      setIsLoading(true);
+      try {
+        const response = await axios.post('/api/data', { username, email, phone, password });
+        console.log('Response from server:', response);
+        setData([...data, response.data]);
+      } catch (error) {
+        console.log('There was an error!', error);
+      }
+      setIsLoading(false);
+      navigate("/login");
     };
+   
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">

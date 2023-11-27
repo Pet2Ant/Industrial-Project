@@ -13,40 +13,42 @@ import { useNavigate } from 'react-router-dom';
 
 // google icon
 
-function Login() {
+function Login({onLogin,setIsLoading}) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const navigateToMainPage = () => {
-    navigate('/');
-  };
+  
 
   const handleLogin = async () => {
+    setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:8080/api/login", {
         username: emailOrUsername.includes("@") ? null : emailOrUsername,
         email: emailOrUsername.includes("@") ? emailOrUsername : null,
         password: password,
-      });
+      }, { withCredentials: true });
 
       console.log(res);
       if (res.status === 200) {
-        localStorage.setItem("user", JSON.stringify(res.data));
+         localStorage.setItem("user", JSON.stringify(res.data));
         const user = localStorage.getItem("user");
         if (user) {
-          alert("Login successful");
+          // alert("Login successful");
           sessionStorage.setItem("user", JSON.stringify(res.data.user));
-         console.log(user);
-        // window.location.href = "/";
-        navigateToMainPage();
+          console.log(user);
+          onLogin(); 
+          navigate('/'); 
         }
-      } else {
-        alert(res.data);  // This will alert the error message from the server
+      }
+      
+       else {
+        alert(res.data);  
       }
     } catch (err) {
       console.log(err);
-      alert("An error occurred while trying to log in.");
+      alert("An error occurred while trying to log in. Error: " + err.message);
     }
+    setIsLoading(false);
   };
 
   return (
