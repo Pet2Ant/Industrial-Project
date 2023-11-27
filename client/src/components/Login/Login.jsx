@@ -1,4 +1,4 @@
-import React from "react";
+import React  from "react";
 import { useState } from "react";
 import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
@@ -8,43 +8,42 @@ import GoogleIcon from "../assets/images/googleIcon.png";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
+
 // google icon
 
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [isEmail, setIsEmail] = useState(false);
-
-
-
-  const handleLogin = () => {
-    console.log("logging in user");
-    if (emailOrUsername.includes("@")) {
-      setIsEmail(true);
-    }
-
-    fetch("http://localhost:3000/Login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        emailOrUsername,
-        password,
-        isEmail,
-      }),
-    })
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        if (json.error) {
-          alert(json.error);
-        } else {
-          alert("User logged in");
-        }
+  const navigate = useNavigate();
+  const handleLogin = async () => {
+    
+    console.log("ME GAMISES K KANW RE-RENDED HEHEXD");
+    try {
+      const res = await axios.post("http://localhost:8080/api/login", {
+        username: emailOrUsername.includes("@") ? null : emailOrUsername,
+        email: emailOrUsername.includes("@") ? emailOrUsername : null,
+        password: password,
       });
-    console.log("Logging in", emailOrUsername, password);
+
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.setItem("user", JSON.stringify(res.data));
+        const user = localStorage.getItem("user");
+        if (user) {
+          alert("Login successful");
+          return navigate("/");
+        }
+      } else {
+        alert(res.data);  // This will alert the error message from the server
+      }
+    } catch (err) {
+      console.log(err);
+      alert("An error occurred while trying to log in.");
+    }
   };
+
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto scrollbar-hide">
