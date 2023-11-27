@@ -9,15 +9,15 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 function App() {
   return (
     <Router>
-    <Routes>
-      <Route path="/" element={<MainPage />} />
-      <Route path="/Register" element={<Register />} />
-      <Route path="/Login" element={<Login />} />
-      <Route path="/Apply" element={<Apply />} />
-      <Route path="/Applications" element={<Applications />} />
-      <Route path="*" element={<ErrorPage />} />
-    </Routes>
-  </Router>
+      <Routes>
+        <Route path="/" element={<MainPage />} />
+        <Route path="/Register" element={<Register />} />
+        <Route path="/Login" element={<Login />} />
+        <Route path="/Apply" element={<Apply />} />
+        <Route path="/Applications" element={<Applications />} />
+        <Route path="*" element={<ErrorPage />} />
+      </Routes>
+    </Router>
   );
 }
 
