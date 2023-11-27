@@ -3,13 +3,18 @@ import Navbar from "../Navbar/Navbar";
 import MainPageContainer from "./MainPageContainer";
 
 function MainPage() {
+  let isAuthenticated = false;
   const userKind = ["admin", "user", "guest"];
   console.log(localStorage.getItem("user"));
-  console.log(sessionStorage.getItem("user23"));
+  console.log(sessionStorage.getItem("user"));
+  (sessionStorage.getItem("user") === null)
+    ? isAuthenticated = false
+    : isAuthenticated = true;
+  console.log(isAuthenticated);
   const currentUser = userKind[0];
   return (
     <div className="w-screen h-screen">
-      <Navbar isAuthenticated={true} userKind={currentUser} />
+      <Navbar isAuthenticated={isAuthenticated} userKind={currentUser} />
       <div className="bg-[#143727] h-screen m-auto flex md:flex-row flex-col md:py-0 py-12 overflow-y-auto overflow-x-hidden items-center mx-auto ">
         {currentUser === "user" ? (
           <>
@@ -39,7 +44,7 @@ function MainPage() {
         ) : currentUser === "admin" ? (
           <>
             <MainPageContainer />
-            <MainPageContainer title="Charts"/>
+            <MainPageContainer title="Charts" />
           </>
         ) : (
           <>
