@@ -7,7 +7,7 @@ import Input from "../Input/Input";
 import GoogleIcon from "../assets/images/googleIcon.png";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
-
+import axios from "axios";
 // google icon
 
 function Login() {
@@ -15,11 +15,14 @@ function Login() {
   const [password, setPassword] = useState("");
   const [isEmail, setIsEmail] = useState(false);
 
+
+
   const handleLogin = () => {
     console.log("logging in user");
     if (emailOrUsername.includes("@")) {
       setIsEmail(true);
     }
+
     fetch("http://localhost:3000/Login", {
       method: "POST",
       headers: {
