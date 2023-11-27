@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
-
-const AuthenticatedNavbar = ({ userKind }) =>
+import axios from "axios";
+const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
@@ -31,8 +31,8 @@ const AuthenticatedNavbar = ({ userKind }) =>
           See applications
         </button>
       </Link>
-      <Link to="/logout" className="text-[#143727] hover:text-gray-300 p-2">
-        <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
+      <Link to="/"  className="text-[#143727] hover:text-gray-300 p-2">
+        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
           Log out
         </button>
       </Link>
@@ -68,8 +68,8 @@ const AuthenticatedNavbar = ({ userKind }) =>
           CV Builder
         </button>
       </Link>
-      <Link to="/logout" className="text-[#143727] hover:text-gray-300 p-2">
-        <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
+      <Link to="/" className="text-[#143727] hover:text-gray-300 p-2">
+        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
           Log out
         </button>
       </Link>
@@ -113,7 +113,23 @@ const UnauthenticatedNavbar = () => (
 
 const Navbar = ({ isAuthenticated, userKind }) => {
   const [isOpen, setIsOpen] = useState(false);
-
+  const logout = async () => {
+    try {
+      const res = await axios.post("http://localhost:8080/api/logout");
+      console.log(res);
+      if (res.status === 200) {
+        localStorage.removeItem("user");
+        sessionStorage.removeItem("user");
+        // alert("Logout successful");
+        window.location.href = "/";
+      } else {
+        alert("An error occurred while trying to log out.");
+      }
+    } catch (err) {
+      console.log(err);
+      alert("An error occurred while trying to log out.");
+    }
+  };
   return (
     <nav className=" absolute md:fixed w-screen z-50 bg-[#e5e5e5] px-4">
       <div className="md:flex justify-between items-center">
@@ -158,7 +174,7 @@ const Navbar = ({ isAuthenticated, userKind }) => {
         `}
         >
           {isAuthenticated ? (
-            <AuthenticatedNavbar userKind={userKind} />
+            <AuthenticatedNavbar logout={logout} userKind={userKind} />
           ) : (
             <UnauthenticatedNavbar />
           )}
@@ -169,30 +185,4 @@ const Navbar = ({ isAuthenticated, userKind }) => {
 };
 export default Navbar;
 
-// to Do after connection with api
-// import React, { useState } from "react";
-// const App = () => {
-//     const[isAuthenticated, setIsauthenticated] = useState(false);
 
-//     const handleLogin = () => {
-//         console.log("logging in user");
-//         setIsauthenticated(true);
-//     };
-
-//     const handleLogout = () => {
-//         setIsauthenticated(false);
-//     };
-//     return(
-//         <div>
-//         {/* Other components or routes can go here */}
-
-//         {/* Navbar component with authentication state */}
-//         <Navbar isAuthenticated={isAuthenticated} />
-
-//         {/* Example buttons to simulate login/logout */}
-//         <button onClick={handleLogin}>Login</button>
-//         <button onClick={handleLogout}>Logout</button>
-//       </div>
-//     );
-// };
-// export default App;

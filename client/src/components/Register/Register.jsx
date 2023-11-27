@@ -5,7 +5,6 @@ import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
-
 function Register() {
   const [data,setData] = useState([]);
   const [email, setEmail] = useState("");
@@ -26,10 +25,10 @@ function Register() {
         .then(response => {
           console.log('Response from server:', response);
           setData([...data, response.data]);
+          window.href.location = "/login";
         })
         .catch(error => console.log('There was an error!', error));
     };
-
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">

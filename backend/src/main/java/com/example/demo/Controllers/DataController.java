@@ -1,4 +1,4 @@
-package com.example.demo.controllers;
+package com.example.demo.Controllers;
 
 import com.example.demo.Models.Data;
 import com.example.demo.Services.DataService;
