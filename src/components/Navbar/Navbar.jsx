@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 
@@ -23,7 +23,10 @@ const AuthenticatedNavbar = ({ userKind }) =>
       >
         seminars
       </Link>
-      <Link to="/Applications" className="text-[#143727] hover:text-gray-300 p-2">
+      <Link
+        to="/Applications"
+        className="text-[#143727] hover:text-gray-300 p-2"
+      >
         <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
           See applications
         </button>
@@ -115,8 +118,8 @@ const Navbar = ({ isAuthenticated, userKind }) => {
     <nav className=" absolute md:fixed w-screen z-50 bg-[#e5e5e5] px-4">
       <div className="md:flex justify-between items-center">
         {/* logo */}
-        <a
-          href="https://joinwelead.org/"
+        <Link
+          to="/"
           className="flex flex-row items-center justify-center gap-2"
         >
           <img
@@ -124,10 +127,13 @@ const Navbar = ({ isAuthenticated, userKind }) => {
             alt="logo"
             className="block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
           />
-        </a>
+        </Link>
 
         {/* menu button */}
-        <button onClick={() => setIsOpen(!isOpen)} className="md:hidden absolute top-0 left-0 pl-6 pt-6">
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden absolute top-0 left-0 pl-6 pt-6"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -145,8 +151,12 @@ const Navbar = ({ isAuthenticated, userKind }) => {
         </button>
 
         {/* menu */}
-        <div className={` ${isOpen ? 'flex' : 'hidden'} md:flex md:items-center md:w-auto w-full
-        `}>
+        <div
+          className={` ${
+            isOpen ? "flex" : "hidden"
+          } md:flex md:items-center md:w-auto w-full
+        `}
+        >
           {isAuthenticated ? (
             <AuthenticatedNavbar userKind={userKind} />
           ) : (
