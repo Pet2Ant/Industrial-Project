@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
@@ -112,6 +113,10 @@ const UnauthenticatedNavbar = () => (
 );
 
 const Navbar = ({ isAuthenticated, userKind }) => {
+  const navigate = useNavigate();
+  const navigateToMainPage = () => {
+    navigate('/');
+  };
   const [isOpen, setIsOpen] = useState(false);
   const logout = async () => {
     try {
@@ -121,7 +126,8 @@ const Navbar = ({ isAuthenticated, userKind }) => {
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
         // alert("Logout successful");
-        window.location.href = "/";
+        // window.location.href = "/";
+        navigateToMainPage();
       } else {
         alert("An error occurred while trying to log out.");
       }

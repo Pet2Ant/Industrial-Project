@@ -4,7 +4,7 @@ import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
-import { FaWindows } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 function Register() {
   const [data,setData] = useState([]);
   const [email, setEmail] = useState("");
@@ -12,7 +12,10 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-
+  const navigate = useNavigate();
+  const navigateToLogin = () => {
+    navigate('/login');
+  };
   useEffect(() => {
     axios.get("/api/data")
     .then(response => setData (response.data));
@@ -25,7 +28,7 @@ function Register() {
         .then(response => {
           console.log('Response from server:', response);
           setData([...data, response.data]);
-          window.href.location = "/login";
+          navigateToLogin();
         })
         .catch(error => console.log('There was an error!', error));
     };

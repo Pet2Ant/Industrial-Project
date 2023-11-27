@@ -8,7 +8,7 @@ import GoogleIcon from "../assets/images/googleIcon.png";
 import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
-
+import { useNavigate } from 'react-router-dom';
 
 
 // google icon
@@ -16,10 +16,12 @@ import axios from "axios";
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
-  // const navigate = useNavigate();
-  const handleLogin = async () => {
+  const navigate = useNavigate();
+  const navigateToMainPage = () => {
+    navigate('/');
+  };
 
-    console.log("ME GAMISES K KANW RE-RENDED HEHEXD");
+  const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:8080/api/login", {
         username: emailOrUsername.includes("@") ? null : emailOrUsername,
@@ -35,7 +37,8 @@ function Login() {
           alert("Login successful");
           sessionStorage.setItem("user", JSON.stringify(res.data.user));
          console.log(user);
-        window.location.href = "/";
+        // window.location.href = "/";
+        navigateToMainPage();
         }
       } else {
         alert(res.data);  // This will alert the error message from the server
