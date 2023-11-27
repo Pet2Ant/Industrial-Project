@@ -51,8 +51,8 @@ function Login() {
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto scrollbar-hide">
         <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 pb-6">
-          <a
-            href="https://joinwelead.org/"
+          <Link
+            to="/"
             className="flex flex-row items-center justify-center gap-2 sm:mt-10"
           >
             <img
@@ -60,7 +60,7 @@ function Login() {
               alt="logo"
               className="hidden sm:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
             />
-          </a>
+          </Link>
 
           <img
             src={login}
