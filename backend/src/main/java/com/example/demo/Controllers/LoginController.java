@@ -24,7 +24,7 @@ public class LoginController {
     @PostMapping
     public ResponseEntity<?> loginUser (@RequestBody Data data, HttpSession session)
     {
-        Map<String,String> response = new HashMap<>();
+        Map<String,Object> response = new HashMap<>();
         Data dbUser = loginService.findByUsernameOrEmail(data.getUsername(),data.getEmail());
         if(dbUser == null || !dbUser.getPassword().equals(data.getPassword()))
         {
@@ -33,6 +33,7 @@ public class LoginController {
         }
         session.setAttribute("user", dbUser);
         System.out.println("Session created with user: " + session.getAttribute("user")); // TODO: Remove this
+        response.put("user", dbUser);
         response.put("message", "Login successful");
         return new ResponseEntity<>(response,HttpStatus.OK );
     }
