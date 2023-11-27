@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import logo from "../assets/images/WeLeadLogo.png";
 import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
@@ -33,8 +34,8 @@ function Register() {
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
         <div className="flex flex-col items-center gap-6 h-screen px-6 ">
-          <a
-            href="https://joinwelead.org/"
+          <Link
+            to="/Login"
             className="flex flex-row items-center justify-center gap-2"
           >
             <img
@@ -42,7 +43,7 @@ function Register() {
               alt="logo"
               className="hidden md:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
             />
-          </a>
+          </Link>
           <img
             src={people}
             alt="registerPicture"
@@ -52,8 +53,8 @@ function Register() {
 
         {/* Register form */}
         <form className="scrollbar-hide flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12">
-          <a
-            href="https://joinwelead.org/"
+          <Link
+            to="/Login"
             className="flex flex-row items-center justify-center gap-2"
           >
             <img
@@ -61,7 +62,7 @@ function Register() {
               alt="logo"
               className="sm:hidden block object-scale-down h-16"
             />
-          </a>
+          </Link>
           <h1 className="text-3xl font-bold sm:text-left text-center text-white">
             Sign up
           </h1>

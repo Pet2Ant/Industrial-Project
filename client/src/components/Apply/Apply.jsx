@@ -13,7 +13,7 @@ import SeminarsPage from "./ApplyForm/Seminars";
 import Volunteering from "./ApplyForm/Volunteering";
 
 function Apply() {
-  const userKind = "user";
+  const userKind = "admin";
 
   const [selectedCategory, setSelectedCategory] = useState("");
 

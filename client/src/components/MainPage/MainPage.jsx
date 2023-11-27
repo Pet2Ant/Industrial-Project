@@ -5,11 +5,28 @@ import MainPageContainer from "./MainPageContainer";
 function MainPage() {
   const userKind = ["admin", "user", "guest"];
 
-  const currentUser = userKind[0];
+  const currentUser = userKind[2];
   return (
-    <div className="w-screen h-screen">
+    <div className="w-screen h-screen bg-[#143727]">
       <Navbar isAuthenticated={true} userKind={currentUser} />
-      <div className="bg-[#143727] h-screen m-auto flex md:flex-row flex-col md:py-0 py-12 overflow-y-auto overflow-x-hidden items-center mx-auto ">
+      <div className="flex flex-col items-center justify-center  h-screen w-screen">
+        <h1 className="text-3xl text-center font-bold mx-auto text-[#e5e5e5] w-full mt-20">
+          {/* if user is admin, show Administator Panel else if user is user show User Panel else show Welcome to WeLead! */}
+          {currentUser === "admin" ? (
+            <>
+              Administrator Panel
+            </>
+          ) : currentUser === "user" ? (
+            <>
+              User Panel
+            </>
+          ) : (
+            <>
+              Welcome to WeLead!
+            </>
+          )}
+        </h1>
+      <div className="-mt-20 m-auto  h-screen w-screen flex md:flex-row flex-col md:py-0 py-12 overflow-y-auto overflow-x-hidden items-center mx-auto ">
         {currentUser === "user" ? (
           <>
             <MainPageContainer
@@ -84,7 +101,7 @@ function MainPage() {
             </div>
 
             <MainPageContainer
-              title="Recent Feeds"
+              title="News"
               rows={[
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -93,6 +110,7 @@ function MainPage() {
             />
           </>
         )}
+      </div>
       </div>
     </div>
   );

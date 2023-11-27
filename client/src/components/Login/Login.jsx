@@ -1,5 +1,6 @@
 import React from "react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
 import Button from "../Button/Button";
@@ -14,8 +15,6 @@ function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const [isEmail, setIsEmail] = useState(false);
-
-
 
   const handleLogin = () => {
     console.log("logging in user");
@@ -94,11 +93,10 @@ function Login() {
         </div>
 
         {/* Login form */}
-        {/* //overflow-y-auto overflow-x-hidden */}
-        <form className="flex flex-col sm:mr-12  sm:w-[28rem] w-screen sm:justify-center justify-between h-screen">
+        <form className="flex flex-col sm:mr-12 sm:w-[28rem] w-screen sm:justify-center justify-around h-screen">
           <div className="mt-32">
-            <a
-              href="https://joinwelead.org/"
+            <Link
+              to="/"
               className="flex flex-row items-center justify-center mx-auto gap-2"
             >
               <img
@@ -106,7 +104,7 @@ function Login() {
                 alt="logo"
                 className="sm:hidden block object-scale-down h-16"
               />
-            </a>
+            </Link>
             <h1 className="text-3xl font-bold sm:text-center sm:block hidden text-center text-white">
               Log in
             </h1>
@@ -168,33 +166,37 @@ function Login() {
                   <FaFacebook className="text-blue-500 text-4xl mt-16 mr-4 select-none hover:scale-125 transition duration-500 ease-in-out" />
                 </a>
                 <a href="/placeholder">
-                  <img src={GoogleIcon} alt="googleIcon" className="h-10 hover:scale-125 transition duration-500 ease-in-out" />
+                  <img
+                    src={GoogleIcon}
+                    alt="googleIcon"
+                    className="h-10 hover:scale-125 transition duration-500 ease-in-out"
+                  />
                 </a>
                 <a href="/placeholder">
                   <FaLinkedin className="text-blue-700 text-4xl mt-16 ml-4 hover:scale-125 transition duration-500 ease-in-out" />
                 </a>
               </div>
             </div>
-          </div>
-          <div>
-            <p className="text-gray-500 px-12 mb-6 text-center mx-auto absolute bottom-0">
-              By logging in, you agree to our
-              <a
-                href="/placeholder"
-                className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
-              >
-                {" "}
-                Terms of Use
-              </a>{" "}
-              and{" "}
-              <a
-                href="/placeholder"
-                className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
-              >
-                {" "}
-                Privacy Policy
-              </a>
-            </p>
+            {/* <div>
+              <p className="text-gray-500 px-12 mb-6 text-center mx-auto absolute bottom-0 ">
+                By logging in, you agree to our
+                <a
+                  href="/placeholder"
+                  className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+                >
+                  {" "}
+                  Terms of Use
+                </a>{" "}
+                and{" "}
+                <a
+                  href="/placeholder"
+                  className="text-[#FFCF07] hover:text-[#C29F09] transition duration-500 ease-in-out cursor-pointer"
+                >
+                  {" "}
+                  Privacy Policy
+                </a>
+              </p>
+            </div> */}
           </div>
         </form>
       </div>

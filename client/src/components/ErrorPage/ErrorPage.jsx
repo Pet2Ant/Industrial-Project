@@ -3,7 +3,7 @@ import Navbar from "../Navbar/Navbar";
 
 const ErrorPage = () => {
   return (
-    <div class="grid min-h-screen min-w-screen px-4 bg-[#e5e5e5] place-content-center">
+    <div class="grid min-h-screen min-w-screen  bg-[#e5e5e5] place-content-center">
         <Navbar isAuthenticated={true} userKind={'admin'} />
       <div class="text-center">
         <svg
@@ -55,7 +55,7 @@ const ErrorPage = () => {
           <script xmlns="" />
         </svg>
 
-        <h1 class="mt-6 text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+        <h1 class="mt-6  font-bold tracking-tight text-gray-900 text-4xl">
           Uh-oh!
         </h1>
 
