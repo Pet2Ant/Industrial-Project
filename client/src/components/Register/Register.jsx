@@ -17,14 +17,23 @@ function Register() {
   const [phone, setPhone] = useState("");
 
   const navigate = useNavigate();
-
+  const navigateToLogin = () => {
+    navigate('/login');
+  };
   useEffect(() => {
     axios.get("/api/data").then((response) => setData(response.data));
   }, []);
   const createData = () => {
-    console.log("Register button clicked");
-    console.log("Data to send:", { username, email, phone, password });
-
+    console.log('Register button clicked');
+    console.log('Data to send:', { username, email, phone, password });
+  
+    axios.post('/api/data', { username, email, phone, password })
+      .then(response => {
+        console.log('Response from server:', response);
+        setData([...data, response.data]);
+        navigateToLogin();
+      })
+      .catch(error => console.log('There was an error!', error));
     axios
       .post("/api/data", { username, email, phone, password })
       .then((response) => {
@@ -147,5 +156,6 @@ function Register() {
     </div>
   );
 }
+
 
 export default Register;

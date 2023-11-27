@@ -12,14 +12,15 @@ import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
 
-
 function Login() {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const handleLogin = async () => {
+  const navigateToMainPage = () => {
+    navigate("/");
+  };
 
-    console.log("ME GAMISES K KANW RE-RENDED HEHEXD");
+  const handleLogin = async () => {
     try {
       const res = await axios.post("http://localhost:8080/api/login", {
         username: emailOrUsername.includes("@") ? null : emailOrUsername,
@@ -33,37 +34,39 @@ function Login() {
         const user = localStorage.getItem("user");
         if (user) {
           sessionStorage.setItem("user", JSON.stringify(res.data.user));
-         console.log(user);
-         Popup({
-          title: "Success!",
-          text: "You have successfully logged in!",
-          icon: "success",
-          timer: 3000,
-          showConfirmButton: false,
-        });
-        setTimeout(() => {
-          navigate("/");
-        }, 3000);
+          console.log(user);
+          Popup({
+            title: "Success!",
+            text: "You have successfully logged in!",
+            icon: "success",
+            timer: 3000,
+            showConfirmButton: false,
+          });
+          setTimeout(() => {
+            navigateToMainPage();
+          }, 3000);
         }
       } else {
         Popup({
           title: "Error!",
-          text: "An error occurred while trying to login. Please try again. Error: " + res.data,
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-            }
-    } catch (err) {
-      console.log("Error from server:", err);
-        Popup({
-          title: "Error!",
-          text: "An error occurred while trying to login. Please try again.",
+          text:
+            "An error occurred while trying to login. Please try again. Error: " +
+            res.data,
           icon: "error",
           timer: 1500,
           showConfirmButton: false,
         });
       }
+    } catch (err) {
+      console.log("Error from server:", err);
+      Popup({
+        title: "Error!",
+        text: "An error occurred while trying to login. Please try again.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
   };
 
   return (
