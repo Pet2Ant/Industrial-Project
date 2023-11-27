@@ -37,22 +37,8 @@ function MainPage() {
           </>
         ) : currentUser === "admin" ? (
           <>
-            <MainPageContainer
-              title="Applications"
-              rows={[
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              ]}
-            />
-            <MainPageContainer
-              title="News"
-              rows={[
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-              ]}
-            />
+            <MainPageContainer />
+            <MainPageContainer title="Charts"/>
           </>
         ) : (
           <>
