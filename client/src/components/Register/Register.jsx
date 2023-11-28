@@ -8,54 +8,45 @@ import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
 
-function Register() {
+function Register({setIsLoading}) {
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
   const navigate = useNavigate();
-
   useEffect(() => {
     axios.get("/api/data")
     .then(response => setData (response.data));
     },[]);
     const createData = async () => {
-      console.log('Register button clicked');
-      console.log('Data to send:', { username, email, phone, password });
-      setIsLoading(true);
-      try {
-        const response = await axios.post('/api/data', { username, email, phone, password });
-        console.log('Response from server:', response);
-        if (response.status === 200) {
-          Popup({
-            title: 'Success!',
-            text: 'You have successfully registered!',
-            icon: 'success',
-            timer: 1500,
-            showConfirmButton: false,
-          });
-        }
-        setData([...data, response.data]);
-      } catch (error) {
-        console.log('There was an error!', error);
-        Popup({
-          title: 'Error!',
-          text: 'There was an error registering your account.',
-          icon: 'error',
-          timer: 1500,
-          showConfirmButton: false,
-        });
-      }
-      setIsLoading(false);
-      setTimeout(() => {
-        navigate('/login');
-      }, 1500);
-    };
-   
+  setIsLoading(true);
+  try {
+    const response = await axios.post('/api/data', { username, email, phone, password });
+    console.log('Response from server:', response);
+    setData([...data, response.data]);
+    if (response.status === 200) {
+    Popup({
+      title: 'Success!',
+      text: 'You have successfully registered!',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false,
+    });}
+  } catch (error) {
+    console.log('There was an error!', error);
+    Popup({
+      title: 'Error!',
+      text: 'There was an error registering your account.',
+      icon: 'error',
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
+  setIsLoading(false);
+  navigate("/login");
+};
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
