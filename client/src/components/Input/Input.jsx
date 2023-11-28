@@ -75,8 +75,8 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
         {name === "Phone" ? (
           <>
             <PhoneInput
-              containerClass="select-none text-transparent lg:w-96 md:w-1/2 sm:w-2/4 w-full flex flex-row items-center justify-start lg:justify-center gap-3 "
-              inputClass="lg:w-96 md:w-1/2 sm:w-2/4 w-full text-sm py-1 pl-2 my-2 text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
+              containerClass="select-none text-transparent xl:w-96  w-full flex flex-row items-center justify-start lg:justify-center gap-3 "
+              inputClass="xl:w-96 w-full text-sm py-1 pl-2 my-2 text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
               inputProps={{
                 name: "phone",
                 required: true,
@@ -93,9 +93,9 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
             <IoPerson className="text-[#143727] select-none" />
           </>
         ) : (
-          <div className="lg:w-96 md:w-1/2 sm:w-2/4 w-full flex flex-row items-center justify-start lg:justify-center gap-3">
+          <div className="xl:w-96  w-full flex flex-row items-center justify-start lg:justify-center gap-3">
             <input
-              className="lg:w-96 md:w-1/2 sm:w-2/4 py-1 pl-2 my-2 text-sm w-full text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
+              className="xl:w-96 py-1 pl-2 my-2 text-sm w-full text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
               type={type}
               autoFocus={name === "Name" ? true : false}
               name={name}

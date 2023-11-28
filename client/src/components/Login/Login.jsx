@@ -71,7 +71,7 @@ function Login() {
 
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen">
-      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto scrollbar-hide">
+      <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen  overflow-y-auto">
         <div className="hidden sm:block flex flex-col items-left gap-6 h-screen px-6 pb-6">
           <Link
             to="/"
