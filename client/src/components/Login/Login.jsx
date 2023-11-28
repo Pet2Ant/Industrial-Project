@@ -1,5 +1,5 @@
 import React from "react";
-import { useState } from "react";
+import {useEffect, useState } from "react";
 import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
 import Button from "../Button/Button";
@@ -17,9 +17,26 @@ function Login({onLogin,setIsLoading}) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await axios.get('/api/check-session', { withCredentials: true });
+        setIsAuthenticated(res.status === 200);
+      } catch (err) {
+        console.log(err);
+        setIsAuthenticated(false);
+      }
+    };
 
+    checkSession();
+  }, []);
   const handleLogin = async () => {
+    if (isAuthenticated) {
+      alert('You are already logged in.');
+      navigate("/");
+    }    
     setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:8080/api/login", {

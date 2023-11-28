@@ -118,16 +118,29 @@ const Navbar = ({ userKind }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user") || sessionStorage.getItem("user");
+  //   setIsAuthenticated(!!user);
+  // }, []);
   useEffect(() => {
-    const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-    setIsAuthenticated(!!user);
+    const checkSession = async () => {
+      try {
+        const res = await axios.get('/api/check-session', { withCredentials: true });
+        setIsAuthenticated(res.status === 200);
+      } catch (err) {
+        console.log(err);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkSession();
   }, []);
 
   const logout = async () => {
     try {
       const res = await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
 
-      console.log(res);
+      
       if (res.status === 200) {
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
