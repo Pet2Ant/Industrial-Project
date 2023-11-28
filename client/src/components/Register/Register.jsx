@@ -15,6 +15,7 @@ function Register() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -34,7 +35,7 @@ function Register() {
             title: 'Success!',
             text: 'You have successfully registered!',
             icon: 'success',
-            timer: 3000,
+            timer: 1500,
             showConfirmButton: false,
           });
         }
@@ -45,14 +46,14 @@ function Register() {
           title: 'Error!',
           text: 'There was an error registering your account.',
           icon: 'error',
-          timer: 3000,
+          timer: 1500,
           showConfirmButton: false,
         });
       }
       setIsLoading(false);
       setTimeout(() => {
         navigate('/login');
-      }, 3000);
+      }, 1500);
     };
    
   return (

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Popup from "../Popup/Popup";
 const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -145,13 +146,38 @@ const Navbar = ({ userKind }) => {
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
         setIsAuthenticated(false);
-        navigate('/');
+        Popup({
+          title: "Success!",
+          text: "You have successfully logged out!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
-        alert("An error occurred while trying to log out.");
+        Popup({
+          title: "Error!",
+          text:
+            "An error occurred while trying to log out. Please try again. Error: " +
+            res.data,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
       }
     } catch (err) {
       console.log(err);
-      alert("An error occurred while trying to log out.");
+      Popup({
+        title: "Error!",
+        text:
+          "An error occurred while trying to log out. Please try again. Error: " +
+          err,
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
   return (

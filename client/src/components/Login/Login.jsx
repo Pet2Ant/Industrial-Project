@@ -9,7 +9,7 @@ import { FaFacebook } from "react-icons/fa";
 import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
 import Popup from "../Popup/Popup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login({onLogin,setIsLoading}) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
@@ -54,13 +54,13 @@ function Login({onLogin,setIsLoading}) {
             title: "Success!",
             text: "You have successfully logged in!",
             icon: "success",
-            timer: 3000,
+            timer: 1500,
             showConfirmButton: false,
           });
           setTimeout(() => {
             onLogin(); 
             navigate('/'); 
-          }, 3000);
+          }, 1500);
         }
       } else {
         Popup({
