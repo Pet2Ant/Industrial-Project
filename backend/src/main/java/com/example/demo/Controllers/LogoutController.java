@@ -13,7 +13,7 @@ public class LogoutController {
     public void logout(HttpSession session) {
         System.out.println("Session destroyed with user: " + session.getAttribute("user")); // TODO: Remove this
         session.invalidate();
-//        System.out.println("Session destroyed with user: " + session.getAttribute("user")); // TODO: Remove this
+
     }
 }
 
