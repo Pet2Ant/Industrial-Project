@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
@@ -112,22 +112,40 @@ const UnauthenticatedNavbar = () => (
   </div>
 );
 
-const Navbar = ({ isAuthenticated, userKind }) => {
+
+const Navbar = ({ userKind }) => {
   const navigate = useNavigate();
-  const navigateToMainPage = () => {
-    navigate('/');
-  };
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user") || sessionStorage.getItem("user");
+  //   setIsAuthenticated(!!user);
+  // }, []);
+  useEffect(() => {
+    const checkSession = async () => {
+      try {
+        const res = await axios.get('/api/check-session', { withCredentials: true });
+        setIsAuthenticated(res.status === 200);
+      } catch (err) {
+        console.log(err);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkSession();
+  }, []);
+
   const logout = async () => {
     try {
-      const res = await axios.post("http://localhost:8080/api/logout");
-      console.log(res);
+      const res = await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
+
+      
       if (res.status === 200) {
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
-        // alert("Logout successful");
-        // window.location.href = "/";
-        navigateToMainPage();
+        setIsAuthenticated(false);
+        navigate('/');
       } else {
         alert("An error occurred while trying to log out.");
       }
