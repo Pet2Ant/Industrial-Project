@@ -7,11 +7,12 @@ function MainPage() {
   const userKind = ["admin", "user", "guest"];
   console.log(localStorage.getItem("user"));
   console.log(sessionStorage.getItem("user"));
-  (sessionStorage.getItem("user") === null)
+  console.log(localStorage.getItem("token"));
+  (localStorage.getItem("token") === null)
     ? isAuthenticated = false
     : isAuthenticated = true;
   console.log(isAuthenticated);
-  const currentUser = userKind[0];
+  const currentUser = userKind[1];
   return (
     <div className="w-screen h-screen">
       <Navbar isAuthenticated={isAuthenticated} userKind={currentUser} />
