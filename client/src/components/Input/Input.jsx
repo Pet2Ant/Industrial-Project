@@ -6,8 +6,8 @@ import { IoLockClosed } from "react-icons/io5";
 import { IoPhonePortrait } from "react-icons/io5";
 import { IoEye } from "react-icons/io5";
 import { IoEyeOff } from "react-icons/io5";
-
-
+import PhoneInput from "react-phone-input-2";
+import "./Input.css";
 const Input = ({ name, setName, placeholder, type, iconName, id }) => {
   const [inputName, setInputName] = useState("");
   const [showPassword, setShowPassword] = useState(true);
@@ -34,14 +34,21 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
   const handleShowConfirmPassword = () => {
     setShowConfirmPassword(!showConfirmPassword);
 
-    if (id === "confirmPassword" && type === "password" && showConfirmPassword) {
-        console.log("showConfirmPassword is true");
-        document.getElementById("confirmPassword").type = "text";
-        } else if (id === "confirmPassword" && type === "password" && !showConfirmPassword) {
-        console.log("showConfirmPassword is false");
-        document.getElementById("confirmPassword").type = "password";
-        }
-
+    if (
+      id === "confirmPassword" &&
+      type === "password" &&
+      showConfirmPassword
+    ) {
+      console.log("showConfirmPassword is true");
+      document.getElementById("confirmPassword").type = "text";
+    } else if (
+      id === "confirmPassword" &&
+      type === "password" &&
+      !showConfirmPassword
+    ) {
+      console.log("showConfirmPassword is false");
+      document.getElementById("confirmPassword").type = "password";
+    }
   };
 
   return (
@@ -65,48 +72,69 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
           <IoPerson className="text-white" />
         )}
 
-        <input
-          className="lg:w-96 md:w-1/2 sm:w-2/4 py-1 pl-2 my-2 text-sm w-full  text-gray-400 bg-transparent border-b border-white focus:outline-none hover:-translate-y-1 ease-in-out duration-500 "
-          type={type}
-          name={name}
-          id={id}
-          placeholder={placeholder}
-          value={inputName}
-          onChange={handleChange}
-        />
-        <div className="">
-          {/* If iconName= ioLockClosed, Display IoEyeOff icon if pressed, display IoEye if not pressed*/}
-          {iconName === "IoLockClosed" ? (
-            showPassword ? (
-              <IoEyeOff
-                className="text-white select-none"
-                onClick={handleShowPassword}
-              />
-            ) : (
-              <IoEye
-                className="text-white select-none"
-                onClick={handleShowPassword}
-              />
-            )
-          ) : iconName === "IoLockClosedSharp" ? (
-            showConfirmPassword ? (
-              <IoEyeOff
-                className="text-white select-none"
-                onClick={handleShowConfirmPassword}
-              />
-            ) : (
-              <IoEye
-                className="text-white select-none"
-                onClick={handleShowConfirmPassword}
-              />
-            )
-          ) : (
+        {name === "Phone" ? (
+          <>
+            <PhoneInput
+              containerClass="select-none text-transparent xl:w-96  w-full flex flex-row items-center justify-start lg:justify-center gap-3 "
+              inputClass="xl:w-96 w-full text-sm py-1 pl-2 my-2 text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
+              inputProps={{
+                name: "phone",
+                required: true,
+              }}
+              countryOptionsOrder={["GR"]}
+              name={name}
+              id={id}
+              placeholder={placeholder}
+              enableSearch={true}
+              disableSearchIcon={true}
+              country={"gr"}
+              disableDropdown={true}
+            />
             <IoPerson className="text-[#143727] select-none" />
-          )}
-          
+          </>
+        ) : (
+          <div className="xl:w-96  w-full flex flex-row items-center justify-start lg:justify-center gap-3">
+            <input
+              className="xl:w-96 py-1 pl-2 my-2 text-sm w-full text-gray-400 bg-transparent border-b border-white outline-none hover:-translate-y-1 ease-in-out duration-500"
+              type={type}
+              autoFocus={name === "Name" ? true : false}
+              name={name}
+              id={id}
+              placeholder={placeholder}
+              value={inputName}
+              onChange={handleChange}
+            />
 
-
-        </div>
+            {/* If iconName= ioLockClosed, Display IoEyeOff icon if pressed, display IoEye if not pressed*/}
+            {iconName === "IoLockClosed" ? (
+              showPassword ? (
+                <IoEyeOff
+                  className="text-white select-none"
+                  onClick={handleShowPassword}
+                />
+              ) : (
+                <IoEye
+                  className="text-white select-none"
+                  onClick={handleShowPassword}
+                />
+              )
+            ) : iconName === "IoLockClosedSharp" ? (
+              showConfirmPassword ? (
+                <IoEyeOff
+                  className="text-white select-none"
+                  onClick={handleShowConfirmPassword}
+                />
+              ) : (
+                <IoEye
+                  className="text-white select-none"
+                  onClick={handleShowConfirmPassword}
+                />
+              )
+            ) : (
+              <IoPerson className="text-[#143727] select-none" />
+            )}
+          </div>
+        )}
       </div>
     </div>
   );

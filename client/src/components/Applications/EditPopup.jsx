@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import Popup from "reactjs-popup";
+import {Popup as FormPopup} from "reactjs-popup";
 import ApplyInput from "../Apply/ApplyInput";
 import Warper from "./Warper";
 import Button from "../Apply/ApplyButton";
+import Popup from "../Popup/Popup";
 
 function EditPopup({
   firstName,
@@ -23,9 +24,21 @@ function EditPopup({
     overflowX: "hidden",
   };
 
+  const saveChanges = () => {
+    return (
+      Popup({
+        title: "Success!",
+        text: `You have successfully edited ${firstName + " " + lastName}'s information!`,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      })
+    )
+  };
+
 
   return (
-    <Popup
+    <FormPopup
       trigger={
         <button className="bg-[#143727] text-[#e5e5e5] p-3 my-2 rounded-md w-28 text-center min-w-max font-oni transition duration-500 ease-in-out hover:scale-105 hover:bg-[#ffcf07] hover:text-[#143727] focus:bg-[#ffcf07] focus:text-[#143727]">
           Edit User
@@ -42,7 +55,13 @@ function EditPopup({
             &times;
           </div>
           <div className="header"> Edit User Information </div>
-          <form className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
+          <form 
+            onSubmit={(e) => {
+              e.preventDefault();
+              saveChanges();
+              close();
+            }}
+          className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
             <div className="flex flex-wrap justify-between mx-auto w-full break-words">
               <h1 className="text-[#103022] text-xl font-semibold">
                 Current Name:
@@ -139,7 +158,7 @@ function EditPopup({
           </form>
         </div>
       )}
-    </Popup>
+    </FormPopup>
   );
 }
 

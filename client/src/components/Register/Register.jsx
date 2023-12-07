@@ -1,44 +1,58 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import logo from "../assets/images/WeLeadLogo.png";
 import people from "../assets/images/people.jpg";
 import Button from "../Button/Button";
 import Input from "../Input/Input";
 import axios from "axios";
-import { useNavigate } from 'react-router-dom';
+import Popup from "../Popup/Popup";
+import { useNavigate } from "react-router-dom";
+
 function Register({setIsLoading}) {
-  const [data,setData] = useState([]);
+  const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-
   useEffect(() => {
     axios.get("/api/data")
     .then(response => setData (response.data));
     },[]);
     const createData = async () => {
-      console.log('Register button clicked');
-      console.log('Data to send:', { username, email, phone, password });
-      setIsLoading(true);
-      try {
-        const response = await axios.post('/api/data', { username, email, phone, password });
-        console.log('Response from server:', response);
-        setData([...data, response.data]);
-      } catch (error) {
-        console.log('There was an error!', error);
-      }
-      setIsLoading(false);
-      navigate("/login");
-    };
-   
+  setIsLoading(true);
+  try {
+    const response = await axios.post('/api/data', { username, email, phone, password });
+    console.log('Response from server:', response);
+    setData([...data, response.data]);
+    if (response.status === 200) {
+    Popup({
+      title: 'Success!',
+      text: 'You have successfully registered!',
+      icon: 'success',
+      timer: 1500,
+      showConfirmButton: false,
+    });}
+  } catch (error) {
+    console.log('There was an error!', error);
+    Popup({
+      title: 'Error!',
+      text: 'There was an error registering your account.',
+      icon: 'error',
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
+  setIsLoading(false);
+  navigate("/login");
+};
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
         <div className="flex flex-col items-center gap-6 h-screen px-6 ">
-          <a
-            href="https://joinwelead.org/"
+          <Link
+            to="/Login"
             className="flex flex-row items-center justify-center gap-2"
           >
             <img
@@ -46,7 +60,7 @@ function Register({setIsLoading}) {
               alt="logo"
               className="hidden md:block object-scale-down h-16  hover:scale-105 transition duration-500 ease-in-out"
             />
-          </a>
+          </Link>
           <img
             src={people}
             alt="registerPicture"
@@ -56,8 +70,8 @@ function Register({setIsLoading}) {
 
         {/* Register form */}
         <form className="scrollbar-hide flex flex-col pr-12 w-full sm:w-[28rem] overflow-y-auto overflow-x-hidden h-screen py-12">
-          <a
-            href="https://joinwelead.org/"
+          <Link
+            to="/Login"
             className="flex flex-row items-center justify-center gap-2"
           >
             <img
@@ -65,7 +79,7 @@ function Register({setIsLoading}) {
               alt="logo"
               className="sm:hidden block object-scale-down h-16"
             />
-          </a>
+          </Link>
           <h1 className="text-3xl font-bold sm:text-left text-center text-white">
             Sign up
           </h1>
@@ -116,7 +130,7 @@ function Register({setIsLoading}) {
               setName={setConfirmPassword}
               placeholder="Confirm your Password"
               type="password"
-              iconName="IoLockClosedSharp"
+              iconName="IoLockClosed"
               id="confirmPassword"
             />
           </div>
@@ -127,5 +141,6 @@ function Register({setIsLoading}) {
     </div>
   );
 }
+
 
 export default Register;

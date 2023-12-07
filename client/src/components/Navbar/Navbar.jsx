@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
+import Popup from "../Popup/Popup";
 const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -118,27 +119,65 @@ const Navbar = ({ userKind }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  // useEffect(() => {
+  //   const user = localStorage.getItem("user") || sessionStorage.getItem("user");
+  //   setIsAuthenticated(!!user);
+  // }, []);
   useEffect(() => {
-    const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-    setIsAuthenticated(!!user);
+    const checkSession = async () => {
+      try {
+        const res = await axios.get('/api/check-session', { withCredentials: true });
+        setIsAuthenticated(res.status === 200);
+      } catch (err) {
+        console.log(err);
+        setIsAuthenticated(false);
+      }
+    };
+
+    checkSession();
   }, []);
 
   const logout = async () => {
     try {
       const res = await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
 
-      console.log(res);
+      
       if (res.status === 200) {
         localStorage.removeItem("user");
         sessionStorage.removeItem("user");
         setIsAuthenticated(false);
-        navigate('/');
+        Popup({
+          title: "Success!",
+          text: "You have successfully logged out!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          navigate('/login');
+        }, 1500);
       } else {
-        alert("An error occurred while trying to log out.");
+        Popup({
+          title: "Error!",
+          text:
+            "An error occurred while trying to log out. Please try again. Error: " +
+            res.data,
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
       }
     } catch (err) {
       console.log(err);
-      alert("An error occurred while trying to log out.");
+      Popup({
+        title: "Error!",
+        text:
+          "An error occurred while trying to log out. Please try again. Error: " +
+          err,
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
   return (

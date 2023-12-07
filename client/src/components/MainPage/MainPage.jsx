@@ -90,7 +90,7 @@ function MainPage() {
             </div>
 
             <MainPageContainer
-              title="Recent Feeds"
+              title="News"
               rows={[
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -100,7 +100,7 @@ function MainPage() {
           </>
         )}
       </div>
-    </div>
+      </div>
   );
 }
 export default MainPage;

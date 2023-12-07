@@ -1,9 +1,7 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Table from "./ApplicationTable/ApplicationsTable";
-import Popup from "reactjs-popup";
 import dataJSON from "./ApplicationTable/mockData.json";
-import ApplyInput from "../Apply/ApplyInput";
 import EditPopup from "./EditPopup";
 
 function Applications() {
