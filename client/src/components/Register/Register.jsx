@@ -7,6 +7,7 @@ import Input from "../Input/Input";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
+import { get } from "lodash";
 function isValidJwt(jwt) {
   if (!jwt) {
       console.log('JWT is null or undefined');
@@ -28,12 +29,13 @@ function Register({setIsLoading}) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
- 
+  
   
   const createData = async () => {
     setIsLoading(true);
+   
     try {
-     
+     //commit
       const response = await axios.post('/api/data', { username, email, phone, password });
 
       const jwt = response.data.token;
@@ -61,6 +63,7 @@ function Register({setIsLoading}) {
     }
     setIsLoading(false);
     navigate("/login");
+    
   };
   
   return (
@@ -107,6 +110,7 @@ function Register({setIsLoading}) {
             >
               log in here!
             </a>
+            
           </p>
           <div className="flex flex-col items-center justify-center relative sm:min-w-fit w-full mx-auto">
             <Input

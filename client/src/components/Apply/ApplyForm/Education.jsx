@@ -4,7 +4,7 @@ import RadioButton from "../ApplyRadio";
 import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
 
-function PersonalDetails() {
+function Education() {
   // State variable for selected value
   const [education, setEducation] = useState("");
 
@@ -243,4 +243,4 @@ function PersonalDetails() {
   );
 }
 
-export default PersonalDetails;
+export default Education;

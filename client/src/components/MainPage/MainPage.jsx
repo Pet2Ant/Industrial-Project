@@ -12,6 +12,7 @@ function MainPage() {
     ? isAuthenticated = false
     : isAuthenticated = true;
   console.log(isAuthenticated);
+  //commit
   const currentUser = userKind[1];
   return (
     <div className="w-screen h-screen">
