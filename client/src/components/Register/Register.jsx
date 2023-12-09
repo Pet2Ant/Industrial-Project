@@ -36,7 +36,7 @@ function Register({setIsLoading}) {
    
     try {
      //commit
-      const response = await axios.post('/api/data', { username, email, phone, password });
+      const response = await axios.post('http://localhost:8080/api/data', { username, email, phone, password });
 
       const jwt = response.data.token;
       console.log('JWT:', jwt);
