@@ -2,11 +2,39 @@ import React from "react";
 import { useState } from "react";
 import ApplyInput from "../ApplyInput";
 import Button from "../CalendarButton";
-import ApplyButton from "../ApplyButton";
+import axios from "axios";
+import Popup from "../../Popup/Popup";
 
 function Hobbies() {
   const [hobbies, setHobbies] = useState("");
   const [achievements, setAchievements] = useState("");
+
+  const handleHobbies = (e) => {
+    e.preventDefault();
+    try {
+      const response = axios.post("http://localhost:8080/api/hobbies", {
+        hobbies,
+        achievements,
+      });
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your hobbies and achievements!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your hobbies and achievements.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
 
   return (
     <>
@@ -28,7 +56,7 @@ function Hobbies() {
           type="text"
           id="achievements"
         />
-        <Button buttonName={"Add"} />
+        <Button onClick={handleHobbies} buttonName={"Add"} />
       </form>
     </>
   );

@@ -1,9 +1,11 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ApplyInput from "../ApplyInput";
 import ApplyButton from "../ApplyButton";
+import axios from "axios";
+import Popup from "../../Popup/Popup";
 
-function PersonalDetails() {
+function PersonalDetails({setIsLoading}) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
@@ -12,6 +14,47 @@ function PersonalDetails() {
   const [phone, setPhone] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
   const [education, setEducation] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem('token'));
+  }, []);
+
+  const handlePersonalDetails = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/PersonalDetails",
+        {
+          firstName,
+          lastName,
+          country,
+          city,
+          email,
+          phone,
+          externalLinks,
+          education,
+        }
+      );
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your personal details!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your personal details.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
 
   return (
     <form>
@@ -83,9 +126,9 @@ function PersonalDetails() {
         />
       </div>
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
-            <ApplyButton buttonName="Save" />
-            <ApplyButton buttonName="Cancel" />
-          </div>
+        <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
+        <ApplyButton onClick={() => window.location.reload()} buttonName="Cancel" />
+      </div>
     </form>
   );
 }
