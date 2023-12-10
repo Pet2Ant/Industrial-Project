@@ -4,6 +4,7 @@ import RadioButton from "../ApplyRadio";
 import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
 import axios from "axios";
+import Popup from "../../Popup/Popup";
 
 function Education() {
   // State variable for selected value
@@ -40,9 +41,73 @@ function Education() {
   
   const handleEducation = async (e) => {
     e.preventDefault();
+    if (education === "High School") {
+      if (!schoolName || !schoolLocation || !graduationYear) {
+        Popup({
+          title: "Error!",
+          text: "Please fill in all the required fields.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
+    } else if (education === "Bachelor's Degree") {
+      if (
+        !universityName ||
+        !universityLocation ||
+        !degreeName ||
+        !degreeYear
+      ) {
+        Popup({
+          title: "Error!",
+          text: "Please fill in all the required fields.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
+    }
+    else if (education === "Master's Degree") {
+      if (
+        !universityName ||
+        !universityLocation ||
+        !degreeName ||
+        !degreeYear ||
+        !thesisTitle
+      ) {
+        Popup({
+          title: "Error!",
+          text: "Please fill in all the required fields.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
+    }
+    else if (education === "PhD") {
+      if (
+        !universityName ||
+        !universityLocation ||
+        !degreeName ||
+        !degreeYear ||
+        !dissertationTitle
+      ) {
+        Popup({
+          title: "Error!",
+          text: "Please fill in all the required fields.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
+    }
     try {
       const response = await axios.post("http://localhost:8080/api/education", {
-        education,
+        educationLevel: education,
         schoolName,
         schoolLocation,
         graduationYear,
@@ -55,25 +120,23 @@ function Education() {
       }
       
       );
-      // console.log(response);
-      // setEducation([...education,response.education]);
-      // console.log(response);
-      // Popup({
-      //   title: "Success!",
-      //   text: "You have successfully added your education!",
-      //   icon: "success",
-      //   timer: 1500,
-      //   showConfirmButton: false,
-      // });
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your education!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.log("There was an error!", error);
-      // Popup({
-      //   title: "Error!",
-      //   text: "There was an error adding your education.",
-      //   icon: "error",
-      //   timer: 1500,
-      //   showConfirmButton: false,
-      // });
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your education.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
 
