@@ -49,6 +49,7 @@ function Login({ onLogin, setIsLoading }) {
       const jwt = res.data.token;
       if (isValidJwt(jwt)) {
         localStorage.setItem("token", jwt);
+        
         Popup({
           title: "Success!",
           text: "You have successfully logged in!",

@@ -141,6 +141,10 @@ const Navbar = ({ userKind }) => {
     const user = localStorage.getItem("token") ;
     if (user !== null) {
       setIsAuthenticated(true);
+      if(jwt)
+      {
+        axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
+      }
     }
   
   }, []);
@@ -149,6 +153,8 @@ const Navbar = ({ userKind }) => {
      if (isValidJwt(jwt)) {
         localStorage.removeItem("token");
         setIsAuthenticated(false);
+      // Remove the Authorization header
+      delete axios.defaults.headers.common["Authorization"];
         location.reload();
         Popup({
           title: "Success!",
