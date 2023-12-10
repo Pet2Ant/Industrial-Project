@@ -3,7 +3,8 @@ import { useState } from "react";
 import Input from "../ApplyInput";
 import "react-calendar/dist/Calendar.css";
 import Button from "../CalendarButton";
-import ApplyButton from "../ApplyButton";
+import axios from "axios";
+import Popup from "../../Popup/Popup";
 
 function SeminarsPage() {
   const [seminar, setSeminar] = useState("");
@@ -21,6 +22,33 @@ function SeminarsPage() {
 
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
+  };
+
+  const handleSeminars = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/seminars", {
+        seminar,
+        dateRange,
+      });
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your seminars!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your seminars.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
   };
 
   return (
@@ -66,7 +94,9 @@ function SeminarsPage() {
             />
           </div>
         )}
-        {dateRange[0] && dateRange[1] && <Button buttonName={"Add"} />}
+        {dateRange[0] && dateRange[1] && (
+          <Button onClick={handleSeminars} buttonName={"Add"} />
+        )}
       </form>
     </div>
   );
