@@ -39,6 +39,9 @@ public class DataService {
                     return dataRepository.save(newData);
                 });
     }
+    public Data getUserId(String username) {
+        return dataRepository.findByUsername(username);
+    }
 
     public void deleteData(Long id) {
         dataRepository.deleteById(id);

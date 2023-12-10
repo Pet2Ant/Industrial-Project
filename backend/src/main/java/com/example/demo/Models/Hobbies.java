@@ -1,7 +1,10 @@
 package com.example.demo.Models;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
-
+@Getter
+@Setter
 @Entity
 @Table(name = "hobbies")
 public class Hobbies {

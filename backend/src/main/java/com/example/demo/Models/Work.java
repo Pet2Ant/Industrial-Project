@@ -1,9 +1,12 @@
 package com.example.demo.Models;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Date;
-
+@Getter
+@Setter
 @Entity
 @Table(name = "work")
 public class Work {
