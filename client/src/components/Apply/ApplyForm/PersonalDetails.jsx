@@ -22,6 +22,16 @@ function PersonalDetails({setIsLoading}) {
 
   const handlePersonalDetails = async (e) => {
     e.preventDefault();
+    if (!firstName || !lastName || !country || !city || !email || !phone) {
+      Popup({
+        title: "Error!",
+        text: "Please fill in all the required fields.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      return;
+    }
     try {
       const response = await axios.post(
         "http://localhost:8080/api/personalDetails",
