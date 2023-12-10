@@ -1,5 +1,5 @@
 import React from "react";
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import login from "../assets/images/login.jpg";
 import logo from "../assets/images/WeLeadLogo.png";
 import Button from "../Button/Button";
@@ -10,59 +10,59 @@ import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate, Link } from "react-router-dom";
+function isValidJwt(jwt) {
+  if (!jwt) {
+    console.log('JWT is null or undefined');
+    return false;
+  }
 
-function Login({onLogin,setIsLoading}) {
+  const parts = jwt.split('.');
+  if (parts.length !== 3) {
+    console.log('JWT does not contain exactly 2 periods');
+    return false;
+  }
+
+
+
+  return true;
+}
+//commit
+function Login({ onLogin, setIsLoading }) {
   const [emailOrUsername, setEmailOrUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  
-  useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await axios.get('/api/check-session', { withCredentials: true });
-        setIsAuthenticated(res.status === 200);
-      } catch (err) {
-        console.log(err);
-        setIsAuthenticated(false);
-      }
-    };
 
-    checkSession();
+  useEffect(() => {
+    setIsAuthenticated(!!localStorage.getItem('token'));
   }, []);
+
   const handleLogin = async () => {
-    if (isAuthenticated) {
-      alert('You are already logged in.');
-      navigate("/");
-    }    
     setIsLoading(true);
     try {
       const res = await axios.post("http://localhost:8080/api/login", {
         username: emailOrUsername.includes("@") ? null : emailOrUsername,
         email: emailOrUsername.includes("@") ? emailOrUsername : null,
         password: password,
-      }, { withCredentials: true });
+      });
 
-      console.log(res);
-      if (res.status === 200) {
-         localStorage.setItem("user", JSON.stringify(res.data));
-        const user = localStorage.getItem("user");
-        if (user) {
-          sessionStorage.setItem("user", JSON.stringify(res.data.user));
-          console.log(user);
-          Popup({
-            title: "Success!",
-            text: "You have successfully logged in!",
-            icon: "success",
-            timer: 1500,
-            showConfirmButton: false,
-          });
-          setTimeout(() => {
-            onLogin(); 
-            navigate('/'); 
-          }, 1500);
-        }
-      } else {
+      const jwt = res.data.token;
+      if (isValidJwt(jwt)) {
+        localStorage.setItem("token", jwt);
+        
+        Popup({
+          title: "Success!",
+          text: "You have successfully logged in!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+          onLogin();
+          navigate('/');
+        }, 1500);
+      }
+      else {
         Popup({
           title: "Error!",
           text:

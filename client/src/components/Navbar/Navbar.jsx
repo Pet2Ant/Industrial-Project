@@ -4,6 +4,22 @@ import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import Popup from "../Popup/Popup";
+function isValidJwt(jwt) {
+  if (!jwt) {
+    console.log('JWT is null or undefined');
+    return false;
+  }
+
+  const parts = jwt.split('.');
+  if (parts.length !== 3) {
+    console.log('JWT does not contain exactly 2 periods');
+    return false;
+  }
+
+
+
+  return true;
+}
 const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -113,39 +129,33 @@ const UnauthenticatedNavbar = () => (
   </div>
 );
 
-
+//commit
 const Navbar = ({ userKind }) => {
+  
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-
-  // useEffect(() => {
-  //   const user = localStorage.getItem("user") || sessionStorage.getItem("user");
-  //   setIsAuthenticated(!!user);
-  // }, []);
+  const jwt = localStorage.getItem('token');
+  console.log('JWT:', jwt);
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const res = await axios.get('/api/check-session', { withCredentials: true });
-        setIsAuthenticated(res.status === 200);
-      } catch (err) {
-        console.log(err);
-        setIsAuthenticated(false);
+    const user = localStorage.getItem("token") ;
+    if (user !== null) {
+      setIsAuthenticated(true);
+      if(jwt)
+      {
+        axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
       }
-    };
-
-    checkSession();
+    }
+  
   }, []);
-
   const logout = async () => {
     try {
-      const res = await axios.post("http://localhost:8080/api/logout", {}, { withCredentials: true });
-
-      
-      if (res.status === 200) {
-        localStorage.removeItem("user");
-        sessionStorage.removeItem("user");
+     if (isValidJwt(jwt)) {
+        localStorage.removeItem("token");
         setIsAuthenticated(false);
+      // Remove the Authorization header
+      delete axios.defaults.headers.common["Authorization"];
+        location.reload();
         Popup({
           title: "Success!",
           text: "You have successfully logged out!",
@@ -154,20 +164,12 @@ const Navbar = ({ userKind }) => {
           showConfirmButton: false,
         });
         setTimeout(() => {
+          
           navigate('/login');
         }, 1500);
-      } else {
-        Popup({
-          title: "Error!",
-          text:
-            "An error occurred while trying to log out. Please try again. Error: " +
-            res.data,
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-      }
-    } catch (err) {
+      } 
+    }
+    catch (err) {
       console.log(err);
       Popup({
         title: "Error!",

@@ -73,7 +73,7 @@ function Applications() {
       <div className="grid grid-cols-1 grid-rows-1">
         <Navbar isAuthenticated={true} userKind="admin" />
         <div className="min-h-fit justify-center relative overflow-hidden transition-all duration-300 ease-in-out xl:mx-36 lg:mx-24">
-          <div className="grid grid-cols-1 gap-2 sm:pt-24 pt-36 md:pl-0 mx-8 lg:mx-auto flex lg:flex-row flex-col items-center">
+          <div className="grid grid-cols-1 gap-2  sm:pt-24 pt-36  md:pl-0 mx-8 lg:mx-auto flex lg:flex-row flex-col items-center">
             <Table
               header={headerText}
               subHeader={subHeaderText}

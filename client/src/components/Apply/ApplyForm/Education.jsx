@@ -3,8 +3,9 @@ import { useState, useEffect } from "react";
 import RadioButton from "../ApplyRadio";
 import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
+import axios from "axios";
 
-function PersonalDetails() {
+function Education() {
   // State variable for selected value
   const [education, setEducation] = useState("");
 
@@ -21,7 +22,8 @@ function PersonalDetails() {
   const [degreeYear, setDegreeYear] = useState("");
   const [thesisTitle, setThesisTitle] = useState("");
   const [dissertationTitle, setDissertationTitle] = useState("");
-
+ 
+ 
   // Function to handle change event
   const handleChange = (e) => {
     setEducation(e.target.value);
@@ -35,6 +37,46 @@ function PersonalDetails() {
       setShowInputs(false);
     }
   }, [education]);
+  
+  const handleEducation = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post("http://localhost:8080/api/education", {
+        education,
+        schoolName,
+        schoolLocation,
+        graduationYear,
+        universityName,
+        universityLocation,
+        degreeName,
+        degreeYear,
+        thesisTitle,
+        dissertationTitle,
+      }
+      
+      );
+      // console.log(response);
+      // setEducation([...education,response.education]);
+      // console.log(response);
+      // Popup({
+      //   title: "Success!",
+      //   text: "You have successfully added your education!",
+      //   icon: "success",
+      //   timer: 1500,
+      //   showConfirmButton: false,
+      // });
+    } catch (error) {
+      console.log("There was an error!", error);
+      // Popup({
+      //   title: "Error!",
+      //   text: "There was an error adding your education.",
+      //   icon: "error",
+      //   timer: 1500,
+      //   showConfirmButton: false,
+      // });
+    }
+  };
+
 
   return (
     <div className="md:grid grid-cols-12 gap-3 pb-4 w-3/4 mx-auto ">
@@ -234,8 +276,8 @@ function PersonalDetails() {
             }
           })()}
           <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
-            <ApplyButton buttonName="Save" />
-            <ApplyButton buttonName="Cancel" />
+          <ApplyButton onClick={handleEducation} buttonName="Save" />
+            <ApplyButton onClick={() => window.location.reload()} buttonName="Cancel" />
           </div>
         </form>
       )}
@@ -243,4 +285,4 @@ function PersonalDetails() {
   );
 }
 
-export default PersonalDetails;
+export default Education;

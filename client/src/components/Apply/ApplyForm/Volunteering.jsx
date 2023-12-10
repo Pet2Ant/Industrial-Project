@@ -3,6 +3,8 @@ import { useState } from "react";
 import Input from "../ApplyInput";
 import "react-calendar/dist/Calendar.css";
 import Button from "../CalendarButton";
+import axios from "axios";
+import Popup from "../../Popup/Popup";
 
 function Volunteering() {
   const [volunteer, setVolunteer] = useState("");
@@ -20,6 +22,36 @@ function Volunteering() {
 
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
+  };
+
+  const handleVolunteering = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post(
+        "http://localhost:8080/api/volunteering",
+        {
+          volunteer,
+          dateRange,
+        }
+      );
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your volunteering work!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your volunteering work.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
   };
 
   return (
@@ -65,7 +97,9 @@ function Volunteering() {
             />
           </div>
         )}
-        {dateRange[0] && dateRange[1] && <Button buttonName={"Add"} />}
+        {dateRange[0] && dateRange[1] && (
+          <Button handleCalendar={handleVolunteering} buttonName={"Add"} />
+        )}
       </div>
     </div>
   );
