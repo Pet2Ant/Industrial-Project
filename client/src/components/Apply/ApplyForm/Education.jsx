@@ -41,67 +41,29 @@ function Education() {
   
   const handleEducation = async (e) => {
     e.preventDefault();
-    if (education === "High School") {
-      if (!schoolName || !schoolLocation || !graduationYear) {
-        Popup({
-          title: "Error!",
-          text: "Please fill in all the required fields.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        return;
-      }
-    } else if (education === "Bachelor's Degree") {
-      if (
-        !universityName ||
-        !universityLocation ||
-        !degreeName ||
-        !degreeYear
-      ) {
-        Popup({
-          title: "Error!",
-          text: "Please fill in all the required fields.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        return;
-      }
+    function showErrorPopup() {
+      Popup({
+        title: "Error!",
+        text: "Please fill in all the required fields.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
-    else if (education === "Master's Degree") {
-      if (
-        !universityName ||
-        !universityLocation ||
-        !degreeName ||
-        !degreeYear ||
-        !thesisTitle
-      ) {
-        Popup({
-          title: "Error!",
-          text: "Please fill in all the required fields.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
-        return;
-      }
-    }
-    else if (education === "PhD") {
-      if (
-        !universityName ||
-        !universityLocation ||
-        !degreeName ||
-        !degreeYear ||
-        !dissertationTitle
-      ) {
-        Popup({
-          title: "Error!",
-          text: "Please fill in all the required fields.",
-          icon: "error",
-          timer: 1500,
-          showConfirmButton: false,
-        });
+    
+    const educationFields = {
+      "High School": ["schoolName", "schoolLocation", "graduationYear"],
+      "Bachelor's Degree": ["universityName", "universityLocation", "degreeName", "degreeYear"],
+      "Master's Degree": ["universityName", "universityLocation", "degreeName", "degreeYear", "thesisTitle"],
+      "PhD": ["universityName", "universityLocation", "degreeName", "degreeYear", "dissertationTitle"],
+    };
+    
+    const requiredFields = educationFields[education];
+    
+    if (requiredFields) {
+      const missingField = requiredFields.find(field => !eval(field));
+      if (missingField) {
+        showErrorPopup();
         return;
       }
     }

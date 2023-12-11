@@ -28,6 +28,16 @@ function WorkPage() {
 
   const handleWork = async (e) => {
     e.preventDefault();
+    if (responsibilities.length < 3) {
+      Popup({
+        title: "Error!",
+        text: "Please fill in your work responsibilities.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8080/api/work", {
         workPlace,
@@ -97,7 +107,7 @@ function WorkPage() {
           </div>
         )}
 
-        {dateRange[0] && dateRange[1] && (
+        {dateRange[0] && dateRange[1] && workPlace.length >= 3 && (
           <div>
             <h2 className="text-xl font-bold text-center mt-8 mb-4">
               Please provide more details about your work experience
