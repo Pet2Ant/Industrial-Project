@@ -31,7 +31,8 @@ function WorkPage() {
     try {
       const response = await axios.post("http://localhost:8080/api/work", {
         workPlace,
-        dateRange,
+        startDate: dateRange[0],
+        endDate: dateRange[1],
         experience,
         responsibilities,
       });

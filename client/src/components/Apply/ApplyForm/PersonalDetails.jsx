@@ -4,8 +4,9 @@ import ApplyInput from "../ApplyInput";
 import ApplyButton from "../ApplyButton";
 import axios from "axios";
 import Popup from "../../Popup/Popup";
+import { COUNTRIES } from "./Countries/countries";
 
-function PersonalDetails({setIsLoading}) {
+function PersonalDetails({ setIsLoading }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
@@ -16,22 +17,62 @@ function PersonalDetails({setIsLoading}) {
   const [education, setEducation] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  const phoneRegex = /^\d{10}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
   useEffect(() => {
-    setIsAuthenticated(!!localStorage.getItem('token'));
+    setIsAuthenticated(!!localStorage.getItem("token"));
   }, []);
 
   const handlePersonalDetails = async (e) => {
     e.preventDefault();
-    if (!firstName || !lastName || !country || !city || !email || !phone) {
+    function showErrorPopup(title, text) {
       Popup({
         title: "Error!",
-        text: "Please fill in all the required fields.",
+        text,
         icon: "error",
         timer: 1500,
         showConfirmButton: false,
       });
+    }
+
+    if (!firstName || !lastName || !country || !city || !email || !phone) {
+      showErrorPopup("Error!", "Please fill in all the required fields.");
       return;
     }
+
+    if (firstName.length < 2 || lastName.length < 2) {
+      showErrorPopup("Error!", "Please enter a valid name.");
+      return;
+    }
+
+    const validCountry =
+      COUNTRIES.filter(
+        (countryObj) => countryObj.title.toLowerCase() === country.toLowerCase()
+      ).length < 1 || country.length < 3
+        ? false
+        : true;
+
+    if (!validCountry) {
+      showErrorPopup("Error!", "Please enter a valid country.");
+      return;
+    }
+
+    if (city.length < 3) {
+      showErrorPopup("Error!", "Please enter a valid city.");
+      return;
+    }
+
+    if (!phoneRegex.test(phone)) {
+      showErrorPopup("Error!", "Please enter a valid phone number.");
+      return;
+    }
+
+    if (!emailRegex.test(email)) {
+      showErrorPopup("Error!", "Please enter a valid email address.");
+      return;
+    }
+
     try {
       const response = await axios.post(
         "http://localhost:8080/api/personalDetails",
@@ -137,7 +178,10 @@ function PersonalDetails({setIsLoading}) {
       </div>
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
         <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
-        <ApplyButton onClick={() => window.location.reload()} buttonName="Cancel" />
+        <ApplyButton
+          onClick={() => window.location.reload()}
+          buttonName="Cancel"
+        />
       </div>
     </form>
   );
