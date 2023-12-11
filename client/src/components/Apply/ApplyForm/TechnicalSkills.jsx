@@ -8,12 +8,25 @@ import Popup from "../../Popup/Popup";
 function TechnicalSkills() {
   const [technicalSkills, setTechnicalSkills] = useState("");
 
-  const handleTechnicalSkills = (e) => {
+  const handleTechnicalSkills = async (e) => {
     e.preventDefault();
     try {
-      const response = axios.post("http://localhost:8080/api/technicalSkills", {
-        technicalSkills,
-      });
+      if (technicalSkills.length < 3) {
+        Popup({
+          title: "Error!",
+          text: "Please fill in your technical skills.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        return;
+      }
+      const response = await axios.post(
+        "http://localhost:8080/api/technicalSkills",
+        {
+          skills: technicalSkills,
+        }
+      );
       console.log(response);
       Popup({
         title: "Success!",
@@ -22,7 +35,8 @@ function TechnicalSkills() {
         timer: 1500,
         showConfirmButton: false,
       });
-    } catch (error) {
+    }
+    catch (error) {
       console.log("There was an error!", error);
       Popup({
         title: "Error!",
@@ -32,7 +46,7 @@ function TechnicalSkills() {
         showConfirmButton: false,
       });
     }
-  };
+  }
 
   return (
     <>
@@ -47,7 +61,7 @@ function TechnicalSkills() {
           type="text"
           id="technicalSkills"
         />
-        <Button handleCalendar={handleTechnicalSkills} buttonName={"Add"} />
+        <Button onClick={handleTechnicalSkills} buttonName={"Add"} />
       </form>
     </>
   );

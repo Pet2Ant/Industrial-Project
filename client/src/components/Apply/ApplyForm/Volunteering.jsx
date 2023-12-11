@@ -30,8 +30,9 @@ function Volunteering() {
       const response = await axios.post(
         "http://localhost:8080/api/volunteering",
         {
-          volunteer,
-          dateRange,
+          volunteer_work: volunteer,
+          start_date: dateRange[0],
+          end_date: dateRange[1],
         }
       );
       console.log(response);
