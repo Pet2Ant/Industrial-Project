@@ -150,7 +150,7 @@ function Register({setIsLoading}) {
               setName={setConfirmPassword}
               placeholder="Confirm your Password"
               type="password"
-              iconName="IoLockClosed"
+              iconName="IoLockClosedSharp"
               id="confirmPassword"
             />
           </div>
