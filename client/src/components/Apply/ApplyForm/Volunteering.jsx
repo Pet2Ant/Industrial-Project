@@ -31,8 +31,8 @@ function Volunteering() {
         "http://localhost:8080/api/volunteering",
         {
           volunteer_work: volunteer,
-          start_date: dateRange[0],
-          end_date: dateRange[1],
+          startDate: dateRange[0],
+          endDate: dateRange[1],
         }
       );
       console.log(response);
@@ -99,7 +99,7 @@ function Volunteering() {
           </div>
         )}
         {dateRange[0] && dateRange[1] && (
-          <Button handleCalendar={handleVolunteering} buttonName={"Add"} />
+          <Button onClick={handleVolunteering} buttonName={"Add"} />
         )}
       </div>
     </div>
