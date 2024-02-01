@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import Table from "./ApplicationTable/ApplicationsTable";
-import dataJSON from "./ApplicationTable/mockData.json";
+import axios from "axios";
+import Popup from "../Popup/Popup";
 import EditPopup from "./EditPopup";
 
 function Applications() {
@@ -10,37 +11,91 @@ function Applications() {
   const [subHeaderText, setSubHeaderText] = useState(
     "Here you can view all the applications that each user has submitted."
   );
+  const [userId, setUserId] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("");
+  const [education, setEducation] = useState("");
+  const [email, setEmail] = useState("");
 
-  const data = dataJSON;
+  const data = [
+    {
+      userId,
+      firstName,
+      lastName,
+      country,
+      education,
+      email,
+    },
+  ];
+  
+const handlePersonalDetails = async (e) => {
 
-  // Get an array of first names
-  const firstNames = data.map((row) => row.first_name);
-
+  e.preventDefault();
+  try {
+    console.log("Adding personal details...");
+    const response = await axios.get(
+      "http://localhost:8080/api/personalDetails",
+      {
+        userId,
+        firstName,
+        lastName,
+        email,
+        education,
+        country,
+      }
+    );
+    const data =  response.data;
+    setUserId(data.userId);
+    setFirstName(data.firstName);
+    setLastName(data.lastName);
+    setCountry(data.country);
+    setEducation(data.education);
+    setEmail(data.email);
+    console.log(data);
+  
+    
+  } catch (error) {
+    console.log("There was an error!", error);
+    Popup({
+      title: "Error!",
+      text: "There was an error adding your personal details.",
+      icon: "error",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  
+    console.log(error);
+    Popup({
+      title: "Success!",
+      text: "You have successfully added your personal details!",
+      icon: "success",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
+};
+  
   // Table columns
   const columns = [
     {
       name: "ID",
-      selector: (row) => row.id,
+      selector: (row) => row.userId,
       sortable: true,
     },
     {
       name: "Name",
-      selector: (row) => row.first_name + " " + row.last_name,
+      selector: (row) => row.firstName + " " + row.lastName,
       sortable: true,
     },
     {
-      name: "Pronouns",
-      selector: (row) => row.pronouns,
-      sortable: true,
-    },
-    {
-      name: "Age",
-      selector: (row) => row.age,
+      name: "Country",
+      selector: (row) => row.country,
       sortable: true,
     },
     {
       name: "Education Level",
-      selector: (row) => row.education_level,
+      selector: (row) => row.education,
       sortable: true,
     },
     {
@@ -48,16 +103,12 @@ function Applications() {
       selector: (row) => row.email,
       sortable: true,
     },
-    {
-      name: "Interests",
-      selector: (row) => row.interests,
-      sortable: true,
-    },
+   
     {
       cell: (row) => (
         <EditPopup
-          firstName={row.first_name} // Pass the first name as a prop
-          lastName={row.last_name}
+          firstName={row.firstName} // Pass the first name as a prop
+          lastName={row.lastName}
           pronouns={row.pronouns}
           age={row.age}
           educationLevel={row.education_level}
@@ -84,8 +135,10 @@ function Applications() {
           </div>
         </div>
       </div>
+      <button onClick={handlePersonalDetails}>Add Personal Details</button>
     </div>
   );
 }
+
 
 export default Applications;

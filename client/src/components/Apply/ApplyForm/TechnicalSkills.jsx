@@ -24,7 +24,7 @@ function TechnicalSkills() {
       const response = axios.post(
         "http://localhost:8080/api/technicalSkills",
         {
-          skills: technicalSkills,
+          technicalSkills,
         }
       );
       console.log(response);
