@@ -8,6 +8,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/personalDetails")
@@ -30,5 +33,10 @@ public class PersonalDetailsController {
         personalDetails.setUserId(userId);
         PersonalDetails savedPersonalDetails = personalDetailsService.savePersonalDetails(personalDetails);
         return new ResponseEntity<>(savedPersonalDetails, HttpStatus.CREATED);
+    }
+    @GetMapping
+    public ResponseEntity<List<PersonalDetails>> getPersonalDetails(){
+        List<PersonalDetails> personalDetails = personalDetailsService.getPersonalDetails();
+        return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
 }

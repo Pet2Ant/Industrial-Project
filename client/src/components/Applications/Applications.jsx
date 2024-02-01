@@ -1,81 +1,67 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Table from "./ApplicationTable/ApplicationsTable";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import EditPopup from "./EditPopup";
 
-function Applications() {
+const Applications = () => {
   const currentUser = "admin";
   const [headerText, setHeaderText] = useState("Applications");
   const [subHeaderText, setSubHeaderText] = useState(
     "Here you can view all the applications that each user has submitted."
   );
-  const [userId, setUserId] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [country, setCountry] = useState("");
-  const [education, setEducation] = useState("");
-  const [email, setEmail] = useState("");
-
-  const data = [
-    {
-      userId,
-      firstName,
-      lastName,
-      country,
-      education,
-      email,
-    },
-  ];
+  const [data, setData] = useState([]);
+  const [personalDetails, setPersonalDetails] = useState({
+    userId: "",
+    firstName: "",
+    lastName: "",
+    country: "",
+    education: "",
+    email: "",
+  });
   
-const handlePersonalDetails = async (e) => {
+  useEffect(() => {
+    handlePersonalDetails();
+  }, []);
 
-  e.preventDefault();
-  try {
-    console.log("Adding personal details...");
-    const response = await axios.get(
-      "http://localhost:8080/api/personalDetails",
-      {
-        userId,
-        firstName,
-        lastName,
-        email,
-        education,
-        country,
-      }
-    );
-    const data =  response.data;
-    setUserId(data.userId);
-    setFirstName(data.firstName);
-    setLastName(data.lastName);
-    setCountry(data.country);
-    setEducation(data.education);
-    setEmail(data.email);
+  const handlePersonalDetails = async (e) => {
+    if(e) e.preventDefault();
+    try {
+      console.log("Adding personal details...");
+      const response = await axios.get(
+        "http://localhost:8080/api/personalDetails",
+        {
+          params: personalDetails,
+        }
+      );
+      const details = response.data;
+      const newData = details.map((detail) => ({
+        userId: detail.userId,
+        firstName: detail.firstName,
+        lastName: detail.lastName,
+        country: detail.country,
+        education: detail.education,
+        email: detail.email,
+      }));
+      setData(newData);
+      console.log(newData);
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your personal details.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
+  
+
+  
     console.log(data);
-  
     
-  } catch (error) {
-    console.log("There was an error!", error);
-    Popup({
-      title: "Error!",
-      text: "There was an error adding your personal details.",
-      icon: "error",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-  
-    console.log(error);
-    Popup({
-      title: "Success!",
-      text: "You have successfully added your personal details!",
-      icon: "success",
-      timer: 1500,
-      showConfirmButton: false,
-    });
-  }
-};
-  
   // Table columns
   const columns = [
     {
@@ -85,7 +71,8 @@ const handlePersonalDetails = async (e) => {
     },
     {
       name: "Name",
-      selector: (row) => row.firstName + " " + row.lastName,
+      selector: (row) =>
+      row.firstName + " " + row.lastName,
       sortable: true,
     },
     {
@@ -103,7 +90,6 @@ const handlePersonalDetails = async (e) => {
       selector: (row) => row.email,
       sortable: true,
     },
-   
     {
       cell: (row) => (
         <EditPopup
@@ -117,7 +103,7 @@ const handlePersonalDetails = async (e) => {
         />
       ),
     },
-  ];
+  ];  
 
   return (
     <div className="min-h-screen bg-[#e5e5e5]">

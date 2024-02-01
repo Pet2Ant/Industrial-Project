@@ -128,6 +128,7 @@ const Table = ({ header, subHeader, data, columns, pagination }) => {
               }
               columns={columns}
               data={customFilter(paginatedData, searchText)}
+              // data={data}
               customStyles={customStyles}
               theme="WeLeadTheme"
             />

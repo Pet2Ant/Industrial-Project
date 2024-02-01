@@ -1,5 +1,6 @@
 package com.example.demo.Services;
 
+import com.example.demo.Models.Volunteering;
 import com.example.demo.Models.Work;
 import com.example.demo.Repository.WorkRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,4 +18,8 @@ public class WorkService {
     public Work saveWork(Work work) {
         return workRepository.save(work);
     }
+    public Work getVolunteering(Long id){
+        return workRepository.findById(id).orElseThrow(() -> new RuntimeException("Work experience not found"));
+    }
+
 }
