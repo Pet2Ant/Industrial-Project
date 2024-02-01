@@ -1,46 +1,88 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from "../Navbar/Navbar";
 import Table from "./ApplicationTable/ApplicationsTable";
-import dataJSON from "./ApplicationTable/mockData.json";
+import axios from "axios";
+import Popup from "../Popup/Popup";
 import EditPopup from "./EditPopup";
 
-function Applications() {
+const Applications = () => {
   const currentUser = "admin";
   const [headerText, setHeaderText] = useState("Applications");
   const [subHeaderText, setSubHeaderText] = useState(
     "Here you can view all the applications that each user has submitted."
   );
+  const [data, setData] = useState([]);
+  const [personalDetails, setPersonalDetails] = useState({
+    userId: "",
+    firstName: "",
+    lastName: "",
+    country: "",
+    education: "",
+    email: "",
+  });
+  
+  useEffect(() => {
+    handlePersonalDetails();
+  }, []);
 
-  const data = dataJSON;
+  const handlePersonalDetails = async (e) => {
+    if(e) e.preventDefault();
+    try {
+      console.log("Adding personal details...");
+      const response = await axios.get(
+        "http://localhost:8080/api/personalDetails",
+        {
+          params: personalDetails,
+        }
+      );
+      const details = response.data;
+      const newData = details.map((detail) => ({
+        userId: detail.userId,
+        firstName: detail.firstName,
+        lastName: detail.lastName,
+        country: detail.country,
+        education: detail.education,
+        email: detail.email,
+      }));
+      setData(newData);
+      console.log(newData);
+    } catch (error) {
+      console.log("There was an error!", error);
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your personal details.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
+  
 
-  // Get an array of first names
-  const firstNames = data.map((row) => row.first_name);
-
+  
+    console.log(data);
+    
   // Table columns
   const columns = [
     {
       name: "ID",
-      selector: (row) => row.id,
+      selector: (row) => row.userId,
       sortable: true,
     },
     {
       name: "Name",
-      selector: (row) => row.first_name + " " + row.last_name,
+      selector: (row) =>
+      row.firstName + " " + row.lastName,
       sortable: true,
     },
     {
-      name: "Pronouns",
-      selector: (row) => row.pronouns,
-      sortable: true,
-    },
-    {
-      name: "Age",
-      selector: (row) => row.age,
+      name: "Country",
+      selector: (row) => row.country,
       sortable: true,
     },
     {
       name: "Education Level",
-      selector: (row) => row.education_level,
+      selector: (row) => row.education,
       sortable: true,
     },
     {
@@ -49,15 +91,10 @@ function Applications() {
       sortable: true,
     },
     {
-      name: "Interests",
-      selector: (row) => row.interests,
-      sortable: true,
-    },
-    {
       cell: (row) => (
         <EditPopup
-          firstName={row.first_name} // Pass the first name as a prop
-          lastName={row.last_name}
+          firstName={row.firstName} // Pass the first name as a prop
+          lastName={row.lastName}
           pronouns={row.pronouns}
           age={row.age}
           educationLevel={row.education_level}
@@ -66,7 +103,7 @@ function Applications() {
         />
       ),
     },
-  ];
+  ];  
 
   return (
     <div className="min-h-screen bg-[#e5e5e5]">
@@ -84,8 +121,10 @@ function Applications() {
           </div>
         </div>
       </div>
+      <button onClick={handlePersonalDetails}>Add Personal Details</button>
     </div>
   );
 }
+
 
 export default Applications;
