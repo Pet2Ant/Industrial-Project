@@ -24,11 +24,13 @@ public class VolunteeringController {
     }
 
     @PostMapping
-    public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering volunteering, @RequestHeader("Authorization") String token) {
+    public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering volunteer, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
-        volunteering.setUserId(userId);
-        Volunteering savedVolunteering = volunteeringService.saveVolunteering(volunteering);
+        volunteer.setUserId(userId);
+        System.out.println(" i was here ");
+        Volunteering savedVolunteering = volunteeringService.saveVolunteering(volunteer);
+        System.out.println(" I saved here ");
         return new ResponseEntity<>(savedVolunteering, HttpStatus.CREATED);
     }
 }

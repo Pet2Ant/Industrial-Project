@@ -1,5 +1,4 @@
 package com.example.demo.Controllers;
-
 import com.example.demo.Models.Work;
 import com.example.demo.Services.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +27,7 @@ public class WorkController {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
         work.setUserId(userId);
+
         Work savedWork = workService.saveWork(work);
         return new ResponseEntity<>(savedWork, HttpStatus.CREATED);
     }
