@@ -15,8 +15,8 @@ public class Education {
     @Column(name ="user_id")
     private Long userId;
 
-    @Column(name = "education_level")
-    private String educationLevel;
+    @Column(name = "education")
+    private String education;
 
     @Column(name = "school_name")
     private String schoolName;
