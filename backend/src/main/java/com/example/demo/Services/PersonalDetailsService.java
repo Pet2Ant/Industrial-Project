@@ -5,6 +5,8 @@ import com.example.demo.Repository.PersonalDetailsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class PersonalDetailsService {
 
@@ -17,5 +19,8 @@ public class PersonalDetailsService {
 
     public PersonalDetails savePersonalDetails(PersonalDetails personalDetails) {
         return personalDetailsRepository.save(personalDetails);
+    }
+    public List<PersonalDetails> getPersonalDetails(){
+        return personalDetailsRepository.findAll();
     }
 }
