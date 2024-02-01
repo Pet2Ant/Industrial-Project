@@ -10,7 +10,8 @@ function SeminarsPage() {
   const [seminar, setSeminar] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const startDate = dateRange[0];
+  const endDate = dateRange[1];
   const handleInputChange = (event) => {
     setSeminar(event.target.value);
     if (event.target.value.length > 0) {
@@ -29,7 +30,8 @@ function SeminarsPage() {
     try {
       const response = await axios.post("http://localhost:8080/api/seminars", {
         seminar,
-        dateRange,
+        startDate,
+        endDate,
       });
       console.log(response);
       Popup({
@@ -94,7 +96,7 @@ function SeminarsPage() {
             />
           </div>
         )}
-        {dateRange[0] && dateRange[1] && (
+        {startDate && endDate && (
           <Button onClick={handleSeminars} buttonName={"Add"} />
         )}
       </form>

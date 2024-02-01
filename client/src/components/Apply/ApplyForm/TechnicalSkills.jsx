@@ -7,7 +7,7 @@ import Popup from "../../Popup/Popup";
 
 function TechnicalSkills() {
   const [technicalSkills, setTechnicalSkills] = useState("");
-
+  
   const handleTechnicalSkills = (e) => {
     e.preventDefault();
     try {
@@ -47,7 +47,7 @@ function TechnicalSkills() {
           type="text"
           id="technicalSkills"
         />
-        <Button handleCalendar={handleTechnicalSkills} buttonName={"Add"} />
+        <Button onClick={handleTechnicalSkills} buttonName={"Add"} />
       </form>
     </>
   );

@@ -24,7 +24,7 @@ function PersonalDetails({setIsLoading}) {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8080/api/PersonalDetails",
+        "http://localhost:8080/api/personalDetails",
         {
           firstName,
           lastName,
