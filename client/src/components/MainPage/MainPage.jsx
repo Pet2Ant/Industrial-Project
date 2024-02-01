@@ -13,7 +13,7 @@ function MainPage() {
     : isAuthenticated = true;
   console.log(isAuthenticated);
   //commit
-  const currentUser = userKind[1];
+  const currentUser = userKind[2];
   return (
     <div className="w-screen h-screen">
       <Navbar isAuthenticated={isAuthenticated} userKind={currentUser} />
