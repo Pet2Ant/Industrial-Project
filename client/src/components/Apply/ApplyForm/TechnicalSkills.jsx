@@ -7,8 +7,8 @@ import Popup from "../../Popup/Popup";
 
 function TechnicalSkills() {
   const [technicalSkills, setTechnicalSkills] = useState("");
-
-  const handleTechnicalSkills = async (e) => {
+  
+  const handleTechnicalSkills = (e) => {
     e.preventDefault();
     try {
       if (technicalSkills.length < 3) {
@@ -21,7 +21,7 @@ function TechnicalSkills() {
         });
         return;
       }
-      const response = await axios.post(
+      const response = axios.post(
         "http://localhost:8080/api/technicalSkills",
         {
           skills: technicalSkills,

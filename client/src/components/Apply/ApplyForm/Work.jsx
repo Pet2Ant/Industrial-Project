@@ -12,7 +12,8 @@ function WorkPage() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [experience, setExperience] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
-
+  const startDate = dateRange[0];
+  const endDate = dateRange[1];
   const handleInputChange = (event) => {
     setWorkPlace(event.target.value);
     if (event.target.value.length >= 3) {
@@ -41,8 +42,8 @@ function WorkPage() {
     try {
       const response = await axios.post("http://localhost:8080/api/work", {
         workPlace,
-        startDate: dateRange[0],
-        endDate: dateRange[1],
+        startDate,
+        endDate,
         experience,
         responsibilities,
       });

@@ -10,7 +10,8 @@ function Volunteering() {
   const [volunteer, setVolunteer] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
-
+  const startDate = dateRange[0];
+  const endDate = dateRange[1];
   const handleInputChange = (event) => {
     setVolunteer(event.target.value);
     if (event.target.value.length > 0) {
@@ -26,13 +27,13 @@ function Volunteering() {
 
   const handleVolunteering = async (e) => {
     e.preventDefault();
-    try {
+    try {      
       const response = await axios.post(
         "http://localhost:8080/api/volunteering",
         {
-          volunteer_work: volunteer,
-          startDate: dateRange[0],
-          endDate: dateRange[1],
+          volunteer,
+          startDate,
+          endDate,
         }
       );
       console.log(response);
@@ -43,6 +44,7 @@ function Volunteering() {
         timer: 1500,
         showConfirmButton: false,
       });
+      console.log(volunteer, dateRange);
     } catch (error) {
       console.log("There was an error!", error);
       Popup({
@@ -98,7 +100,7 @@ function Volunteering() {
             />
           </div>
         )}
-        {dateRange[0] && dateRange[1] && (
+        {startDate && endDate && (
           <Button onClick={handleVolunteering} buttonName={"Add"} />
         )}
       </div>
