@@ -17,6 +17,9 @@ public class HobbiesService {
     public Hobbies saveHobbies(Hobbies hobbies) {
         return hobbiesRepository.save(hobbies);
     }
+    public Hobbies getHobbiesById(Long id) {
+        return hobbiesRepository.findById(id).orElseThrow(() -> new RuntimeException("Hobbies not found"));
+    }
 
 
 }

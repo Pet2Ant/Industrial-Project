@@ -32,5 +32,10 @@ public class SeminarsController {
         Seminars savedSeminars = seminarsService.saveSeminars(seminars);
         return new ResponseEntity<>(savedSeminars, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Seminars> getSeminarsById(@PathVariable Long id){
+        Seminars seminars = seminarsService.getSeminarsById(id);
+        return new ResponseEntity<>(seminars, HttpStatus.OK);
+    }
 
 }

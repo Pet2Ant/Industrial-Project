@@ -30,4 +30,9 @@ public class EducationController {
         Education savedEducation = educationService.saveEducation(education);
         return new ResponseEntity<>(savedEducation, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Education> getEducationById(@PathVariable Long id){
+        Education education = educationService.getEducationById(id);
+        return new ResponseEntity<>(education, HttpStatus.OK);
+    }
 }

@@ -32,5 +32,10 @@ public class TechnicalSkillsController {
         TechnicalSkills savedTechnicalSkills = technicalSkillsService.saveTechnicalSkills(technicalSkills);
         return new ResponseEntity<>(savedTechnicalSkills, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<TechnicalSkills> getTechnicalSkillsById(@PathVariable Long id){
+        TechnicalSkills technicalSkills = technicalSkillsService.getTechnicalSkillsById(id);
+        return new ResponseEntity<>(technicalSkills, HttpStatus.OK);
+    }
 }
 

@@ -16,5 +16,8 @@ public class SeminarsService {
     public Seminars saveSeminars(Seminars seminars) {
         return seminarsRepository.save(seminars);
     }
+    public Seminars getSeminarsById(Long id) {
+        return seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+    }
 
 }

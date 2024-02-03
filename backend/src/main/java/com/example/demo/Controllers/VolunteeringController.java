@@ -33,9 +33,10 @@ public class VolunteeringController {
         System.out.println(" I saved here ");
         return new ResponseEntity<>(savedVolunteering, HttpStatus.CREATED);
     }
-    @GetMapping
-    public ResponseEntity<Volunteering> getVolunteering(@RequestBody Long id){
-        Volunteering volunteering = volunteeringService.getVolunteering(id);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Volunteering> getVolunteeringById(@PathVariable Long id){
+        Volunteering volunteering = volunteeringService.getVolunteeringById(id);
         return new ResponseEntity<>(volunteering, HttpStatus.OK);
     }
 }

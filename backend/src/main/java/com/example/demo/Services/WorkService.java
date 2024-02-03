@@ -18,8 +18,9 @@ public class WorkService {
     public Work saveWork(Work work) {
         return workRepository.save(work);
     }
-    public Work getVolunteering(Long id){
-        return workRepository.findById(id).orElseThrow(() -> new RuntimeException("Work experience not found"));
+    public Work getWorkById(Long id) {
+        return workRepository.findById(id).orElseThrow(() -> new RuntimeException("Work details not found"));
     }
+
 
 }

@@ -31,4 +31,9 @@ public class WorkController {
         Work savedWork = workService.saveWork(work);
         return new ResponseEntity<>(savedWork, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Work> getWorkById(@PathVariable Long id){
+        Work work = workService.getWorkById(id);
+        return new ResponseEntity<>(work, HttpStatus.OK);
+    }
 }
