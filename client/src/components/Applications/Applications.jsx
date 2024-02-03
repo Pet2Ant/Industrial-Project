@@ -95,11 +95,10 @@ const Applications = () => {
         <EditPopup
           firstName={row.firstName} // Pass the first name as a prop
           lastName={row.lastName}
-          pronouns={row.pronouns}
-          age={row.age}
-          educationLevel={row.education_level}
+          country={row.country}
+          id={row.userId}
+          educationLevel={row.education}
           email={row.email}
-          interests={row.interests}
         />
       ),
     },
