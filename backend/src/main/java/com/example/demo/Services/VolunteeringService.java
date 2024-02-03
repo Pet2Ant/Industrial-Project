@@ -18,4 +18,9 @@ public class VolunteeringService {
     {
         return volunteeringRepository.save(volunteering);
     }
+    //get volunteering by id
+    public Volunteering getVolunteering(Long id){
+        return volunteeringRepository.findById(id).orElseThrow(() -> new RuntimeException("Volunteer not found"));
+    }
+
 }
