@@ -39,4 +39,9 @@ public class PersonalDetailsController {
         List<PersonalDetails> personalDetails = personalDetailsService.getPersonalDetails();
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonalDetails> getPersonalDetailsById(@PathVariable Long id){
+        PersonalDetails personalDetails = personalDetailsService.getPersonalDetailsById(id);
+        return new ResponseEntity<>(personalDetails, HttpStatus.OK);
+    }
 }

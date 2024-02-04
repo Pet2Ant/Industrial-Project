@@ -17,4 +17,8 @@ public class EducationService {
     public Education saveEducation(Education education) {
         return educationRepository.save(education);
     }
+    public Education getEducationById(Long id) {
+        return educationRepository.findById(id).orElseThrow(() -> new RuntimeException("Education details not found"));
+    }
+
 }

@@ -31,5 +31,10 @@ public class HobbiesController {
         Hobbies savedHobbies = hobbiesService.saveHobbies(hobbies);
         return new ResponseEntity<>(savedHobbies, HttpStatus.CREATED);
     }
+    @GetMapping("/{id}")
+    public ResponseEntity<Hobbies> getHobbiesById(@PathVariable Long id){
+        Hobbies hobbies = hobbiesService.getHobbiesById(id);
+        return new ResponseEntity<>(hobbies, HttpStatus.OK);
+    }
 }
 

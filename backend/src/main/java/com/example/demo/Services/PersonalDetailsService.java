@@ -23,4 +23,7 @@ public class PersonalDetailsService {
     public List<PersonalDetails> getPersonalDetails(){
         return personalDetailsRepository.findAll();
     }
+    public PersonalDetails getPersonalDetailsById(Long id) {
+        return personalDetailsRepository.findById(id).orElseThrow(() -> new RuntimeException("Personal details not found"));
+    }
 }

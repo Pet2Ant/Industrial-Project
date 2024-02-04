@@ -17,5 +17,9 @@ public class TechnicalSkillsService {
         public TechnicalSkills saveTechnicalSkills(TechnicalSkills technicalSkills) {
             return technicalSkillsRepository.save(technicalSkills);
         }
+        public TechnicalSkills getTechnicalSkillsById(Long id) {
+            return technicalSkillsRepository.findById(id).orElseThrow(() -> new RuntimeException("Technical skills not found"));
+        }
+
 
 }
