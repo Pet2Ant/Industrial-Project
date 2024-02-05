@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.DTO.VolunteeringDTO;
 import com.example.demo.Models.Volunteering;
 import com.example.demo.Services.VolunteeringService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,9 +34,10 @@ public class VolunteeringController {
         System.out.println(" I saved here ");
         return new ResponseEntity<>(savedVolunteering, HttpStatus.CREATED);
     }
-    @GetMapping
-    public ResponseEntity<Volunteering> getVolunteering(@RequestBody Long id){
-        Volunteering volunteering = volunteeringService.getVolunteering(id);
+
+    @GetMapping("/{id}")
+    public ResponseEntity<VolunteeringDTO> getVolunteeringById(@PathVariable Long id){
+        VolunteeringDTO volunteering = volunteeringService.getVolunteeringById(id);
         return new ResponseEntity<>(volunteering, HttpStatus.OK);
     }
 }

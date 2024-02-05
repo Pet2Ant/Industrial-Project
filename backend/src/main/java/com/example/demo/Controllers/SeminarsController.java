@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.DTO.SeminarsDTO;
 import com.example.demo.Models.Seminars;
 import com.example.demo.Models.Work;
 import com.example.demo.Services.DataService;
@@ -31,6 +32,11 @@ public class SeminarsController {
         seminars.setUserId(userId);
         Seminars savedSeminars = seminarsService.saveSeminars(seminars);
         return new ResponseEntity<>(savedSeminars, HttpStatus.CREATED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<SeminarsDTO> getSeminarsById(@PathVariable Long id){
+        SeminarsDTO seminars = seminarsService.getSeminarsById(id);
+        return new ResponseEntity<>(seminars, HttpStatus.OK);
     }
 
 }

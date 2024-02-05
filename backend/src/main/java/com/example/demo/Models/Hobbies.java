@@ -11,10 +11,11 @@ public class Hobbies {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
+    @Column(name = "seminar_id")
+    private long seminarId;
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "hobbies", length = 2000) // Assuming hobbies can be quite long
     private String hobbies;
@@ -22,5 +23,4 @@ public class Hobbies {
     @Column(name = "achievements", length = 2000) // Assuming achievements can be quite long
     private String achievements;
 
-    // Getters and setters...
 }

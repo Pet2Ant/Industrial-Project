@@ -12,14 +12,15 @@ public class PersonalDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "first_name")
     private String firstName;
-
+    @Column(name = "seminar_id")
+    private long seminarId;
     @Column(name = "last_name")
     private String lastName;
 

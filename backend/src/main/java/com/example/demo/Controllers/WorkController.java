@@ -1,4 +1,5 @@
 package com.example.demo.Controllers;
+import com.example.demo.DTO.WorkDTO;
 import com.example.demo.Models.Work;
 import com.example.demo.Services.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,10 @@ public class WorkController {
 
         Work savedWork = workService.saveWork(work);
         return new ResponseEntity<>(savedWork, HttpStatus.CREATED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<WorkDTO> getWorkById(@PathVariable Long id){
+        WorkDTO work = workService.getWorkById(id);
+        return new ResponseEntity<>(work, HttpStatus.OK);
     }
 }

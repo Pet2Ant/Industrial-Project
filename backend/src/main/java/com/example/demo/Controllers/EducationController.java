@@ -1,4 +1,5 @@
 package com.example.demo.Controllers;
+import com.example.demo.DTO.EducationDTO;
 import com.example.demo.Services.DataService;
 import com.example.demo.Models.Education;
 import com.example.demo.Services.EducationService;
@@ -29,5 +30,10 @@ public class EducationController {
         education.setUserId(userId);
         Education savedEducation = educationService.saveEducation(education);
         return new ResponseEntity<>(savedEducation, HttpStatus.CREATED);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity<EducationDTO> getEducationById(@PathVariable Long id){
+        EducationDTO education = educationService.getEducationById(id);
+        return new ResponseEntity<>(education, HttpStatus.OK);
     }
 }
