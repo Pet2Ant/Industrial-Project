@@ -8,7 +8,7 @@ import Popup from "../Popup/Popup";
 const endpoints = ['personalDetails', 'education', 'hobbies', 'seminars', 'technicalSkills', 'volunteering', 'work'];
 function EditPopup({
   userId,
-  id,
+  seminarId,
 }) {
   const [headerText, setHeaderText] = useState("");
   const [serverResponse, setServerResponse] = useState(null);
@@ -18,9 +18,22 @@ function EditPopup({
     const endpoints = ['personalDetails', 'education', 'hobbies', 'seminars', 'technicalSkills', 'volunteering', 'work'];
     let data = {};
     Promise.all(endpoints.map(endpoint =>
-      axios.get(`http://localhost:8080/api/${endpoint}/${id}`)
+      axios.get(`http://localhost:8080/api/${endpoint}/${userId}/${seminarId}`)
         .then(response => {
-          data[endpoint] = response.data;
+          // if (['seminars', 'work', 'technicalSkills', 'volunteering', 'hobbies'].includes(endpoint)) {
+            // Convert each object in the array to a string
+            data[endpoint] = response.data
+            // .map(item => {
+            //   let itemStr = '';
+            //   for (let key in item) {
+            //     itemStr += `${key}: ${item[key]}\n`;
+            //   }
+            //   return itemStr.trim(); // remove trailing newline
+            // });
+          // } else {
+          //   data[endpoint] = response.data;
+          // }
+          console.log(data);
         })
     ))
       .then(() => {
@@ -41,10 +54,10 @@ function EditPopup({
 
   // ToDO - Add a comment box back end akoma yok, prepei n kanw k t submit handle kalitera st telos tou popup
 
-  function CommentBox({ id, detailId, onSubmit }) {
+  function CommentBox({ seminarId, detailId, onSubmit }) {
     const [comment, setComment] = useState("");
     const handleSubmit = () => {
-      onSubmit(id, detailId, comment);
+      onSubmit(seminarId, detailId, comment);
       setComment("");
     };
     return (
@@ -69,17 +82,16 @@ function EditPopup({
     'volunteering': 6,
     'work': 7
   };
-  function handleCommentSubmit(id, sectionId, comment) {
-    console.log(id, sectionId, comment);
-
-    let applicationId = id;
+  function handleCommentSubmit(seminarId, sectionId, comment) {
+    console.log(seminarId, sectionId, comment);
+    ;
     let section = sectionMap[sectionId];
     let date = new Date();
     let dateString = date.toISOString().slice(0, 19);
     let token = localStorage.getItem('token');
     console.log(token);
     axios.post(`http://localhost:8080/api/comments`, {
-      applicationId,
+      seminarId,
       userId,
       comment,
       date: dateString,
@@ -103,7 +115,7 @@ function EditPopup({
         });
       });
   }
-  const commentSectionMap ={
+  const commentSectionMap = {
     1: 'personalDetails',
     2: 'education',
     3: 'hobbies',
@@ -113,13 +125,13 @@ function EditPopup({
     7: 'work'
   }
   const [commentsBySection, setCommentsBySection] = useState({});
-  const fetchComments = async (userId, applicationId) => {
+  const fetchComments = async (userId, seminarId) => {
     let token = localStorage.getItem('token');
-    console.log(`Fetching comments for userId=${userId}, applicationId=${applicationId}`);
+    console.log(`Fetching comments for userId=${userId}, applicationId=${seminarId}`);
     let response = await axios.get(`http://localhost:8080/api/comments`, {
       params: {
         userId,
-        applicationId,
+        seminarId,
       },
       headers: {
         Authorization: `Bearer ${token}`
@@ -131,26 +143,27 @@ function EditPopup({
       return;
     }
     console.log(`Fetched ${response.data.length} comments`);
+    console.log(response.data);
     let categorizedComments = {};
     response.data.forEach(comment => {
       let endpoint = commentSectionMap[comment.section];
       if (!categorizedComments[endpoint]) {
-          categorizedComments[endpoint] = [];
+        categorizedComments[endpoint] = [];
       }
       categorizedComments[endpoint].push(comment);
-  });
+    });
 
     setCommentsBySection(categorizedComments);
     console.log(categorizedComments);
-};
+  };
 
-useEffect(() => {
-  console.log('fetching comments');
-  endpoints.forEach(endpoint => {
-    fetchComments(userId, id, endpoint)
-      .catch(error => console.error(error));
-  });
-}, [userId, id]);
+  useEffect(() => {
+    console.log('fetching comments');
+    endpoints.forEach(endpoint => {
+      fetchComments(userId, seminarId, endpoint)
+        .catch(error => console.error(error));
+    });
+  }, [userId, seminarId]);
 
 
   const contentStyle = {
@@ -195,7 +208,7 @@ useEffect(() => {
               e.preventDefault();
             }}
             className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
-            <div className="flex flex-col justify-between mx-auto w-full break-words">
+            <div className="flex flex-col justify-between text-[#103022] text-lg font-light mr-4 mb-4 mx-auto w-full break-words">
               <h1 className="text-[#103022] text-xl font-semibold">
                 Server Response:
               </h1>
@@ -207,18 +220,28 @@ useEffect(() => {
                       <h2 className="text-[#103022] text-lg font-semibold mr-4 mb-4">
                         {endpointNames[endpoint]}:
                       </h2>
-                      {Object.entries(value).map(([subKey, subValue]) => (
-                        <p key={subKey} className="text-[#103022] text-lg font-light mr-4 mb-4">
-                          {`${subKey} ${subValue}`}
-                        </p>
+                     
+                      {Array.isArray(value) ? value.map((item, index) => (
+                        <div key={index}>
+                          {Object.entries(item).map(([subKey, subValue]) => (
+                            <div key={subKey}>
+                           <br />     {`${subKey}: ${subValue}`} <br />
+                            </div>
+                          ))}
+                        </div>
+                      )) : Object.entries(value).map(([subKey, subValue]) => (
+                        <div key={subKey}>
+                         {`${subKey} ${subValue}`} <br />
+                          
+                        </div>
                       ))}
                       {commentsBySection[endpoint] && commentsBySection[endpoint].map(comment => (
-                        
+
                         <p key={comment.id}>{comment.text}</p>
-                        
+
                       ))}
                       {/* TO DO comment section needs fixing from back end  */}
-                      <CommentBox id={id} detailId={endpoint} onSubmit={handleCommentSubmit} />
+                      <CommentBox seminarId={seminarId} detailId={endpoint} onSubmit={handleCommentSubmit} />
                     </div>
                   )
                 }
