@@ -7,10 +7,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public class SeminarsDTO {
-    @JsonProperty("Seminars: ")
-    private String seminars;
-    @JsonProperty("Start date: ")
+    @JsonProperty("Seminars")
+    private String seminar;
+    @JsonProperty("Start date")
     private String startDate;
-    @JsonProperty("End date: ")
+    @JsonProperty("End date")
     private String endDate;
 }

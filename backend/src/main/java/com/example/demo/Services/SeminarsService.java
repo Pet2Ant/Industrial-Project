@@ -4,8 +4,12 @@ import com.example.demo.DTO.SeminarsDTO;
 import com.example.demo.Models.Seminars;
 import com.example.demo.Repository.SeminarsRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 @Service
 public class SeminarsService {
@@ -18,10 +22,11 @@ public class SeminarsService {
     public Seminars saveSeminars(Seminars seminars) {
         return seminarsRepository.save(seminars);
     }
-    public SeminarsDTO getSeminarsById(Long id) {
+    public List<SeminarsDTO> getSeminarsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
-        Seminars seminars = seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
-        return modelMapper.map(seminars, SeminarsDTO.class);
+        List<Seminars> seminars = seminarsRepository.findByUserIdAndSeminarId(id,seminarId);
+        Type listType = new TypeToken<List<SeminarsDTO>>(){}.getType();
+        return modelMapper.map(seminars, listType);
     }
 
 }

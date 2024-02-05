@@ -7,8 +7,10 @@ import lombok.Setter;
 @Setter
 @Getter
 public class HobbiesDTO {
-    @JsonProperty("Hobbies: ")
+    @JsonProperty("Hobbies")
     private String hobbies;
-    @JsonProperty("Achievements: ")
+    @JsonProperty("Achievements")
     private String achievements;
+
+
 }
