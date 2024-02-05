@@ -13,6 +13,7 @@ const Applications = () => {
   );
   const [data, setData] = useState([]);
   const [personalDetails, setPersonalDetails] = useState({
+    id: "",
     userId: "",
     firstName: "",
     lastName: "",
@@ -37,6 +38,7 @@ const Applications = () => {
       );
       const details = response.data;
       const newData = details.map((detail) => ({
+        id: detail.id,
         userId: detail.userId,
         firstName: detail.firstName,
         lastName: detail.lastName,
@@ -96,7 +98,8 @@ const Applications = () => {
           firstName={row.firstName} // Pass the first name as a prop
           lastName={row.lastName}
           country={row.country}
-          id={row.userId}
+          userId={row.userId}
+          id={row.id}
           educationLevel={row.education}
           email={row.email}
         />

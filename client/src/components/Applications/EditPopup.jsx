@@ -10,6 +10,7 @@ function EditPopup({
   firstName,
   lastName,
   country,
+  userId,
   id,
   educationLevel,
   email,
