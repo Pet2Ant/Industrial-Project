@@ -120,7 +120,6 @@ const Applications = () => {
           </div>
         </div>
       </div>
-      <button onClick={handlePersonalDetails}>Add Personal Details</button>
     </div>
   );
 }
