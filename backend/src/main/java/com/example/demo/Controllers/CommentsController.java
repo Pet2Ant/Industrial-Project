@@ -33,13 +33,13 @@ public class CommentsController {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         comment.setUsername(username);
         comment.setManagerId(dataService.getUserId(username).getId());
-        System.out.println(comment.getId());
         Comment savedComment = commentService.saveComment(comment);
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
     @GetMapping
     public ResponseEntity<List<CommentDTO>> getComments(@RequestParam Long userId, @RequestParam Long seminarId) {
         List<CommentDTO> comments = commentService.getComments(userId, seminarId);
+        System.out.println("I GOT CALLED BITCHES");
         return ResponseEntity.ok(comments);
     }
 
