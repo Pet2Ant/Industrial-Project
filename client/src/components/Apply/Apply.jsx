@@ -99,11 +99,6 @@ function Apply() {
     <div className="bg-[#e5e5e5] h-screen min-h-screen max-h-screen overflow-auto scrollbar-hide font-noi">
       <Navbar isAuthenticated={true} userKind={userKind} />
       <div className="items-center h-full w-full flex-1 justify-start">
-        <p>
-          {seminar
-            ? "You have selected a seminar. Please fill in the form below."
-            : "Please select a seminar to apply for."}
-        </p>
         {seminar ? <ShowInputs /> : <ShowCards setSeminar={setSeminar} />}
       </div>
     </div>

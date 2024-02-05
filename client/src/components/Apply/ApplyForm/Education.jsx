@@ -24,6 +24,7 @@ function Education() {
   const [thesisTitle, setThesisTitle] = useState("");
   const [dissertationTitle, setDissertationTitle] = useState("");
  
+  
  
   // Function to handle change event
   const handleChange = (e) => {
