@@ -13,6 +13,7 @@ const Applications = () => {
   );
   const [data, setData] = useState([]);
   const [personalDetails, setPersonalDetails] = useState({
+    id: "",
     userId: "",
     firstName: "",
     lastName: "",

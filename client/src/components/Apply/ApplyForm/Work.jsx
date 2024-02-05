@@ -12,6 +12,8 @@ function WorkPage() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [experience, setExperience] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
+  const seminarId = localStorage.getItem("seminar");
+
   const startDate = dateRange[0];
   const endDate = dateRange[1];
   const handleInputChange = (event) => {
@@ -29,6 +31,16 @@ function WorkPage() {
 
   const handleWork = async (e) => {
     e.preventDefault();
+    if (responsibilities.length < 3) {
+      Popup({
+        title: "Error!",
+        text: "Please fill in your work responsibilities.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:8080/api/work", {
         workPlace,
@@ -36,6 +48,7 @@ function WorkPage() {
         endDate,
         experience,
         responsibilities,
+        seminarId,
       });
       console.log(response);
       Popup({
@@ -98,7 +111,7 @@ function WorkPage() {
           </div>
         )}
 
-        {dateRange[0] && dateRange[1] && (
+        {dateRange[0] && dateRange[1] && workPlace.length >= 3 && (
           <div>
             <h2 className="text-xl font-bold text-center mt-8 mb-4">
               Please provide more details about your work experience

@@ -155,7 +155,6 @@ const Navbar = ({ userKind }) => {
         setIsAuthenticated(false);
       // Remove the Authorization header
       delete axios.defaults.headers.common["Authorization"];
-        location.reload();
         Popup({
           title: "Success!",
           text: "You have successfully logged out!",
