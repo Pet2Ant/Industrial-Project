@@ -5,8 +5,12 @@ import com.example.demo.Models.Volunteering;
 import com.example.demo.Models.Work;
 import com.example.demo.Repository.WorkRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 @Service
 public class WorkService {
@@ -20,10 +24,11 @@ public class WorkService {
     public Work saveWork(Work work) {
         return workRepository.save(work);
     }
-    public WorkDTO getWorkById(Long id) {
+    public List<WorkDTO> getWorkById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
-        Work work =  workRepository.findById(id).orElseThrow(() -> new RuntimeException("Work details not found"));
-        return modelMapper.map(work, WorkDTO.class);
+        List<Work> works = workRepository.findByUserIdAndSeminarId(id,seminarId);
+        Type listType = new TypeToken<List<WorkDTO>>(){}.getType();
+        return modelMapper.map(works, listType);
     }
 
 

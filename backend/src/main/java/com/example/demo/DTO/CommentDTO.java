@@ -17,4 +17,5 @@ public class CommentDTO {
     private String date;
     @JsonProperty("From user: ")
     private String username;
+
 }

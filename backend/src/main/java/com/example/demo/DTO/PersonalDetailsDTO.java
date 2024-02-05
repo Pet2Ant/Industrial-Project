@@ -23,6 +23,8 @@ public class PersonalDetailsDTO {
     private String externalLinks;
     @JsonProperty("Education: ")
     private String education;
+    @JsonProperty("Seminar: ")
+    private long seminarId;
 
 
 }

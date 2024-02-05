@@ -31,9 +31,9 @@ public class EducationController {
         Education savedEducation = educationService.saveEducation(education);
         return new ResponseEntity<>(savedEducation, HttpStatus.CREATED);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<EducationDTO> getEducationById(@PathVariable Long id){
-        EducationDTO education = educationService.getEducationById(id);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<EducationDTO> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
+        EducationDTO education = educationService.getEducationById(id,seminarId);
         return new ResponseEntity<>(education, HttpStatus.OK);
     }
 }

@@ -1,12 +1,16 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.CommentDTO;
+import com.example.demo.DTO.SeminarsDTO;
 import com.example.demo.Models.Comment;
+import com.example.demo.Models.Seminars;
 import com.example.demo.Repository.CommentsRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,17 +30,12 @@ public class CommentsService {
         commentsRepository.deleteById(id);
     }
     //get comments from DTO
-    public List<CommentDTO> getComments(Long userId, Long applicationId) {
+
+    public List<CommentDTO> getComments(Long userId, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
-        List<Comment> comments = commentsRepository.findByUserIdAndApplicationId(userId, applicationId);
-
-        if (comments.isEmpty()) {
-            throw new RuntimeException("No comments found");
-        }
-
-        return comments.stream()
-                .map(comment -> modelMapper.map(comment, CommentDTO.class))
-                .collect(Collectors.toList());
+        List<Comment> comments = commentsRepository.findByUserIdAndSeminarId(userId, seminarId);
+        Type listType = new TypeToken<List<CommentDTO>>(){}.getType();
+        return modelMapper.map(comments, listType);
     }
 
 

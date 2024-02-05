@@ -38,8 +38,8 @@ public class CommentsController {
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
     @GetMapping
-    public ResponseEntity<List<CommentDTO>> getComments(@RequestParam Long userId, @RequestParam Long applicationId) {
-        List<CommentDTO> comments = commentService.getComments(userId, applicationId);
+    public ResponseEntity<List<CommentDTO>> getComments(@RequestParam Long userId, @RequestParam Long seminarId) {
+        List<CommentDTO> comments = commentService.getComments(userId, seminarId);
         return ResponseEntity.ok(comments);
     }
 

@@ -7,11 +7,12 @@ import lombok.Setter;
 @Setter
 @Getter
 public class VolunteeringDTO {
-    @JsonProperty("Volunteering: ")
-    private String volunteering;
-    @JsonProperty("Start date: ")
+    @JsonProperty("Volunteering")
+    private String volunteer;
+    @JsonProperty("Start date")
     private String startDate;
-    @JsonProperty("End date: ")
+    @JsonProperty("End date")
     private String endDate;
+
 
 }
