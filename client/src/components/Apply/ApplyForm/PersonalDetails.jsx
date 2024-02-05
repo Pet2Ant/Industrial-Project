@@ -25,18 +25,6 @@ function PersonalDetails({ setIsLoading }) {
     setIsAuthenticated(!!localStorage.getItem("token"));
   }, []);
 
-  const saveInputsToLocalStorage = () => {
-    localStorage.setItem("firstName", firstName);
-    localStorage.setItem("lastName", lastName);
-    localStorage.setItem("country", country);
-    localStorage.setItem("city", city);
-    localStorage.setItem("email", email);
-    localStorage.setItem("phone", phone);
-    localStorage.setItem("externalLinks", externalLinks);
-    localStorage.setItem("education", education);
-  };
-
-
 
   const handlePersonalDetails = async (e) => {
     e.preventDefault();
@@ -50,90 +38,92 @@ function PersonalDetails({ setIsLoading }) {
       });
     }
 
-const inputs = {
-  firstName: {
-    value: firstName.trim(),
-    rule: (value) => value.length > 2,
-    message: "Please enter a valid name."
-  },
-  lastName: {
-    value: lastName.trim(),
-    rule: (value) => value.length > 2,
-    message: "Please enter a valid name."
-  },
-  country: {
-    value: country.trim(),
-    rule: (value) => COUNTRIES.some((countryObj) => countryObj.title.toLowerCase() === value.toLowerCase()),
-    message: "Please enter a valid country."
-  },
-  city: {
-    value: city.trim(),
-    rule: (value) => value.length > 2,
-    message: "Please enter a valid city."
-  },
-  email: {
-    value: email.trim(),
-    rule: (value) => emailRegex.test(value),
-    message: "Please enter a valid email address."
-  },
-  phone: {
-    value: phone.trim(),
-    rule: (value) => phoneRegex.test(value),
-    message: "Please enter a valid phone number."
-  }
-};
+    const inputs = {
+      firstName: {
+        value: firstName.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid name.",
+      },
+      lastName: {
+        value: lastName.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid name.",
+      },
+      country: {
+        value: country.trim(),
+        rule: (value) =>
+          COUNTRIES.some(
+            (countryObj) =>
+              countryObj.title.toLowerCase() === value.toLowerCase()
+          ),
+        message: "Please enter a valid country.",
+      },
+      city: {
+        value: city.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid city.",
+      },
+      email: {
+        value: email.trim(),
+        rule: (value) => emailRegex.test(value),
+        message: "Please enter a valid email address.",
+      },
+      phone: {
+        value: phone.trim(),
+        rule: (value) => phoneRegex.test(value),
+        message: "Please enter a valid phone number.",
+      },
+    };
 
-let isValid = true;
+    let isValid = true;
 
-for (let key in inputs) {
-  const { value, rule, message } = inputs[key];
-  if (!value || !rule(value)) {
-    showErrorPopup("Error!", `${message}`);
-    isValid = false;
-    return;
-  }
-}
-
-// If all inputs are valid, save them to local storage
-if (isValid) {
-  saveInputsToLocalStorage();
-}
-
-
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/personalDetails",
-        {
-          firstName,
-          lastName,
-          country,
-          city,
-          email,
-          phone,
-          externalLinks,
-          education,
-          seminarId,
-        }
-      );
-      console.log(response);
-      Popup({
-        title: "Success!",
-        text: "You have successfully added your personal details!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      console.log("There was an error!", error);
-      Popup({
-        title: "Error!",
-        text: "There was an error adding your personal details.",
-        icon: "error",
-        timer: 1500,
-        showConfirmButton: false,
-      });
+    for (let key in inputs) {
+      const { value, rule, message } = inputs[key];
+      if (!value || !rule(value)) {
+        showErrorPopup("Error!", `${message}`);
+        isValid = false;
+        return;
+      }
     }
-  };
+
+    if (isValid) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/personalDetails",
+          {
+            firstName,
+            lastName,
+            country,
+            city,
+            email,
+            phone,
+            externalLinks,
+            education,
+            seminarId,
+          }
+        );
+        console.log(response);
+        Popup({
+          title: "Success!",
+          text: "You have successfully added your personal details!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        console.log("There was an error!", error);
+        Popup({
+          title: "Error!",
+          text: "There was an error adding your personal details.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    };
+    }
+
+    
 
   return (
     <form>
@@ -204,15 +194,11 @@ if (isValid) {
           id="education"
         />
       </div>
-      
+
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
         <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
-        <ApplyButton
-          onClick={() => window.location.reload()}
-          buttonName="Cancel"
-        />
+
       </div>
-      
     </form>
   );
 }
