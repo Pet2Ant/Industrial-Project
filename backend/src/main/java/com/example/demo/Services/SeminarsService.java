@@ -1,7 +1,9 @@
 package com.example.demo.Services;
 
+import com.example.demo.DTO.SeminarsDTO;
 import com.example.demo.Models.Seminars;
 import com.example.demo.Repository.SeminarsRepository;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +18,10 @@ public class SeminarsService {
     public Seminars saveSeminars(Seminars seminars) {
         return seminarsRepository.save(seminars);
     }
-    public Seminars getSeminarsById(Long id) {
-        return seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+    public SeminarsDTO getSeminarsById(Long id) {
+        ModelMapper modelMapper = new ModelMapper();
+        Seminars seminars = seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+        return modelMapper.map(seminars, SeminarsDTO.class);
     }
 
 }

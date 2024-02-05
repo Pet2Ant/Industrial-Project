@@ -13,11 +13,12 @@ import java.sql.Date;
 public class Volunteering {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
 
     @Column(name = "user_id")
-    private Long userId;
-
+    private long userId;
+    @Column(name = "seminar_id")
+    private long seminarId;
     @Column(name = "volunteer", length = 2000) // Assuming volunteer work can be quite long
     private String volunteer;
 

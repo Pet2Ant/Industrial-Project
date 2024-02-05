@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 
 
+import com.example.demo.DTO.TechnicalSkillsDTO;
 import com.example.demo.Models.TechnicalSkills;
 import com.example.demo.Services.TechnicalSkillsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,8 +34,8 @@ public class TechnicalSkillsController {
         return new ResponseEntity<>(savedTechnicalSkills, HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<TechnicalSkills> getTechnicalSkillsById(@PathVariable Long id){
-        TechnicalSkills technicalSkills = technicalSkillsService.getTechnicalSkillsById(id);
+    public ResponseEntity<TechnicalSkillsDTO> getTechnicalSkillsById(@PathVariable Long id){
+        TechnicalSkillsDTO technicalSkills = technicalSkillsService.getTechnicalSkillsById(id);
         return new ResponseEntity<>(technicalSkills, HttpStatus.OK);
     }
 }

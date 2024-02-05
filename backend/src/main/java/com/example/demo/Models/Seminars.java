@@ -15,8 +15,9 @@ public class Seminars {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
+    @Column(name = "seminar_id")
+    private long seminarId;
     @Column(name = "seminar",length = 2000)
     private String seminar;
 
@@ -27,6 +28,6 @@ public class Seminars {
     private Date endDate;
 
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
 }

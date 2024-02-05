@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.PersonalDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +41,8 @@ public class PersonalDetailsController {
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<PersonalDetails> getPersonalDetailsById(@PathVariable Long id){
-        PersonalDetails personalDetails = personalDetailsService.getPersonalDetailsById(id);
+    public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@PathVariable Long id){
+        PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(id);
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
 }

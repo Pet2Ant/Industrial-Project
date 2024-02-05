@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 
+import com.example.demo.DTO.HobbiesDTO;
 import com.example.demo.Models.Hobbies;
 import com.example.demo.Services.HobbiesService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class HobbiesController {
         return new ResponseEntity<>(savedHobbies, HttpStatus.CREATED);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<Hobbies> getHobbiesById(@PathVariable Long id){
-        Hobbies hobbies = hobbiesService.getHobbiesById(id);
+    public ResponseEntity<HobbiesDTO> getHobbiesById(@PathVariable Long id){
+        HobbiesDTO hobbies = hobbiesService.getHobbiesById(id);
         return new ResponseEntity<>(hobbies, HttpStatus.OK);
     }
 }

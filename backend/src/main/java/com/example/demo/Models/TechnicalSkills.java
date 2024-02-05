@@ -11,10 +11,11 @@ import lombok.Setter;
 public class TechnicalSkills {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private long id;
+    @Column(name = "seminar_id")
+    private long seminarId;
     @Column(name = "user_id")
-    private Long userId;
+    private long userId;
 
     @Column(name = "technical_skills", length = 2000) // Assuming skills can be quite long
     private String technicalSkills;
