@@ -4,6 +4,7 @@ import RadioButton from "../ApplyRadio";
 import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
 import axios from "axios";
+import Popup from "../../Popup/Popup";
 
 function Education() {
   // State variable for selected value
@@ -23,6 +24,7 @@ function Education() {
   const [thesisTitle, setThesisTitle] = useState("");
   const [dissertationTitle, setDissertationTitle] = useState("");
  
+  
  
   // Function to handle change event
   const handleChange = (e) => {
@@ -40,6 +42,33 @@ function Education() {
   
   const handleEducation = async (e) => {
     e.preventDefault();
+    function showErrorPopup() {
+      Popup({
+        title: "Error!",
+        text: "Please fill in all the required fields.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+    
+    const educationFields = {
+      "High School": ["schoolName", "schoolLocation", "graduationYear"],
+      "Bachelor's Degree": ["universityName", "universityLocation", "degreeName", "degreeYear"],
+      "Master's Degree": ["universityName", "universityLocation", "degreeName", "degreeYear", "thesisTitle"],
+      "PhD": ["universityName", "universityLocation", "degreeName", "degreeYear", "dissertationTitle"],
+    };
+    
+    const requiredFields = educationFields[education];
+    const seminarId = localStorage.getItem("seminar");
+    
+    if (requiredFields) {
+      const missingField = requiredFields.find(field => !eval(field));
+      if (missingField) {
+        showErrorPopup();
+        return;
+      }
+    }
     try {
       const response = await axios.post("http://localhost:8080/api/education", {
         education,
@@ -52,28 +81,27 @@ function Education() {
         degreeYear,
         thesisTitle,
         dissertationTitle,
+        seminarId,
       }
       
       );
-      // console.log(response);
-      // setEducation([...education,response.education]);
-      // console.log(response);
-      // Popup({
-      //   title: "Success!",
-      //   text: "You have successfully added your education!",
-      //   icon: "success",
-      //   timer: 1500,
-      //   showConfirmButton: false,
-      // });
+      console.log(response);
+      Popup({
+        title: "Success!",
+        text: "You have successfully added your education!",
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     } catch (error) {
       console.log("There was an error!", error);
-      // Popup({
-      //   title: "Error!",
-      //   text: "There was an error adding your education.",
-      //   icon: "error",
-      //   timer: 1500,
-      //   showConfirmButton: false,
-      // });
+      Popup({
+        title: "Error!",
+        text: "There was an error adding your education.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
 

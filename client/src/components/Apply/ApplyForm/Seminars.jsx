@@ -10,6 +10,8 @@ function SeminarsPage() {
   const [seminar, setSeminar] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const seminarId = localStorage.getItem("seminar");
+
   const startDate = dateRange[0];
   const endDate = dateRange[1];
   const handleInputChange = (event) => {
@@ -25,6 +27,13 @@ function SeminarsPage() {
     setDateRange(dateRange);
   };
 
+  // save inputs to local storage
+  const saveInputsToLocalStorage = () => {
+    localStorage.setItem("seminarName", seminar);
+    localStorage.setItem("startDate", startDate);
+    localStorage.setItem("endDate", endDate);
+  };
+
   const handleSeminars = async (e) => {
     e.preventDefault();
     try {
@@ -32,6 +41,7 @@ function SeminarsPage() {
         seminar,
         startDate,
         endDate,
+        seminarId,
       });
       console.log(response);
       Popup({

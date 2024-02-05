@@ -4,8 +4,9 @@ import ApplyInput from "../ApplyInput";
 import ApplyButton from "../ApplyButton";
 import axios from "axios";
 import Popup from "../../Popup/Popup";
+import { COUNTRIES } from "./Countries/countries";
 
-function PersonalDetails({setIsLoading}) {
+function PersonalDetails({ setIsLoading }) {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [country, setCountry] = useState("");
@@ -15,46 +16,114 @@ function PersonalDetails({setIsLoading}) {
   const [externalLinks, setExternalLinks] = useState("");
   const [education, setEducation] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const seminarId = localStorage.getItem("seminar");
+
+  const phoneRegex = /^\d{10}$/;
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   useEffect(() => {
-    setIsAuthenticated(!!localStorage.getItem('token'));
+    setIsAuthenticated(!!localStorage.getItem("token"));
   }, []);
+
 
   const handlePersonalDetails = async (e) => {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/personalDetails",
-        {
-          firstName,
-          lastName,
-          country,
-          city,
-          email,
-          phone,
-          externalLinks,
-          education,
-        }
-      );
-      console.log(response);
-      Popup({
-        title: "Success!",
-        text: "You have successfully added your personal details!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
-      console.log("There was an error!", error);
+    function showErrorPopup(title, text) {
       Popup({
         title: "Error!",
-        text: "There was an error adding your personal details.",
+        text,
         icon: "error",
         timer: 1500,
         showConfirmButton: false,
       });
     }
-  };
+
+    const inputs = {
+      firstName: {
+        value: firstName.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid name.",
+      },
+      lastName: {
+        value: lastName.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid name.",
+      },
+      country: {
+        value: country.trim(),
+        rule: (value) =>
+          COUNTRIES.some(
+            (countryObj) =>
+              countryObj.title.toLowerCase() === value.toLowerCase()
+          ),
+        message: "Please enter a valid country.",
+      },
+      city: {
+        value: city.trim(),
+        rule: (value) => value.length > 2,
+        message: "Please enter a valid city.",
+      },
+      email: {
+        value: email.trim(),
+        rule: (value) => emailRegex.test(value),
+        message: "Please enter a valid email address.",
+      },
+      phone: {
+        value: phone.trim(),
+        rule: (value) => phoneRegex.test(value),
+        message: "Please enter a valid phone number.",
+      },
+    };
+
+    let isValid = true;
+
+    for (let key in inputs) {
+      const { value, rule, message } = inputs[key];
+      if (!value || !rule(value)) {
+        showErrorPopup("Error!", `${message}`);
+        isValid = false;
+        return;
+      }
+    }
+
+    if (isValid) {
+      try {
+        const response = await axios.post(
+          "http://localhost:8080/api/personalDetails",
+          {
+            firstName,
+            lastName,
+            country,
+            city,
+            email,
+            phone,
+            externalLinks,
+            education,
+            seminarId,
+          }
+        );
+        console.log(response);
+        Popup({
+          title: "Success!",
+          text: "You have successfully added your personal details!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      } catch (error) {
+        console.log("There was an error!", error);
+        Popup({
+          title: "Error!",
+          text: "There was an error adding your personal details.",
+          icon: "error",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+      }
+    };
+    }
+
+    
 
   return (
     <form>
@@ -125,9 +194,10 @@ function PersonalDetails({setIsLoading}) {
           id="education"
         />
       </div>
+
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
         <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
-        <ApplyButton onClick={() => window.location.reload()} buttonName="Cancel" />
+
       </div>
     </form>
   );

@@ -8,6 +8,7 @@ import Popup from "../../Popup/Popup";
 function Hobbies() {
   const [hobbies, setHobbies] = useState("");
   const [achievements, setAchievements] = useState("");
+  const seminarId = localStorage.getItem("seminar");
 
   const handleHobbies = (e) => {
     e.preventDefault();
@@ -15,6 +16,7 @@ function Hobbies() {
       const response = axios.post("http://localhost:8080/api/hobbies", {
         hobbies,
         achievements,
+        seminarId,
       });
       console.log(response);
       Popup({

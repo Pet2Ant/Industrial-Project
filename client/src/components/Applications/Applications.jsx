@@ -13,12 +13,14 @@ const Applications = () => {
   );
   const [data, setData] = useState([]);
   const [personalDetails, setPersonalDetails] = useState({
+    id: "",
     userId: "",
     firstName: "",
     lastName: "",
     country: "",
     education: "",
     email: "",
+    seminarId: "",
   });
   
   useEffect(() => {
@@ -37,12 +39,14 @@ const Applications = () => {
       );
       const details = response.data;
       const newData = details.map((detail) => ({
+        id: detail.id,
         userId: detail.userId,
         firstName: detail.firstName,
         lastName: detail.lastName,
         country: detail.country,
         education: detail.education,
         email: detail.email,
+        seminarId: detail.seminarId,
       }));
       setData(newData);
       console.log(newData);
@@ -93,12 +97,8 @@ const Applications = () => {
     {
       cell: (row) => (
         <EditPopup
-          firstName={row.firstName} // Pass the first name as a prop
-          lastName={row.lastName}
-          country={row.country}
-          id={row.userId}
-          educationLevel={row.education}
-          email={row.email}
+          userId={row.userId}
+          seminarId={row.seminarId}
         />
       ),
     },

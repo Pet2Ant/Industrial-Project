@@ -3,21 +3,16 @@ import { COUNTRIES } from "./ApplyForm/Countries/countries";
 import TextareaAutosize from "react-textarea-autosize";
 
 
-const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange }) => {
-  const [inputValue, setInputValue] = useState("");
+const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange, initialValue }) => {
+  const [inputValue, setInputValue] = useState(initialValue || "");
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-
+    const inputValue = e.target.value;
+    setName(inputValue);
+    setInputValue(inputValue);
     if (name === "workPlace" || name === "seminar" || name === "volunteer") {
-      const inputValue = e.target.value;
-      setName(inputValue);
-      setInputValue(inputValue);
       handleWorkChange(e);
-    } else {
-      const inputValue = e.target.value;
-      setName(inputValue);
-      setInputValue(inputValue);
     }
   };
 

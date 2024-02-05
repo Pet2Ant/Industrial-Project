@@ -10,18 +10,18 @@ import { useNavigate } from "react-router-dom";
 import { get } from "lodash";
 function isValidJwt(jwt) {
   if (!jwt) {
-      console.log('JWT is null or undefined');
-      return false;
+    console.log("JWT is null or undefined");
+    return false;
   }
 
-  const parts = jwt.split('.');
+  const parts = jwt.split(".");
   if (parts.length !== 3) {
-      console.log('JWT does not contain exactly 2 periods');
-      return false;
+    console.log("JWT does not contain exactly 2 periods");
+    return false;
   }
   return true;
 }
-function Register({setIsLoading}) {
+function Register({ setIsLoading }) {
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
@@ -29,27 +29,45 @@ function Register({setIsLoading}) {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [phone, setPhone] = useState("");
   const navigate = useNavigate();
-  
-  
+
+  const checkEmptyFields = () => {
+    if (!username || !email || !phone || !password || !confirmPassword) {
+      Popup({
+        title: "Error!",
+        text: "Please fill in all the fields.",
+        icon: "warning",
+        showConfirmButton: false,
+      });
+      return false;
+    }
+    return true;
+  };
+
   const createData = async () => {
     setIsLoading(true);
-   
+    if (!checkEmptyFields()) {
+        setIsLoading(false);
+        return;
+    }
     try {
-     //commit
-      const response = await axios.post('http://localhost:8080/api/data', { username, email, phone, password });
-
+      const response = await axios.post("http://localhost:8080/api/data", {
+        username,
+        email,
+        phone,
+        password,
+      });
       const jwt = response.data.token;
-      console.log('JWT:', jwt);
-      if (!localStorage.getItem('token') && isValidJwt(jwt))  {
-        localStorage.setItem('token', jwt);
+      console.log("JWT:", jwt);
+      if (!localStorage.getItem("token")) {
         setData([...data, response.data]);
         Popup({
-          title: 'Success!',
-          text: 'You have successfully registered!',
-          icon: 'success',
-          timer: 500,
+          title: "Success!",
+          text: "You have successfully registered!",
+          icon: "success",
+          timer: 1500,
           showConfirmButton: false,
         });
+
       }
     } catch (error) {
       console.log('There was an error!', error);
@@ -57,15 +75,18 @@ function Register({setIsLoading}) {
         title: 'Error!',
         text: 'There was an error registering your account.',
         icon: 'error',
-        timer: 500,
+        timer: 1500,
         showConfirmButton: false,
       });
+      setIsLoading(false);
+      location.reload();
     }
     setIsLoading(false);
     navigate("/login");
-    
   };
   
+  
+
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
       <div className="flex flex-row justify-around overflow-hidden items-center h-screen min-h-screen max-h-screen">
@@ -110,7 +131,6 @@ function Register({setIsLoading}) {
             >
               log in here!
             </a>
-            
           </p>
           <div className="flex flex-col items-center justify-center relative sm:min-w-fit w-full mx-auto">
             <Input
@@ -150,7 +170,7 @@ function Register({setIsLoading}) {
               setName={setConfirmPassword}
               placeholder="Confirm your Password"
               type="password"
-              iconName="IoLockClosed"
+              iconName="IoLockClosedSharp"
               id="confirmPassword"
             />
           </div>
@@ -161,6 +181,5 @@ function Register({setIsLoading}) {
     </div>
   );
 }
-
 
 export default Register;

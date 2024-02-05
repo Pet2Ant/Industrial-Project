@@ -10,6 +10,8 @@ function Volunteering() {
   const [volunteer, setVolunteer] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
+  const seminarId = localStorage.getItem("seminar");
+
   const startDate = dateRange[0];
   const endDate = dateRange[1];
   const handleInputChange = (event) => {
@@ -34,6 +36,7 @@ function Volunteering() {
           volunteer,
           startDate,
           endDate,
+          seminarId,
         }
       );
       console.log(response);
