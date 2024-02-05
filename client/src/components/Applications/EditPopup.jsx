@@ -21,15 +21,15 @@ function EditPopup({
       axios.get(`http://localhost:8080/api/${endpoint}/${userId}/${seminarId}`)
         .then(response => {
           // if (['seminars', 'work', 'technicalSkills', 'volunteering', 'hobbies'].includes(endpoint)) {
-            // Convert each object in the array to a string
-            data[endpoint] = response.data
-            // .map(item => {
-            //   let itemStr = '';
-            //   for (let key in item) {
-            //     itemStr += `${key}: ${item[key]}\n`;
-            //   }
-            //   return itemStr.trim(); // remove trailing newline
-            // });
+          // Convert each object in the array to a string
+          data[endpoint] = response.data
+          // .map(item => {
+          //   let itemStr = '';
+          //   for (let key in item) {
+          //     itemStr += `${key}: ${item[key]}\n`;
+          //   }
+          //   return itemStr.trim(); // remove trailing newline
+          // });
           // } else {
           //   data[endpoint] = response.data;
           // }
@@ -183,7 +183,15 @@ function EditPopup({
     'volunteering': 'Volunteering',
     'work': 'Work'
   };
-
+  const seminarNames =
+  {
+    1: "Placeholder Name 1",
+    2: "Placeholder Name 2",
+    3: "Placeholder Name 3",
+    4: "Placeholder Name 4",
+    5: "Placeholder Name 5",
+    6: "Placeholder Name 6",
+  }
   return (
     <FormPopup
       trigger={
@@ -210,43 +218,57 @@ function EditPopup({
             className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
             <div className="flex flex-col justify-between text-[#103022] text-lg font-light mr-4 mb-4 mx-auto w-full break-words">
               <h1 className="text-[#103022] text-xl font-semibold">
-                Server Response:
+                Applicant's Details:
               </h1>
               {serverResponse && endpoints.map(endpoint => {
-                let value = serverResponse[endpoint];
-                if (value) {
-                  return (
-                    <div key={endpoint}>
-                      <h2 className="text-[#103022] text-lg font-semibold mr-4 mb-4">
-                        {endpointNames[endpoint]}:
-                      </h2>
-                     
-                      {Array.isArray(value) ? value.map((item, index) => (
-                        <div key={index}>
-                          {Object.entries(item).map(([subKey, subValue]) => (
-                            <div key={subKey}>
-                           <br />     {`${subKey}: ${subValue}`} <br />
-                            </div>
-                          ))}
-                        </div>
-                      )) : Object.entries(value).map(([subKey, subValue]) => (
-                        <div key={subKey}>
-                         {`${subKey} ${subValue}`} <br />
-                          
-                        </div>
-                      ))}
-                      {commentsBySection[endpoint] && commentsBySection[endpoint].map(comment => (
+  let value = serverResponse[endpoint];
+  if (value) {
+    return (
+      <div key={endpoint}>
+        <h2 className="text-[#103022] text-lg font-semibold mr-4 mb-4">
+          {endpointNames[endpoint]}:
+        </h2>
+        {Array.isArray(value) ? value.map((item, index) => (
+          <div key={index}>
+            {typeof item === 'object' ? Object.entries(item).map(([subKey, subValue]) => {
+              if (subKey === 'Seminar: ') {
+                subValue = seminarNames[subValue];
+              }
+              if (subValue === "" || subValue === null) {
+                return <></>;
+              }
+              return (
+                <div key={subKey}>
+                  <br />{`${subKey}: ${subValue}`}<br />
+                </div>
+              );
+            }) : <p>{item}</p>}
+          </div>
+        )) : Object.entries(value).map(([subKey, subValue]) => {
+          if (subKey === 'Seminar: ') {
+            subValue = seminarNames[subValue];
+          }
+          if (subValue === "" || subValue === null) {
+            return <></>;
+          }
+          return (
+            <div key={subKey}>
+              {`${subKey} ${subValue}`}<br />
+            </div>
+          );
+        })}
+        {commentsBySection[endpoint] && commentsBySection[endpoint].map(comment => (
+          <p key={comment.id}>{comment.text}</p>
+        ))}
+        <CommentBox seminarId={seminarId} detailId={endpoint} onSubmit={handleCommentSubmit} />
+      </div>
+    )
+  }
+  return null;
+})}
 
-                        <p key={comment.id}>{comment.text}</p>
+       
 
-                      ))}
-                      {/* TO DO comment section needs fixing from back end  */}
-                      <CommentBox seminarId={seminarId} detailId={endpoint} onSubmit={handleCommentSubmit} />
-                    </div>
-                  )
-                }
-                return null;
-              })}
             </div>
           </form>
         </div>
