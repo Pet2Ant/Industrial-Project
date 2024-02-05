@@ -12,6 +12,8 @@ function WorkPage() {
   const [showCalendar, setShowCalendar] = useState(false);
   const [experience, setExperience] = useState("");
   const [responsibilities, setResponsibilities] = useState("");
+  const seminarId = localStorage.getItem("seminar");
+
   const startDate = dateRange[0];
   const endDate = dateRange[1];
   const handleInputChange = (event) => {
@@ -46,6 +48,7 @@ function WorkPage() {
         endDate,
         experience,
         responsibilities,
+        seminarId,
       });
       console.log(response);
       Popup({

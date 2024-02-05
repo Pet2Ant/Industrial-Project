@@ -59,6 +59,7 @@ function Education() {
     };
     
     const requiredFields = educationFields[education];
+    const seminarId = localStorage.getItem("seminar");
     
     if (requiredFields) {
       const missingField = requiredFields.find(field => !eval(field));
@@ -79,6 +80,7 @@ function Education() {
         degreeYear,
         thesisTitle,
         dissertationTitle,
+        seminarId,
       }
       
       );

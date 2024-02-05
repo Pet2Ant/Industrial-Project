@@ -7,7 +7,8 @@ import Popup from "../../Popup/Popup";
 
 function TechnicalSkills() {
   const [technicalSkills, setTechnicalSkills] = useState("");
-  
+  const seminarId = localStorage.getItem("seminar");
+
   const handleTechnicalSkills = (e) => {
     e.preventDefault();
     try {
@@ -25,6 +26,7 @@ function TechnicalSkills() {
         "http://localhost:8080/api/technicalSkills",
         {
           technicalSkills,
+          seminarId,
         }
       );
       console.log(response);

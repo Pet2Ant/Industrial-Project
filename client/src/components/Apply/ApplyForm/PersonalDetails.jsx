@@ -16,6 +16,7 @@ function PersonalDetails({ setIsLoading }) {
   const [externalLinks, setExternalLinks] = useState("");
   const [education, setEducation] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const seminarId = localStorage.getItem("seminar");
 
   const phoneRegex = /^\d{10}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -23,6 +24,19 @@ function PersonalDetails({ setIsLoading }) {
   useEffect(() => {
     setIsAuthenticated(!!localStorage.getItem("token"));
   }, []);
+
+  const saveInputsToLocalStorage = () => {
+    localStorage.setItem("firstName", firstName);
+    localStorage.setItem("lastName", lastName);
+    localStorage.setItem("country", country);
+    localStorage.setItem("city", city);
+    localStorage.setItem("email", email);
+    localStorage.setItem("phone", phone);
+    localStorage.setItem("externalLinks", externalLinks);
+    localStorage.setItem("education", education);
+  };
+
+
 
   const handlePersonalDetails = async (e) => {
     e.preventDefault();
@@ -36,42 +50,55 @@ function PersonalDetails({ setIsLoading }) {
       });
     }
 
-    if (!firstName || !lastName || !country || !city || !email || !phone) {
-      showErrorPopup("Error!", "Please fill in all the required fields.");
-      return;
-    }
+const inputs = {
+  firstName: {
+    value: firstName.trim(),
+    rule: (value) => value.length > 2,
+    message: "Please enter a valid name."
+  },
+  lastName: {
+    value: lastName.trim(),
+    rule: (value) => value.length > 2,
+    message: "Please enter a valid name."
+  },
+  country: {
+    value: country.trim(),
+    rule: (value) => COUNTRIES.some((countryObj) => countryObj.title.toLowerCase() === value.toLowerCase()),
+    message: "Please enter a valid country."
+  },
+  city: {
+    value: city.trim(),
+    rule: (value) => value.length > 2,
+    message: "Please enter a valid city."
+  },
+  email: {
+    value: email.trim(),
+    rule: (value) => emailRegex.test(value),
+    message: "Please enter a valid email address."
+  },
+  phone: {
+    value: phone.trim(),
+    rule: (value) => phoneRegex.test(value),
+    message: "Please enter a valid phone number."
+  }
+};
 
-    if (firstName.length < 2 || lastName.length < 2) {
-      showErrorPopup("Error!", "Please enter a valid name.");
-      return;
-    }
+let isValid = true;
 
-    const validCountry =
-      COUNTRIES.filter(
-        (countryObj) => countryObj.title.toLowerCase() === country.toLowerCase()
-      ).length < 1 || country.length < 3
-        ? false
-        : true;
+for (let key in inputs) {
+  const { value, rule, message } = inputs[key];
+  if (!value || !rule(value)) {
+    showErrorPopup("Error!", `${message}`);
+    isValid = false;
+    return;
+  }
+}
 
-    if (!validCountry) {
-      showErrorPopup("Error!", "Please enter a valid country.");
-      return;
-    }
+// If all inputs are valid, save them to local storage
+if (isValid) {
+  saveInputsToLocalStorage();
+}
 
-    if (city.length < 3) {
-      showErrorPopup("Error!", "Please enter a valid city.");
-      return;
-    }
-
-    if (!phoneRegex.test(phone)) {
-      showErrorPopup("Error!", "Please enter a valid phone number.");
-      return;
-    }
-
-    if (!emailRegex.test(email)) {
-      showErrorPopup("Error!", "Please enter a valid email address.");
-      return;
-    }
 
     try {
       const response = await axios.post(
@@ -85,6 +112,7 @@ function PersonalDetails({ setIsLoading }) {
           phone,
           externalLinks,
           education,
+          seminarId,
         }
       );
       console.log(response);
@@ -176,6 +204,7 @@ function PersonalDetails({ setIsLoading }) {
           id="education"
         />
       </div>
+      
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
         <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
         <ApplyButton
@@ -183,6 +212,7 @@ function PersonalDetails({ setIsLoading }) {
           buttonName="Cancel"
         />
       </div>
+      
     </form>
   );
 }
