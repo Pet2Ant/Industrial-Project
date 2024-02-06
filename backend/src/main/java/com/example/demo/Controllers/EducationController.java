@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -34,8 +35,9 @@ public class EducationController {
         return new ResponseEntity<>(savedEducation, HttpStatus.CREATED);
     }
     @GetMapping("/{id}/{seminarId}")
-    public ResponseEntity<EducationDTO> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
-        EducationDTO education = educationService.getEducationById(id,seminarId);
+    public ResponseEntity <List<EducationDTO>> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
+        List<EducationDTO> education = educationService.getEducationListById(id,seminarId);
+        System.out.println(new ResponseEntity<>(education, HttpStatus.OK));
         return new ResponseEntity<>(education, HttpStatus.OK);
     }
     @GetMapping("/educationcount")

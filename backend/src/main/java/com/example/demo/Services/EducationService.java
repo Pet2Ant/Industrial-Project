@@ -25,12 +25,7 @@ public class EducationService {
     public Education saveEducation(Education education) {
         return educationRepository.save(education);
     }
-    public EducationDTO getEducationById(Long id, Long seminarId) {
-        ModelMapper modelMapper = new ModelMapper();
-        Education education = educationRepository.findByUserIdAndSeminarId(id,seminarId).orElseThrow(() -> new RuntimeException("Education not found with id: " + id));
-        return modelMapper.map(education, EducationDTO.class);
 
-    }
     public List<EducationDTO> getEducationListById(Long id,Long seminarId)
     {
         ModelMapper modelMapper = new ModelMapper();
