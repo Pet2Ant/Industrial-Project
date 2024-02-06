@@ -11,6 +11,7 @@ import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -44,5 +45,9 @@ public class PersonalDetailsController {
     public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@PathVariable Long id,@PathVariable Long seminarId){
         PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(id,seminarId);
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
+    }
+    @GetMapping("/seminarcount")
+    public Map<Integer,Long> getSeminarCounts(){
+        return personalDetailsService.getSeminarCounts();
     }
 }

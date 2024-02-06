@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/education")
@@ -35,5 +37,9 @@ public class EducationController {
     public ResponseEntity<EducationDTO> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
         EducationDTO education = educationService.getEducationById(id,seminarId);
         return new ResponseEntity<>(education, HttpStatus.OK);
+    }
+    @GetMapping("/educationcount")
+    public Map<String, Map<String, Integer>>getEducationCountsPerSeminar(){
+        return educationService.getEducationCountsPerSeminar();
     }
 }
