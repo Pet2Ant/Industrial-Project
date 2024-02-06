@@ -37,25 +37,25 @@ public class EducationDTO {
 
     @JsonProperty("Dissertation title: ")
     private String dissertationTitle;
-    public String  toPdfString() {
-        if(education.equals("High School"))
-            return "Education: " + education +""+
-                    ", School name: " + schoolName +""+
-                    ", School location: " + schoolLocation +""+
-                    ", Graduation year: " + graduationYear +"";
-        else if(education.equals("University")
-                || education.equals("Master's degree")
-                || education.equals("PhD"))
-            return "Education: " + education +""+
-                    ", University name: " + universityName +""+
-                    ", University location: " + universityLocation +""+
-                    ", Degree name: " + degreeName +""+
-                    ", Degree year: " + degreeYear +""+
-                    ", Thesis title: " + thesisTitle +""+
-                    ", Dissertation title: " + dissertationTitle+"";
-        else
-            return "Education: " + education +"";
-
-    }
+//    public String  toPdfString() {
+//        if(education.equals("High School"))
+//            return "Education: " + education +""+
+//                    ", School name: " + schoolName +""+
+//                    ", School location: " + schoolLocation +""+
+//                    ", Graduation year: " + graduationYear +"";
+//        else if(education.equals("University")
+//                || education.equals("Master's degree")
+//                || education.equals("PhD"))
+//            return "Education: " + education +""+
+//                    ", University name: " + universityName +""+
+//                    ", University location: " + universityLocation +""+
+//                    ", Degree name: " + degreeName +""+
+//                    ", Degree year: " + degreeYear +""+
+//                    ", Thesis title: " + thesisTitle +""+
+//                    ", Dissertation title: " + dissertationTitle+"";
+//        else
+//            return "Education: " + education +"";
+//
+//    }
 
 }
