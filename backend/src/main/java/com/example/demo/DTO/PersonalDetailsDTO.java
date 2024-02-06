@@ -21,7 +21,7 @@ public class PersonalDetailsDTO {
     private String phone;
     @JsonProperty("External links: ")
     private String externalLinks;
-    @JsonProperty("Education: ")
+    @JsonProperty("Brief Statement: ")
     private String education;
     @JsonProperty("Seminar: ")
     private long seminarId;

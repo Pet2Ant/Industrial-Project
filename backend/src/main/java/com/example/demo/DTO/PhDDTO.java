@@ -10,19 +10,19 @@ public class PhDDTO implements EducationDTO{
     @JsonProperty("Education")
     private String education;
 
-    @JsonProperty("University name: ")
+    @JsonProperty("University name")
     private String universityName;
 
-    @JsonProperty("University location: ")
+    @JsonProperty("University location")
     private String universityLocation;
 
-    @JsonProperty("Degree name: ")
+    @JsonProperty("Degree name")
     private String degreeName;
 
-    @JsonProperty("Degree year: ")
+    @JsonProperty("Degree year")
     private Integer degreeYear;
 
-    @JsonProperty("Dissertation title: ")
+    @JsonProperty("Dissertation title")
     private String dissertationTitle;
     @Override
     public void generateDTO() {

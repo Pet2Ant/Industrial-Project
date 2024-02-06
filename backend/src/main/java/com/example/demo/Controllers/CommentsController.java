@@ -6,8 +6,6 @@ import com.example.demo.Services.CommentsService;
 
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,14 +17,14 @@ import java.util.List;
 @RequestMapping("/api/comments")
 public class CommentsController {
     private final CommentsService commentService;
-    @Autowired
-    private DataService dataService;
-    @Autowired
-    private JwtUtil jwtUtil;
+    private final  DataService dataService;
+    private final JwtUtil jwtUtil;
 
-    @Autowired
-    public CommentsController(CommentsService commentService) {
+
+    public CommentsController(JwtUtil jwtUtil,DataService dataService,CommentsService commentService) {
         this.commentService = commentService;
+        this.dataService = dataService;
+        this.jwtUtil = jwtUtil;
     }
     @PostMapping
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment, @RequestHeader("Authorization") String token) {
