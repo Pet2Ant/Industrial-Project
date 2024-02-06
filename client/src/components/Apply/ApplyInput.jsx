@@ -86,7 +86,6 @@ const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange, in
           error ? "border-red-500" : "border-gray-400"
         } shadow-xl focus:outline-none hover:-translate-y-1 hover:translate-x-1 text-black text-[17px] text-sm font-medium ease-linear transition-all duration-150 hover:ring-2 hover:ring-offset-2 hover:ring-rose-500 focus:ring-offset-2 focus:ring-2 focus:ring-rose-500`}
         minRows={2}
-        maxRows={6}
         type={type}
         name={name}
         id={id}
