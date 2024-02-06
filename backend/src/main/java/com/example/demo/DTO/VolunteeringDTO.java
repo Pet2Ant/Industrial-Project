@@ -13,6 +13,10 @@ public class VolunteeringDTO {
     private String startDate;
     @JsonProperty("End date")
     private String endDate;
-
+    public String toPdfString() {
+        return "Volunteering: " + volunteer +""+
+                ", Start date: " + startDate +""+
+                ", End date: " + endDate;
+    }
 
 }

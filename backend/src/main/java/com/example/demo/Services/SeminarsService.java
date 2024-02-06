@@ -28,5 +28,8 @@ public class SeminarsService {
         Type listType = new TypeToken<List<SeminarsDTO>>(){}.getType();
         return modelMapper.map(seminars, listType);
     }
+    public Seminars getSeminarByUserId(long id) {
+        return  seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+    }
 
 }

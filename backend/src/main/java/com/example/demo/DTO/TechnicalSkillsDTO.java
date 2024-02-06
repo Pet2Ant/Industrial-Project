@@ -9,5 +9,7 @@ import lombok.Setter;
 public class TechnicalSkillsDTO {
     @JsonProperty("Technical skills")
     private String technicalSkills;
-
+    public String toPdfString() {
+        return "Technical skills: " + technicalSkills;
+    }
 }

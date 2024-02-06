@@ -25,6 +25,16 @@ public class PersonalDetailsDTO {
     private String education;
     @JsonProperty("Seminar: ")
     private long seminarId;
-
+    public String toPdfString() {
+        return "First name: " + firstName + ""+
+                ", Last name: " + lastName +""+
+                ", Country: " + country +""+
+                ", City: " + city +""+
+                ", Email: " + email +""+
+                ", Phone: " + phone +""+
+                ", External links: " + externalLinks +""+
+                ", Education: " + education +""+
+                ", Seminar: " + seminarId;
+    }
 
 }

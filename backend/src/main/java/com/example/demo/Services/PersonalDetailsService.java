@@ -31,4 +31,7 @@ public class PersonalDetailsService {
         return modelMapper.map(personalDetails, PersonalDetailsDTO.class);
     }
 
+
+
+
 }
