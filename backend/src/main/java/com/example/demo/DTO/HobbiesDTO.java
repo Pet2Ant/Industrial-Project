@@ -12,5 +12,9 @@ public class HobbiesDTO {
     @JsonProperty("Achievements")
     private String achievements;
 
+    public String toPdfString() {
+        return "Hobbies: " + hobbies +""+
+                ", Achievements: " + achievements+"";
+    }
 
 }

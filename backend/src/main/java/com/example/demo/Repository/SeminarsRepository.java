@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface SeminarsRepository  extends  JpaRepository<Seminars, Long>{
     List<Seminars> findByUserIdAndSeminarId(Long userId, Long seminarId);
+
 }
