@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/technicalSkills")
@@ -33,9 +36,9 @@ public class TechnicalSkillsController {
         TechnicalSkills savedTechnicalSkills = technicalSkillsService.saveTechnicalSkills(technicalSkills);
         return new ResponseEntity<>(savedTechnicalSkills, HttpStatus.CREATED);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<TechnicalSkillsDTO> getTechnicalSkillsById(@PathVariable Long id){
-        TechnicalSkillsDTO technicalSkills = technicalSkillsService.getTechnicalSkillsById(id);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<List<TechnicalSkillsDTO>> getTechnicalSkillsById(@PathVariable Long id, @PathVariable Long seminarId){
+        List<TechnicalSkillsDTO> technicalSkills = technicalSkillsService.getTechnicalSkillsById(id,seminarId);
         return new ResponseEntity<>(technicalSkills, HttpStatus.OK);
     }
 }

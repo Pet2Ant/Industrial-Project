@@ -3,8 +3,12 @@ import com.example.demo.DTO.TechnicalSkillsDTO;
 import com.example.demo.Models.TechnicalSkills;
 import com.example.demo.Repository.TechnicalSkillsRepository;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 @Service
 public class TechnicalSkillsService {
@@ -19,11 +23,12 @@ public class TechnicalSkillsService {
         public TechnicalSkills saveTechnicalSkills(TechnicalSkills technicalSkills) {
             return technicalSkillsRepository.save(technicalSkills);
         }
-        public TechnicalSkillsDTO getTechnicalSkillsById(Long id) {
-            ModelMapper modelMapper = new ModelMapper();
-            TechnicalSkills technicalSkills = technicalSkillsRepository.findById(id).orElseThrow(() -> new RuntimeException("Technical skills not found"));
-            return modelMapper.map(technicalSkills, TechnicalSkillsDTO.class);
-        }
+    public List<TechnicalSkillsDTO> getTechnicalSkillsById(Long id, Long seminarId) {
+        ModelMapper modelMapper = new ModelMapper();
+        List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findByUserIdAndSeminarId(id,seminarId);
+        Type listType = new TypeToken<List<TechnicalSkillsDTO>>(){}.getType();
+        return modelMapper.map(technicalSkills, listType);
+    }
 
 
 }

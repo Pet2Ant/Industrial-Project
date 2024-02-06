@@ -11,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/seminars")
@@ -33,9 +35,9 @@ public class SeminarsController {
         Seminars savedSeminars = seminarsService.saveSeminars(seminars);
         return new ResponseEntity<>(savedSeminars, HttpStatus.CREATED);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<SeminarsDTO> getSeminarsById(@PathVariable Long id){
-        SeminarsDTO seminars = seminarsService.getSeminarsById(id);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<List<SeminarsDTO>> getSeminarsById(@PathVariable Long id, @PathVariable Long seminarId){
+        List<SeminarsDTO> seminars = seminarsService.getSeminarsById(id,seminarId);
         return new ResponseEntity<>(seminars, HttpStatus.OK);
     }
 

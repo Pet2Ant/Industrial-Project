@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/volunteering")
@@ -35,9 +38,9 @@ public class VolunteeringController {
         return new ResponseEntity<>(savedVolunteering, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<VolunteeringDTO> getVolunteeringById(@PathVariable Long id){
-        VolunteeringDTO volunteering = volunteeringService.getVolunteeringById(id);
-        return new ResponseEntity<>(volunteering, HttpStatus.OK);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<List<VolunteeringDTO>> getVolunteeringById(@PathVariable Long id, @PathVariable Long seminarId){
+        List<VolunteeringDTO> volunteerings = volunteeringService.getVolunteeringById(id,seminarId);
+        return new ResponseEntity<>(volunteerings, HttpStatus.OK);
     }
 }

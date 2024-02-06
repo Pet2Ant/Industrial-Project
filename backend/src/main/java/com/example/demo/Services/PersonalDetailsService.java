@@ -25,9 +25,9 @@ public class PersonalDetailsService {
     public List<PersonalDetails> getPersonalDetails(){
         return personalDetailsRepository.findAll();
     }
-    public PersonalDetailsDTO getPersonalDetailsById(Long id) {
+    public PersonalDetailsDTO getPersonalDetailsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
-        PersonalDetails personalDetails = personalDetailsRepository.findById(id).orElseThrow(() -> new RuntimeException("PersonalDetails not found with id: " + id));
+        PersonalDetails personalDetails = personalDetailsRepository.findByUserIdAndSeminarId(id,seminarId).orElseThrow(() -> new RuntimeException("PersonalDetails not found"));
         return modelMapper.map(personalDetails, PersonalDetailsDTO.class);
     }
 

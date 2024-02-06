@@ -40,9 +40,9 @@ public class PersonalDetailsController {
         List<PersonalDetails> personalDetails = personalDetailsService.getPersonalDetails();
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@PathVariable Long id){
-        PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(id);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@PathVariable Long id,@PathVariable Long seminarId){
+        PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(id,seminarId);
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
 }

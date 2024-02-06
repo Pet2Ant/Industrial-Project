@@ -9,6 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
+
+import java.util.List;
+
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/hobbies")
@@ -32,9 +35,9 @@ public class HobbiesController {
         Hobbies savedHobbies = hobbiesService.saveHobbies(hobbies);
         return new ResponseEntity<>(savedHobbies, HttpStatus.CREATED);
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<HobbiesDTO> getHobbiesById(@PathVariable Long id){
-        HobbiesDTO hobbies = hobbiesService.getHobbiesById(id);
+    @GetMapping("/{id}/{seminarId}")
+    public ResponseEntity<List<HobbiesDTO>> getHobbiesById(@PathVariable Long id, @PathVariable Long seminarId){
+        List<HobbiesDTO> hobbies = hobbiesService.getHobbiesById(id,seminarId);
         return new ResponseEntity<>(hobbies, HttpStatus.OK);
     }
 }

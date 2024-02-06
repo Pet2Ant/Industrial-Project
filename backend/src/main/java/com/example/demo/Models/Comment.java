@@ -28,4 +28,6 @@ public class Comment {
     private String username;
     @Column(name ="section")
     private int section;
+    @Column(name = "seminar_id")
+    private long seminarId;
 }

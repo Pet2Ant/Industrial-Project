@@ -10,11 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CommentDTO {
-    private Long id;
     private int section;
     private String comment;
-    @JsonProperty("Date: ")
     private String date;
-    @JsonProperty("From user: ")
     private String username;
+
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TechnicalSkillsDTO {
-    @JsonProperty("Technical skills: ")
+    @JsonProperty("Technical skills")
     private String technicalSkills;
+
 }

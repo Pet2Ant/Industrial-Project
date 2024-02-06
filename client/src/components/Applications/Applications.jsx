@@ -20,6 +20,7 @@ const Applications = () => {
     country: "",
     education: "",
     email: "",
+    seminarId: "",
   });
   
   useEffect(() => {
@@ -45,6 +46,7 @@ const Applications = () => {
         country: detail.country,
         education: detail.education,
         email: detail.email,
+        seminarId: detail.seminarId,
       }));
       setData(newData);
       console.log(newData);
@@ -96,7 +98,7 @@ const Applications = () => {
       cell: (row) => (
         <EditPopup
           userId={row.userId}
-          id={row.id}
+          seminarId={row.seminarId}
         />
       ),
     },
@@ -118,7 +120,6 @@ const Applications = () => {
           </div>
         </div>
       </div>
-      <button onClick={handlePersonalDetails}>Add Personal Details</button>
     </div>
   );
 }

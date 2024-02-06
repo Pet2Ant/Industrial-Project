@@ -9,15 +9,16 @@ import lombok.Setter;
 @Setter
 @Getter
 public class WorkDTO {
-    @JsonProperty("Work: ")
+    @JsonProperty("Work")
     private String work;
-    @JsonProperty("Start date: ")
+    @JsonProperty("Start date")
     private String startDate;
-    @JsonProperty("End date: ")
+    @JsonProperty("End date")
     private String endDate;
-    @JsonProperty("Experience: ") // Assuming experience can be quite long
+    @JsonProperty("Experience") // Assuming experience can be quite long
     private String experience;
 
-    @JsonProperty("Responsibilities: ") // Assuming responsibilities can be quite long
+    @JsonProperty("Responsibilities") // Assuming responsibilities can be quite long
     private String responsibilities;
+
 }

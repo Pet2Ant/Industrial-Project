@@ -27,12 +27,7 @@ function SeminarsPage() {
     setDateRange(dateRange);
   };
 
-  // save inputs to local storage
-  const saveInputsToLocalStorage = () => {
-    localStorage.setItem("seminarName", seminar);
-    localStorage.setItem("startDate", startDate);
-    localStorage.setItem("endDate", endDate);
-  };
+ 
 
   const handleSeminars = async (e) => {
     e.preventDefault();
