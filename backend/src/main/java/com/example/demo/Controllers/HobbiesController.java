@@ -3,7 +3,6 @@ package com.example.demo.Controllers;
 import com.example.demo.DTO.HobbiesDTO;
 import com.example.demo.Models.Hobbies;
 import com.example.demo.Services.HobbiesService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +16,22 @@ import java.util.List;
 @RequestMapping("/api/hobbies")
 public class HobbiesController {
     private final HobbiesService hobbiesService;
-    @Autowired
-    private DataService dataService;
-    @Autowired
-    private JwtUtil jwtUtil;
 
-    @Autowired
-    public HobbiesController(HobbiesService hobbiesService) {
+    private final DataService dataService;
+
+    private final JwtUtil jwtUtil;
+
+    public HobbiesController(HobbiesService hobbiesService, DataService dataService, JwtUtil jwtUtil) {
         this.hobbiesService = hobbiesService;
+        this.dataService = dataService;
+        this.jwtUtil = jwtUtil;
     }
+
 
     @PostMapping
     public ResponseEntity<Hobbies> createHobbies(@RequestBody Hobbies hobbies, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
-        Long userId = dataService.getUserId(username).getId();
+        long userId = dataService.getUserId(username).getId();
         hobbies.setUserId(userId);
         Hobbies savedHobbies = hobbiesService.saveHobbies(hobbies);
         return new ResponseEntity<>(savedHobbies, HttpStatus.CREATED);
