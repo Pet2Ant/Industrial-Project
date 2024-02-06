@@ -23,7 +23,6 @@ function EditPopup({
   console.log('seminarId:', seminarId);
   const [headerText, setHeaderText] = useState("");
   const [serverResponse, setServerResponse] = useState(null);
-  // TO DO HANDLE EDUCATION PROPERLY.
   const fetchUserDetails = () => {
 
     const endpoints = ['personalDetails', 'education', 'hobbies', 'seminars', 'technicalSkills', 'volunteering', 'work'];
@@ -183,9 +182,9 @@ function EditPopup({
     'personalDetails': 'Personal Details',
     'education': 'Education',
     'hobbies': 'Hobbies',
-    'seminars': 'Seminars',
+    'seminars': 'Seminars & Certified Courses',
     'technicalSkills': 'Technical Skills',
-    'volunteering': 'Volunteering',
+    'volunteering': 'Volunteering & Projects',
     'work': 'Work'
   };
   const seminarNames =
@@ -222,7 +221,7 @@ function EditPopup({
             }}
             className="flex flex-col items-center w-full mx-auto justify-center p-6 font-noi gap-2">
             <div className="flex flex-col justify-between text-[#103022] text-lg font-light mr-4 mb-4 mx-auto w-full break-words">
-
+              {console.log(serverResponse)}
               {serverResponse && endpoints.map(endpoint => {
                 let value = serverResponse[endpoint];
                 if (value) {
@@ -249,6 +248,12 @@ function EditPopup({
                                   if (subValue === "" || subValue === null) {
                                     return <></>;
                                   }
+                            
+                                  if(subKey === "Education" )
+                                  {
+                                    subKey += " Level";
+                                  }
+
                                   return (
                                     <div key={subKey}>
                                       <br />{`${subKey}: ${subValue}`}<br />
@@ -318,3 +323,5 @@ function EditPopup({
 }
 
 export default EditPopup;
+
+
