@@ -2,7 +2,6 @@ import React, {useState} from "react";
 import Table from "../Applications/ApplicationTable/ApplicationsTable";
 import dataJSON from "../Applications/ApplicationTable/mockData.json";
 import { Link } from "react-router-dom";
-import PieChart from "../Charts/PieChart";
 
 const Paragraph = ({ text }) => {
   return (
@@ -86,7 +85,7 @@ const MainPageContainer = ({ title, rows }) => {
             ))}
           </div>
         ) : title === "Charts" ? (
-          <PieChart />
+          <></>
         ) : (
           <div className="my-4 bg-transparent">
             <RecentFeedContainer />

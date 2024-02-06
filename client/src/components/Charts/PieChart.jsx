@@ -1,63 +1,101 @@
-import React from 'react';
-import { VictoryChart, VictoryBar, VictoryAxis } from 'victory';
-import dataJSON from "../Applications/ApplicationTable/mockData.json";
-const UserDataChart = () => {
-    // Get the user data
-    const userData = dataJSON;
-  // Count the occurrences of each pronoun
-  const pronounCounts = userData.reduce((counts, user) => {
-    const { pronouns } = user;
-    counts[pronouns] = (counts[pronouns] || 0) + 1;
-    return counts;
-  }, {});
+import React from "react";
+import ReactDOM from "react-dom";
+import ReactApexChart from "react-apexcharts";
 
-  const idCounts = userData.reduce((counts, user) => {
-    const { id } = user;
-    counts[id] = (counts[id] || 0) + 1;
-    return counts;
-  }, {});
+class ApexChart extends React.Component {
+  constructor(props) {
+    super(props);
 
-    const interestsCounts = userData.reduce((counts, user) => {
-    const { interests } = user;
-    counts[interests] = (counts[interests] || 0) + 1;
-    return counts;
-    }, {});
-
-  // Find the majority pronoun
-  const pronounEntries = Object.entries(pronounCounts);
-  const sortedPronounEntries = pronounEntries.sort((a, b) => b[1] - a[1]);
-  const majorityPronoun = sortedPronounEntries[0][0];
-  
-
-  // Prepare data for the chart
-  const chartData = pronounEntries.map(([pronoun, count]) => ({
-    pronoun,
-    count,
-    isMajority: pronoun === majorityPronoun,
-  }));
-
-  return (
-    <VictoryChart>
-      <VictoryAxis
-        dependentAxis
-        tickFormat={(tick) => `${tick}`}
-        style={{
-          tickLabels: { fontSize: 10 },
-        }}
-      />
-      <VictoryAxis style={{ tickLabels: { fontSize: 10 } }} />
-      <VictoryBar
-        data={chartData}
-        x="pronoun"
-        y="count"
-        style={{
-          data: {
-            fill: ({ datum }) => (datum.isMajority ? 'green' : 'gray'),
+    this.state = {
+    
+      series: [{
+        name: 'Servings',
+        data: [44, 55, 41, 67, 22, 43, 21, 33, 45, 31, 87, 65, 35]
+      }],
+      options: {
+        annotations: {
+          points: [{
+            x: 'Bananas',
+            seriesIndex: 0,
+            label: {
+              borderColor: '#775DD0',
+              offsetY: 0,
+              style: {
+                color: '#fff',
+                background: '#775DD0',
+              },
+              text: 'Bananas are good',
+            }
+          }]
+        },
+        chart: {
+          height: 350,
+          type: 'bar',
+        },
+        plotOptions: {
+          bar: {
+            borderRadius: 10,
+            columnWidth: '50%',
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          width: 2
+        },
+        
+        grid: {
+          row: {
+            colors: ['#fff', '#f2f2f2']
+          }
+        },
+        xaxis: {
+          labels: {
+            rotate: -45
           },
-        }}
-      />
-    </VictoryChart>
-  );
-};
+          categories: ['Apples', 'Oranges', 'Strawberries', 'Pineapples', 'Mangoes', 'Bananas',
+            'Blackberries', 'Pears', 'Watermelons', 'Cherries', 'Pomegranates', 'Tangerines', 'Papayas'
+          ],
+          tickPlacement: 'on'
+        },
+        yaxis: {
+          title: {
+            text: 'Servings',
+          },
+        },
+        fill: {
+          type: 'gradient',
+          gradient: {
+            shade: 'light',
+            type: "horizontal",
+            shadeIntensity: 0.25,
+            gradientToColors: undefined,
+            inverseColors: true,
+            opacityFrom: 0.85,
+            opacityTo: 0.85,
+            stops: [50, 0, 100]
+          },
+        }
+      },
+    
+    
+    };
+  }
 
-export default UserDataChart;
+
+
+  render() {
+    return (
+      <div>
+        <div id="chart">
+          <ReactApexChart options={this.state.options} series={this.state.series} type="bar" height={350} />
+        </div>
+        <div id="html-dist"></div>
+      </div>
+    );
+  }
+}
+
+const domContainer = document.querySelector('#app');
+ReactDOM.render(React.createElement(ApexChart), domContainer);
