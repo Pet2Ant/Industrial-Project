@@ -3,7 +3,6 @@ package com.example.demo.Controllers;
 import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.PersonalDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,26 +10,28 @@ import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
 @RequestMapping("/api/personalDetails")
 public class PersonalDetailsController {
     private final PersonalDetailsService personalDetailsService;
-    @Autowired
-    private DataService dataService;
-    @Autowired
-    private JwtUtil jwtUtil;
 
-    @Autowired
-    public PersonalDetailsController(PersonalDetailsService personalDetailsService) {
+    private final  DataService dataService;
+
+    private final JwtUtil jwtUtil;
+
+    public PersonalDetailsController(PersonalDetailsService personalDetailsService, DataService dataService, JwtUtil jwtUtil) {
         this.personalDetailsService = personalDetailsService;
+        this.dataService = dataService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping
     public ResponseEntity<PersonalDetails> createPersonalDetails(@RequestBody PersonalDetails personalDetails, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
-        Long userId = dataService.getUserId(username).getId();
+        long userId = dataService.getUserId(username).getId();
         personalDetails.setUserId(userId);
         PersonalDetails savedPersonalDetails = personalDetailsService.savePersonalDetails(personalDetails);
         return new ResponseEntity<>(savedPersonalDetails, HttpStatus.CREATED);
@@ -44,5 +45,9 @@ public class PersonalDetailsController {
     public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@PathVariable Long id,@PathVariable Long seminarId){
         PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(id,seminarId);
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
+    }
+    @GetMapping("/seminarcount")
+    public Map<Integer,Long> getSeminarCounts(){
+        return personalDetailsService.getSeminarCounts();
     }
 }

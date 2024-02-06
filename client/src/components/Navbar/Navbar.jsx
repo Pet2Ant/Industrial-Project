@@ -268,5 +268,3 @@ const Navbar = ({ userKind }) => {
   );
 };
 export default Navbar;
-
-

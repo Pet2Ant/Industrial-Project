@@ -8,6 +8,7 @@ import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Applications from "./components/Applications/Applications";
 import CVBuilder from "./components/CVBuilder/CVBuilder";
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
+import CVBuilder from './components/CvBuilder/CvBuilder';
 
 
 function App() {

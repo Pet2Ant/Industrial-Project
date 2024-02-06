@@ -45,8 +45,8 @@ function MainPage() {
           </>
         ) : currentUser === "admin" ? (
           <>
-            <MainPageContainer />
-            <MainPageContainer title="Charts" />
+            <MainPageContainer title="EDUCATION LEVEL / SEMINAR"/>
+            <MainPageContainer title="SEMINARS BY POPULARITY" />
           </>
         ) : (
           <>

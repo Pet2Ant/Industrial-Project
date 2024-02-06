@@ -2,8 +2,6 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Models.Data;
 import com.example.demo.Services.DataService;
-import com.example.demo.Util.JwtResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import com.example.demo.Util.JwtUtil;
 import org.springframework.web.bind.annotation.*;
@@ -14,10 +12,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/data")
 public class DataController {
-    @Autowired
-    private DataService dataService;
-    @Autowired
-    private JwtUtil jwtUtil;
+
+    private final DataService dataService;
+
+    private final JwtUtil jwtUtil;
+
+    public DataController(DataService dataService, JwtUtil jwtUtil) {
+        this.dataService = dataService;
+        this.jwtUtil = jwtUtil;
+    }
 
     @GetMapping
 

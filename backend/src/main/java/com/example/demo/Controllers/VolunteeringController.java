@@ -3,7 +3,6 @@ package com.example.demo.Controllers;
 import com.example.demo.DTO.VolunteeringDTO;
 import com.example.demo.Models.Volunteering;
 import com.example.demo.Services.VolunteeringService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,20 +16,21 @@ import java.util.List;
 @RequestMapping("/api/volunteering")
 public class VolunteeringController {
     private final VolunteeringService volunteeringService;
-    @Autowired
-    private DataService dataService;
-    @Autowired
-    private JwtUtil jwtUtil;
 
-    @Autowired
-    public VolunteeringController(VolunteeringService volunteeringService) {
+    private final DataService dataService;
+
+    private final JwtUtil jwtUtil;
+
+    public VolunteeringController(VolunteeringService volunteeringService, DataService dataService, JwtUtil jwtUtil) {
         this.volunteeringService = volunteeringService;
+        this.dataService = dataService;
+        this.jwtUtil = jwtUtil;
     }
 
     @PostMapping
     public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering volunteer, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
-        Long userId = dataService.getUserId(username).getId();
+        long userId = dataService.getUserId(username).getId();
         volunteer.setUserId(userId);
         System.out.println(" i was here ");
         Volunteering savedVolunteering = volunteeringService.saveVolunteering(volunteer);
