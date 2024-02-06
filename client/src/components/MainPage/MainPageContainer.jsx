@@ -3,6 +3,13 @@ import axios from "axios";
 import { BarChart, Bar, XAxis, YAxis, Tooltip, Legend, CartesianGrid } from 'recharts';
 import SeminarCharts from "../Charts/SeminarsChart";
 import { ResponsiveContainer } from 'recharts';
+const Paragraph = ({ text }) => {
+  return (
+    <p className="text-center text-2xl text-[#143727] font-medium md:leading-loose leading-relaxed">
+      {text}
+    </p>
+  );
+};
 const MainPageContainer = ({ title, rows }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
