@@ -20,6 +20,39 @@ function isValidJwt(jwt) {
 
   return true;
 }
+
+
+const downloadPdf = async () => {
+  try {
+    const response = await axios.get(`http://localhost:8080/api/cvBuilder`, {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+      responseType: "blob",
+    });
+    const blob = new Blob([response.data], { type: "application/pdf" });
+    const url = window.URL.createObjectURL(new Blob([blob]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute("download", "cv.pdf");
+    document.body.appendChild(link);
+    link.click();
+    link.parentNode.removeChild(link);
+  } catch (error) {
+    console.log("There was an error!", error);
+    Popup({
+      title: "Error!",
+      text: "There was an error downloading your CV.",
+      icon: "error",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
+};
+
+
+    
 const AuthenticatedNavbar = ({ userKind,logout }) =>
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -82,7 +115,7 @@ const AuthenticatedNavbar = ({ userKind,logout }) =>
         {/* </button> */}
       </Link>
       <Link to="/cvBuilder" className="text-[#143727] hover:text-gray-300 p-2">
-        <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
+        <button onClick={downloadPdf} className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
           CV Builder
         </button>
       </Link>
