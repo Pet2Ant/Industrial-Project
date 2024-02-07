@@ -15,6 +15,7 @@ function PersonalDetails({ setIsLoading }) {
   const [phone, setPhone] = useState("");
   const [externalLinks, setExternalLinks] = useState("");
   const [education, setEducation] = useState("");
+  const [pronouns, setPronouns] = useState("");
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const seminarId = localStorage.getItem("seminar");
 
@@ -100,6 +101,7 @@ function PersonalDetails({ setIsLoading }) {
             externalLinks,
             education,
             seminarId,
+            pronouns,
           }
         );
         Popup({
@@ -119,9 +121,9 @@ function PersonalDetails({ setIsLoading }) {
         });
       }
     };
-    }
+  }
 
-    
+
 
   return (
     <form>
@@ -190,6 +192,15 @@ function PersonalDetails({ setIsLoading }) {
           placeholder="Give a brief personal statement describing your studies, experience & aspirations. (optional)"
           type="text"
           id="education"
+        />
+      </div>
+      <div className="w-3/4 mx-auto flex md:flex-row flex-col p-4 gap-4">
+        <ApplyInput
+          name="Pronouns"
+          setName={setPronouns}
+          placeholder="Please enter your preferred pronouns (optional)."
+          type="text"
+          id="pronouns"
         />
       </div>
 

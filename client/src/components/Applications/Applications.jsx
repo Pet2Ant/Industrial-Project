@@ -26,6 +26,7 @@ const Applications = () => {
     education: "",
     email: "",
     seminarId: "",
+    pronouns:"",
   });
   
   useEffect(() => {
@@ -51,6 +52,7 @@ const Applications = () => {
         education: detail.education,
         email: detail.email,
         seminarId: detail.seminarId,
+        pronouns: detail.pronouns,
       }));
       setData(newData);
     } catch (error) {
@@ -63,12 +65,23 @@ const Applications = () => {
       });
     }
   };
+  
+
+  
+  const seminarNames = {
+    1: "Placeholder Name 1",
+    2: "Placeholder Name 2",
+    3: "Placeholder Name 3",
+    4: "Placeholder Name 4",
+    5: "Placeholder Name 5",
+    6: "Placeholder Name 6",
+  };
     
   // Table columns
   const columns = [
     {
-      name: "ID",
-      selector: (row) => row.userId,
+      name: "Seminar ",
+      selector: (row) => seminarNames[row.seminarId],
       sortable: true,
     },
     {
@@ -89,7 +102,7 @@ const Applications = () => {
     },
     {
       name: "Pronouns",
-      selector: (row) => row.education.charAt(0).toUpperCase() + row.education.slice(1),
+      selector: (row) => row.pronouns,
       sortable: true,
     },
     {

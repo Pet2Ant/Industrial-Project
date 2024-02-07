@@ -23,7 +23,8 @@ public class PersonalDetails {
     private long seminarId;
     @Column(name = "last_name")
     private String lastName;
-
+    @Column(name = "pronouns")
+    private String pronouns;
     @Column(name = "country")
     private String country;
 

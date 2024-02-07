@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.Models.Data;
 import com.example.demo.Services.DataService;
+import jakarta.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import com.example.demo.Util.JwtUtil;
 import org.springframework.web.bind.annotation.*;
@@ -23,13 +24,13 @@ public class DataController {
     }
 
     @GetMapping
-
     public List<Data> getAllData() {
         return dataService.getAllData();
     }
 
 
     @PostMapping
+    @Valid
     public ResponseEntity<?> createData(@RequestBody Data data) {
         Data newData = dataService.createData(data);
         System.out.println("New data: " + newData);

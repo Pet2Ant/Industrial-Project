@@ -87,6 +87,7 @@ const GetCV = () => {
               position: "absolute",
               top: 25,
               left: 0,
+              marginLeft:30,
             }}
             src={image}
           />
@@ -304,19 +305,29 @@ const GetCV = () => {
                       }
                       if (category === "Pronouns: ") {
                         return (
-                          <Text
-                            style={{
-                              color: "#164006",
-                              fontSize: 18,
-                              fontWeight: "bold",
-                              textAlign: "center",
-                              marginLeft: 40,
-                              paddingTop: 5,
-                              marginTop: 10,
-                            }}
-                          >
-                            {`• My Pronouns are: ${userInput}`}
+                          <View  style={{
+                            flexDirection: "column",
+                            flexWrap: "wrap",
+                            color: "#164006",
+                          }}
+                        >
+                         <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                paddingVertical: 5,
+                                marginLeft: 60,
+                                marginTop: 10,
+                              }}
+                            >
+                            {`• My Pronouns are: `}</Text> <Text style={{
+                                marginLeft: 243,
+                                color: "#164006",
+                              }}>
+                            {userInput}
                           </Text>
+                          </View>
                         );
                       }
                       if (category === "External links: ") {

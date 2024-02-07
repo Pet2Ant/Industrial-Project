@@ -29,7 +29,7 @@ public class CommentsService {
     public void deleteComment(Long id) {
         commentsRepository.deleteById(id);
     }
-    //get comments from DTO
+
 
     public List<CommentDTO> getComments(Long userId, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
