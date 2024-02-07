@@ -2,18 +2,21 @@ package com.example.demo.Services;
 
 import com.example.demo.Models.Data;
 import com.example.demo.Repository.DataRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class DataService {
-    @Autowired
+
     private final  DataRepository dataRepository;
 
-    public DataService(DataRepository dataRepository) {
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    public DataService(DataRepository dataRepository, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.dataRepository = dataRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public List<Data> getAllData() {
@@ -22,6 +25,7 @@ public class DataService {
 
 
     public Data createData(Data data) {
+        data.setPassword(bCryptPasswordEncoder.encode(data.getPassword()));
         return dataRepository.save(data);
     }
 

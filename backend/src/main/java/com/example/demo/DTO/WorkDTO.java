@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class WorkDTO {
-    @JsonProperty("Worked at:")
+    @JsonProperty("Worked at")
     private String work;
     @JsonProperty("Start date")
     private String startDate;
@@ -20,11 +20,5 @@ public class WorkDTO {
 
     @JsonProperty("Responsibilities") // Assuming responsibilities can be quite long
     private String responsibilities;
-    public String toPdfString() {
-        return "Working place: " + work +""+
-                ", Started working at: " + startDate +""+
-                ", Parted ways at: " + endDate +""+
-                ", Experience during stay: " + experience +""+
-                ", Responsibilities during stay: " + responsibilities+"";
-    }
+
 }
