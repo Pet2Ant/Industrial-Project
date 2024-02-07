@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @Getter
 public class WorkDTO {
-    @JsonProperty("Worked at:")
+    @JsonProperty("Worked at")
     private String work;
     @JsonProperty("Start date")
     private String startDate;

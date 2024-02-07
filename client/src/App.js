@@ -6,9 +6,8 @@ import MainPage from "./components/MainPage/MainPage";
 import Apply from "./components/Apply/Apply";
 import ErrorPage from "./components/ErrorPage/ErrorPage";
 import Applications from "./components/Applications/Applications";
-import CVBuilder from "./components/CVBuilder/CVBuilder";
+import CvBuilder from "./components/CvBuilder/CvBuilder.jsx";
 import LoadingSpinner from './components/LoadingSpinner/LoadingSpinner';
-import CVBuilder from './components/CvBuilder/CvBuilder';
 
 
 function App() {
@@ -27,7 +26,7 @@ function App() {
             <Route path="/Login" element={<Login onLogin={() => setIsLoggedIn(true)} setIsLoading={setIsLoading} />} />
             <Route path="/Apply" element={<Apply />} />
             <Route path="/Applications" element={<Applications />} />
-            <Route path="/CVBuilder" element={<CVBuilder />} />
+            <Route path="/CvBuilder" element={<CvBuilder />} />
             <Route path="*" element={<ErrorPage />} />
 
             
