@@ -13,7 +13,7 @@ const Paragraph = ({ text }) => {
 const MainPageContainer = ({ title, rows }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
-    if (title === "Education/seminar") {
+    if (title === "EDUCATION LEVEL / SEMINAR") {
       console.log('Fetching data for education levels per seminar');
       axios.get('api/education/educationcount')
         .then(response => {

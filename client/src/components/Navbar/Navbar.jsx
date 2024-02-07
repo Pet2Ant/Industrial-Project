@@ -81,69 +81,67 @@ return (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
         to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         blog
       </Link>
       <Link
         to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         about us
       </Link>
       <Link
         to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         seminars
       </Link>
       <Link
         to="/Applications"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
           See applications
         </button>
       </Link>
-      <Link to="/"  className="text-[#143727] hover:text-gray-300 p-2">
+      <Link to="/"  className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
         <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
           Log out
         </button>
       </Link>
     </div>
   ) : userKind === "user" ? (
-    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
+    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center ">
       <Link
         to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         blog
       </Link>
       <Link
         to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         about us
       </Link>
       <Link
         to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         seminars
       </Link>
 
-      <Link to="/apply" className="text-[#143727] hover:text-gray-300 p-2">
-        {/* <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2"> */}
+      <Link to="/apply" className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
         Apply for a seminar
-        {/* </button> */}
       </Link>
         <button 
         onClick={handleImageUpload}
-        className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
+        className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2 hover:bg-indigo-400 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
           CV Builder
         </button>
-      <Link to="/" className="text-[#143727] hover:text-gray-300 p-2">
-        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
+      <Link to="/" className="text-[#143727] hover:text-gray-400 p-2">
+        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] hover:bg-green-900 rounded-full px-4 py-2 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
           Log out
         </button>
       </Link>
@@ -156,29 +154,29 @@ const UnauthenticatedNavbar = () => (
   <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
     <Link
       to="https://www.joinwelead.org/el/blog"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       blog
     </Link>
     <Link
       to="https://www.joinwelead.org/el/sxetika-me-emas"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       about us
     </Link>
     <Link
       to="https://www.joinwelead.org/el/programmata"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       seminars
     </Link>
 
-    <Link to="/login" className="text-[#143727] hover:text-gray-300 p-2 ">
+    <Link to="/login" className="text-[#143727] hover:text-gray-400 p-2 ">
       <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
         Log in
       </button>
     </Link>
-    <Link to="/register" className="text-[#143727] hover:text-gray-300 p-2">
+    <Link to="/register" className="text-[#143727] hover:text-gray-400 p-2">
       <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2 ">
         Register
       </button>
