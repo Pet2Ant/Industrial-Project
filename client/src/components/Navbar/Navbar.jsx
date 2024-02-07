@@ -8,13 +8,11 @@ import Popup from "../Popup/Popup";
 
 function isValidJwt(jwt) {
   if (!jwt) {
-    console.log('JWT is null or undefined');
     return false;
   }
 
   const parts = jwt.split('.');
   if (parts.length !== 3) {
-    console.log('JWT does not contain exactly 2 periods');
     return false;
   }
 
@@ -64,7 +62,6 @@ const handleImageUpload = async () => {
           return;
         } else if (result.isConfirmed) {
           Swal.fire("Saved!", "", "success");
-          console.log('Image saved to local storage', btoa(e.target.result));
           localStorage.setItem('image', btoa(e.target.result));
 
           navigate('/CvBuilder');
@@ -191,7 +188,6 @@ const Navbar = ({ userKind }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const jwt = localStorage.getItem('token');
-  console.log('JWT:', jwt);
   useEffect(() => {
     const user = localStorage.getItem("token") ;
     if (user !== null) {
@@ -227,7 +223,6 @@ const Navbar = ({ userKind }) => {
       } 
     }
     catch (err) {
-      console.log(err);
       Popup({
         title: "Error!",
         text:

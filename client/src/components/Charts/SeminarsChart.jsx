@@ -18,7 +18,6 @@ const UserDataChart = () => {
           };
         });
         
-        console.log('newChartData:', newChartData);
         setChartData(newChartData);
       })
       .catch(error => {

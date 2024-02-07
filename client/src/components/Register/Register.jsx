@@ -8,15 +8,14 @@ import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
 import { get } from "lodash";
+
 function isValidJwt(jwt) {
   if (!jwt) {
-    console.log("JWT is null or undefined");
     return false;
   }
 
   const parts = jwt.split(".");
   if (parts.length !== 3) {
-    console.log("JWT does not contain exactly 2 periods");
     return false;
   }
   return true;
@@ -57,7 +56,6 @@ function Register({ setIsLoading }) {
         password,
       });
       const jwt = response.data.token;
-      console.log("JWT:", jwt);
       if (!localStorage.getItem("token")) {
         setData([...data, response.data]);
         Popup({
@@ -70,7 +68,6 @@ function Register({ setIsLoading }) {
 
       }
     } catch (error) {
-      console.log('There was an error!', error);
       Popup({
         title: 'Error!',
         text: 'There was an error registering your account.',
@@ -174,7 +171,6 @@ function Register({ setIsLoading }) {
               id="confirmPassword"
             />
           </div>
-          {/* <Button buttonName="Register" onClick={() => console.log('Button clicked')} /> */}
           <Button buttonName="Register" onClick={createData} />
         </form>
       </div>

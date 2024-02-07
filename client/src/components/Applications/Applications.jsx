@@ -35,7 +35,6 @@ const Applications = () => {
   const handlePersonalDetails = async (e) => {
     if(e) e.preventDefault();
     try {
-      console.log("Adding personal details...");
       const response = await axios.get(
         "http://localhost:8080/api/personalDetails",
         {
@@ -54,9 +53,7 @@ const Applications = () => {
         seminarId: detail.seminarId,
       }));
       setData(newData);
-      console.log(newData);
     } catch (error) {
-      console.log("There was an error!", error);
       Popup({
         title: "Error!",
         text: "There was an error adding your personal details.",
@@ -66,10 +63,6 @@ const Applications = () => {
       });
     }
   };
-  
-
-  
-    console.log(data);
     
   // Table columns
   const columns = [

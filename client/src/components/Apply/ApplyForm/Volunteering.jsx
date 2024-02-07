@@ -39,7 +39,6 @@ function Volunteering() {
           seminarId,
         }
       );
-      console.log(response);
       Popup({
         title: "Success!",
         text: "You have successfully added your volunteering work!",
@@ -47,9 +46,7 @@ function Volunteering() {
         timer: 1500,
         showConfirmButton: false,
       });
-      console.log(volunteer, dateRange);
     } catch (error) {
-      console.log("There was an error!", error);
       Popup({
         title: "Error!",
         text: "There was an error adding your volunteering work.",

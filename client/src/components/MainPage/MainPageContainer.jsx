@@ -14,7 +14,6 @@ const MainPageContainer = ({ title, rows }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     if (title === "EDUCATION LEVEL / SEMINAR") {
-      console.log('Fetching data for education levels per seminar');
       axios.get('api/education/educationcount')
         .then(response => {
           // Transform the response to match the format required by Recharts
@@ -24,10 +23,8 @@ const MainPageContainer = ({ title, rows }) => {
           }));
           
           setData(transformedData);
-          console.log('transformedData:', transformedData);
         })
         .catch(error => {
-          console.error('Error fetching data', error);
         });
     }
   }, [title]);

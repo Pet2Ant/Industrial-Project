@@ -38,7 +38,6 @@ const GetCV = () => {
   useEffect(() => {
     const fetchData = async () => {
       const token = localStorage.getItem("token");
-      console.log("TOKEN GOT");
       try {
         const response = await axios.get(
           `http://localhost:8080/api/cvBuilder`,
@@ -50,9 +49,7 @@ const GetCV = () => {
           }
         );
         setData(response.data);
-        console.log(response.data);
       } catch (error) {
-        console.log("There was an error!", error);
       }
     };
 
@@ -846,7 +843,6 @@ const GetCV = () => {
 
                     {titles === "hobbies" && (
                       <View style={{ marginTop: 10, letterSpacing: 1.5 }}>
-                        {console.log("hobbies are", hobbies)}
                         {hobbies && <Text>• {hobbies}.</Text>}
                       </View>
                     )}
