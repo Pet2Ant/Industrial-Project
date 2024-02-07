@@ -81,14 +81,15 @@ const GetCV = () => {
             style={{
               maxWidth: "100%",
               height: 250,
-              width: 250,
+              width: 180,
               objectFit: "contain",
               alignSelf: "center",
               borderRadius: 1000,
-              marginTop: 80,
+              marginTop: 35,
               position: "absolute",
               top: 0,
               left: 0,
+              marginLeft:30,
             }}
             src={image}
           />
@@ -102,10 +103,10 @@ const GetCV = () => {
               right: 0,
             }}
           />
-          {/* {setTimeout(() => {
+          {setTimeout(() => {
                 localStorage.removeItem("image")
                 } , 1000)
-            } */}
+            }
 
           {Object.keys(data).map((titles, i) => (
             <View wrap={false} category={i} style={styles.section}>
@@ -210,7 +211,7 @@ const GetCV = () => {
                               fontWeight: "bold",
                               textAlign: "center",
                               paddingVertical: 5,
-                              marginLeft: 38,
+                              marginLeft: 28,
                               marginTop: 10,
                             }}
                           >{`• Live in: ${(userInput =

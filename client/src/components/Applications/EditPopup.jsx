@@ -253,6 +253,7 @@ function EditPopup({
                                   {
                                     subKey += " Level";
                                   }
+                                  
 
                                   return (
                                     <div key={subKey}>
@@ -268,6 +269,10 @@ function EditPopup({
                               if (subValue === "" || subValue === null) {
                                 return <></>;
                               }
+                              if(subKey === "External links: ")
+                                  {
+                                    console.log("i got in here")
+                                  }
                               return (
                                 <div key={subKey}>
                                   {`${subKey} ${subValue}`}<br />
