@@ -235,7 +235,7 @@ const GetCV = () => {
                               textAlign: "center",
                               paddingVertical: 5,
                               marginLeft: 35,
-                              marginTop: 100,
+                              marginTop: 10,
                             }}
                           >{`• Contact me at: `}</Text>
                             <Text style={{ color: "#164006", marginLeft: 243
