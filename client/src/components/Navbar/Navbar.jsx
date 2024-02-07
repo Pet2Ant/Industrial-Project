@@ -2,8 +2,10 @@ import React, {useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 import axios from "axios";
 import Popup from "../Popup/Popup";
+
 function isValidJwt(jwt) {
   if (!jwt) {
     console.log('JWT is null or undefined');
@@ -22,139 +24,159 @@ function isValidJwt(jwt) {
 }
 
 
-// const downloadPdf = async () => {
-//   try {
-//     const response = await axios.get(`http://localhost:8080/api/cvBuilder`, {
-//       headers: {
-//         "Content-Type": "application/json",
-//         Authorization: `Bearer ${localStorage.getItem("token")}`,
-//       },
-//       responseType: "blob",
-//     });
-//     const blob = new Blob([response.data], { type: "application/pdf" });
-//     const url = window.URL.createObjectURL(new Blob([blob]));
-//     const link = document.createElement("a");
-//     link.href = url;
-//     link.setAttribute("download", "cv.pdf");
-//     document.body.appendChild(link);
-//     link.click();
-//     link.parentNode.removeChild(link);
-//   } catch (error) {
-//     console.log("There was an error!", error);
-//     Popup({
-//       title: "Error!",
-//       text: "There was an error downloading your CV.",
-//       icon: "error",
-//       timer: 1500,
-//       showConfirmButton: false,
-//     });
-//   }
-// };
 
 
     
-const AuthenticatedNavbar = ({ userKind,logout }) =>
+const AuthenticatedNavbar = ({ userKind,logout }) => {
+  const navigate = useNavigate();
+  
+// show permanent popup with user input image
+const handleImageUpload = async () => {
+  const { value: file } = await Swal.fire({
+    title: 'Please upload a picture of yourself.',
+    text: 'This will be used in the making of your CV. (optional)',
+    input: 'file',
+    inputAttributes: {
+      'accept': 'image/*',
+      'aria-label': 'Upload your profile picture'
+    }
+  });
+
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      Swal.fire({
+        title: 'Your uploaded picture',
+        text: 'Your CV will be ready in a few seconds!',
+        imageUrl: e.target.result,
+        showConfirmButton: true,
+        imageAlt: 'The uploaded picture'
+        // on confirm button, save the image to local storage
+      }).then((result) => {
+        if (file.size > 2936012) {
+          Popup({
+            title: "Error!",
+            text: "The file you uploaded is too large. Please upload a file that is less than 2.7MB.",
+            icon: "error",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+          return;
+        } else if (result.isConfirmed) {
+          Swal.fire("Saved!", "", "success");
+          console.log('Image saved to local storage', btoa(e.target.result));
+          localStorage.setItem('image', btoa(e.target.result));
+
+          navigate('/CvBuilder');
+        } else if (result.isDenied) {
+          Swal.fire("Changes are not saved", "", "info");
+        }});
+    };
+    reader.readAsDataURL(file);
+  }
+};
+
+return (
   userKind === "admin" ? (
     <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
       <Link
         to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         blog
       </Link>
       <Link
         to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         about us
       </Link>
       <Link
         to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         seminars
       </Link>
       <Link
         to="/Applications"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
           See applications
         </button>
       </Link>
-      <Link to="/"  className="text-[#143727] hover:text-gray-300 p-2">
+      <Link to="/"  className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
         <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
           Log out
         </button>
       </Link>
     </div>
   ) : userKind === "user" ? (
-    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
+    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center ">
       <Link
         to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         blog
       </Link>
       <Link
         to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         about us
       </Link>
       <Link
         to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-300 p-2"
+        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
       >
         seminars
       </Link>
 
-      <Link to="/apply" className="text-[#143727] hover:text-gray-300 p-2">
-        {/* <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2"> */}
+      <Link to="/apply" className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
         Apply for a seminar
-        {/* </button> */}
       </Link>
-      <Link to="/cvBuilder" className="text-[#143727] hover:text-gray-300 p-2">
-        <button  className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
+        <button 
+        onClick={handleImageUpload}
+        className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2 hover:bg-indigo-400 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
           CV Builder
         </button>
-      </Link>
-      <Link to="/" className="text-[#143727] hover:text-gray-300 p-2">
-        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
+      <Link to="/" className="text-[#143727] hover:text-gray-400 p-2">
+        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] hover:bg-green-900 rounded-full px-4 py-2 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
           Log out
         </button>
       </Link>
     </div>
   ) : (
     <UnauthenticatedNavbar />
-  );
+  ));
+};
 const UnauthenticatedNavbar = () => (
   <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
     <Link
       to="https://www.joinwelead.org/el/blog"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       blog
     </Link>
     <Link
       to="https://www.joinwelead.org/el/sxetika-me-emas"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       about us
     </Link>
     <Link
       to="https://www.joinwelead.org/el/programmata"
-      className="text-[#143727] hover:text-gray-300 p-2"
+      className="text-[#143727] hover:text-gray-400 p-2"
     >
       seminars
     </Link>
 
-    <Link to="/login" className="text-[#143727] hover:text-gray-300 p-2 ">
+    <Link to="/login" className="text-[#143727] hover:text-gray-400 p-2 ">
       <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
         Log in
       </button>
     </Link>
-    <Link to="/register" className="text-[#143727] hover:text-gray-300 p-2">
+    <Link to="/register" className="text-[#143727] hover:text-gray-400 p-2">
       <button className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2 ">
         Register
       </button>
@@ -181,6 +203,9 @@ const Navbar = ({ userKind }) => {
     }
   
   }, []);
+
+
+
   const logout = async () => {
     try {
      if (isValidJwt(jwt)) {

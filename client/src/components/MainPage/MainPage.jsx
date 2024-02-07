@@ -1,24 +1,28 @@
 import React from "react";
+import { useContext } from "react";
+import { AppContext } from "../../AppContext";
 import Navbar from "../Navbar/Navbar";
 import MainPageContainer from "./MainPageContainer";
 
 function MainPage() {
   let isAuthenticated = false;
-  const userKind = ["admin", "user", "guest"];
-  console.log(localStorage.getItem("user"));
-  console.log(sessionStorage.getItem("user"));
-  console.log(localStorage.getItem("token"));
+  const userKind = useContext(AppContext);
+
+  const userKindString = JSON.stringify(userKind);
+  const parsedUserKind = JSON.parse(userKindString);
+  const extractedValue = parsedUserKind.user;
+
+
+
   (localStorage.getItem("token") === null)
     ? isAuthenticated = false
     : isAuthenticated = true;
-  console.log(isAuthenticated);
-  //commit
-  const currentUser = userKind[1];
+
   return (
     <div className="w-screen h-screen">
-      <Navbar isAuthenticated={isAuthenticated} userKind={currentUser} />
+      <Navbar isAuthenticated={isAuthenticated} userKind={extractedValue} />
       <div className="bg-[#143727] h-screen m-auto flex md:flex-row flex-col md:py-0 py-12 overflow-y-auto overflow-x-hidden items-center mx-auto ">
-        {currentUser === "user" ? (
+        {extractedValue === "user" ? (
           <>
             <MainPageContainer
               title="News"
@@ -43,7 +47,7 @@ function MainPage() {
               ]}
             />
           </>
-        ) : currentUser === "admin" ? (
+        ) : extractedValue === "admin" ? (
           <>
             <MainPageContainer title="EDUCATION LEVEL / SEMINAR"/>
             <MainPageContainer title="SEMINARS BY POPULARITY" />
