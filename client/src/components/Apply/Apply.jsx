@@ -1,5 +1,6 @@
 //Apply for a seminar page
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
+import { AppContext } from "../../AppContext";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import ApplyInput from "./ApplyInput";
@@ -15,7 +16,11 @@ import Button from "./ApplyButton";
 import Card from "./ApplyForm/Card";
 
 function Apply() {
-  const userKind = "admin";
+  const userKind = useContext(AppContext);
+
+  const userKindString = JSON.stringify(userKind);
+  const parsedUserKind = JSON.parse(userKindString);
+  const extractedValue = parsedUserKind.user;
 
   const components = [
     <PersonalDetails />,
@@ -97,7 +102,7 @@ function Apply() {
 
   return (
     <div className="bg-[#e5e5e5] h-screen min-h-screen max-h-screen overflow-auto scrollbar-hide font-noi">
-      <Navbar isAuthenticated={true} userKind={userKind} />
+      <Navbar isAuthenticated={true} userKind={extractedValue} />
       <div className="items-center h-full w-full flex-1 justify-start">
         {seminar ? <ShowInputs /> : <ShowCards setSeminar={setSeminar} />}
       </div>

@@ -85,9 +85,10 @@ const GetCV = () => {
               objectFit: "contain",
               alignSelf: "center",
               borderRadius: 1000,
-              marginTop: 35,
+              marginTop: 60,
+              marginLeft: 30,
               position: "absolute",
-              top: 0,
+              top: 25,
               left: 0,
               marginLeft:30,
             }}
@@ -162,12 +163,14 @@ const GetCV = () => {
                           <Text
                             style={{
                               color: "#164006",
-                              fontSize: 35,
+                              fontSize: 25,
                               fontWeight: "bold",
                               textTransform: "uppercase",
                               textAlign: "center",
                             }}
-                          >{`${userInput} `}</Text>
+                          >
+                            {`${userInput} `}
+                          </Text>
                         );
                         return null;
                       }
@@ -176,7 +179,7 @@ const GetCV = () => {
                           <Text
                             style={{
                               color: "orange",
-                              fontSize: 35,
+                              fontSize: 25,
                               fontWeight: "bold",
                               textTransform: "uppercase",
                               textAlign: "center",
@@ -187,76 +190,120 @@ const GetCV = () => {
                       }
                       if (category === "Country: ") {
                         return (
-                          <Text
+                          <View
                             style={{
-                              color: "#164006",
-                              fontSize: 18,
-                              fontWeight: "bold",
-                              textAlign: "center",
-                              paddingVertical: 5,
-                              marginLeft: 40,
-                              marginTop: 10,
+                              flexDirection: "column",
+                              justifyContent: "wrap",
+                              marginTop: 40,
                             }}
-                          >{`• Born in: ${(userInput =
-                            userInput.charAt(0).toUpperCase() +
-                            userInput.slice(1))}`}</Text>
+                          >
+                            <Text
+                              style={{
+                                color: "#164006",
+                                fontSize: 18,
+                                textAlign: "center",
+                                marginLeft: -20,
+                              }}
+                            >
+                              {`• Born in: `}
+                            </Text>
+                            <Text style={{ color: "#164006", marginLeft: 243 }}>
+                              {userInput}
+                            </Text>
+                          </View>
                         );
                       }
                       if (category === "City: ") {
                         return (
-                          <Text
+                          <View
                             style={{
+                              flexDirection: "column",
+                              justifyContent: "wrap",
                               color: "#164006",
-                              fontSize: 18,
-                              fontWeight: "bold",
-                              textAlign: "center",
-                              paddingVertical: 5,
-                              marginLeft: 28,
-                              marginTop: 10,
                             }}
-                          >{`• Live in: ${(userInput =
-                            userInput.charAt(0).toUpperCase() +
-                            userInput.slice(1))}`}</Text>
+                          >
+                            <Text
+                              style={{
+                                color: "#164006",
+                                fontSize: 18,
+
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                paddingVertical: 5,
+                                marginLeft: -25,
+                                marginTop: 10,
+                              }}
+                            >{`• Live in: `}</Text>
+                            <Text
+                              style={{
+                                marginLeft: 243,
+                              }}
+                            >
+                              {
+                                (userInput =
+                                  userInput.charAt(0).toUpperCase() +
+                                  userInput.slice(1))
+                              }
+                            </Text>
+                          </View>
                         );
                       }
                       if (category === "Email: ") {
                         return (
-                            <View
-                                style={{
-                                    flexDirection: "column",
-                                    flexWrap: "wrap",
-
-                                }}
-                            >
-                          <Text
+                          <View
                             style={{
-                              color: "#164006",
-                              fontSize: 18,
-                              fontWeight: "bold",
-                              textAlign: "center",
-                              paddingVertical: 5,
-                              marginLeft: 35,
-                              marginTop: 10,
+                              flexDirection: "column",
+                              flexWrap: "wrap",
                             }}
-                          >{`• Contact me at: `}</Text>
-                            <Text style={{ color: "#164006", marginLeft: 243
-                        }}>{userInput}</Text>
+                          >
+                            <Text
+                              style={{
+                                color: "#164006",
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                paddingVertical: 5,
+                                marginLeft: 35,
+                                marginTop: 10,
+                              }}
+                            >
+                              {`• Contact me at: `}
+                            </Text>
+                            <Text style={{ color: "#164006", marginLeft: 243 }}>
+                              {userInput}
+                            </Text>
                           </View>
                         );
                       }
                       if (category === "Phone: ") {
                         return (
-                          <Text
+                          <View
                             style={{
+                              flexDirection: "column",
+                              flexWrap: "wrap",
                               color: "#164006",
-                              fontSize: 18,
-                              fontWeight: "bold",
-                              textAlign: "center",
-                              paddingVertical: 5,
-                              marginLeft: 106,
-                              marginTop: 10,
                             }}
-                          >{`• Call me at: ${userInput}`}</Text>
+                          >
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                textAlign: "center",
+                                paddingVertical: 5,
+                                marginLeft: 5,
+                                marginTop: 10,
+                              }}
+                            >{`• Call me at: `}</Text>
+                            <Text
+                              style={{
+                                marginLeft: 243,
+                                color: "#164006",
+                              }}
+                            >
+                              {userInput}
+                            </Text>
+                          </View>
                         );
                       }
                       if (category === "Pronouns: ") {
@@ -282,7 +329,7 @@ const GetCV = () => {
                             style={{
                               flexDirection: "row",
                               flexWrap: "wrap",
-                              marginTop: 150,
+                              marginTop: 100,
                               marginLeft: 26,
                             }}
                           >
@@ -309,7 +356,7 @@ const GetCV = () => {
                               fontSize: 18,
                               fontWeight: "bold",
                               marginLeft: 26,
-                              marginTop: 15,
+                              marginTop: 45,
                             }}
                           >
                             {`About me: ${userInput}`}
