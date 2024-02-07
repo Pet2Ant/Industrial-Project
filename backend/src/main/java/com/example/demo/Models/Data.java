@@ -29,13 +29,11 @@ public class Data {
 
     @Column(nullable = false)
     @NotBlank
-    @Pattern(regexp="(^$|[0-9]{10})")
     private String phone;
 
     @Column(nullable = false)
     @NotBlank
-    @Size(min = 8, max = 32)
-    @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,16}$")
+    @Pattern(regexp=" ^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$")
     private String password;
 
 }

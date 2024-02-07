@@ -45,44 +45,127 @@ function Register({ setIsLoading }) {
   const createData = async () => {
     setIsLoading(true);
     if (!checkEmptyFields()) {
-        setIsLoading(false);
-        return;
+      setIsLoading(false);
+      return;
     }
-    try {
-      const response = await axios.post("http://localhost:8080/api/data", {
-        username,
-        email,
-        phone,
-        password,
-      });
-      const jwt = response.data.token;
-      if (!localStorage.getItem("token")) {
-        setData([...data, response.data]);
+    console.log("phone:" + phone);
+
+    
+      try {
+        
+        const response = await axios.post("http://localhost:8080/api/data", {
+          username,
+          email,
+          phone,
+          password,
+        });
+
+        if (!localStorage.getItem("token")) {
+          setData([...data, response.data]);
+          Popup({
+            title: "Success!",
+            text: "You have successfully registered!",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        }
+      } catch (error) {
+        validateFields();
         Popup({
-          title: "Success!",
-          text: "You have successfully registered!",
-          icon: "success",
+          title: "Error!",
+          text: error.response.data.message,
+          icon: "error",
           timer: 1500,
           showConfirmButton: false,
         });
-
       }
-    } catch (error) {
+    
+    setIsLoading(false);
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
+  };
+
+  const validatePasswords = () => {
+    if (password !== confirmPassword) {
       Popup({
-        title: 'Error!',
-        text: 'There was an error registering your account.',
-        icon: 'error',
-        timer: 1500,
+        title: "Error!",
+        text: "Passwords do not match.",
+        icon: "warning",
         showConfirmButton: false,
       });
-      setIsLoading(false);
-      location.reload();
+      return false;
     }
-    setIsLoading(false);
-    navigate("/login");
+    return true;
   };
-  
-  
+
+  const validateEmail = () => {
+    if (!email.includes("@") || !email.includes(".")) {
+      Popup({
+        title: "Error!",
+        text: "Please enter a valid email address.",
+        icon: "warning",
+        showConfirmButton: false,
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const validatePhone = () => {
+    if (phone.length < 12 && phone.length >= 16) {
+      Popup({
+        title: "Error!",
+        text: "Please enter a valid phone number.",
+        icon: "warning",
+        showConfirmButton: false,
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const validateUsername = () => {
+    if (username.length < 4) {
+      Popup({
+        title: "Error!",
+        text: "Please enter a valid username above 4 letters.",
+        icon: "warning",
+        showConfirmButton: false,
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const validatePassword = () => {
+    const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+    if (!regex.test(password)) {
+      Popup({
+        title: "Error!",
+        text: "Password must contain at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character",
+        icon: "warning",
+        showConfirmButton: false,
+      });
+      return false;
+    }
+    return true;
+  };
+
+  const validateFields = () => {
+    if (
+      !validatePasswords() ||
+      !validateEmail() ||
+      !validatePhone() ||
+      !validateUsername() ||
+      !validatePassword()
+    ) {
+      return false;
+    }
+    return true;
+  };
+
 
   return (
     <div className="bg-[#143727] h-screen min-h-screen max-h-screen ">
@@ -130,26 +213,27 @@ function Register({ setIsLoading }) {
             </a>
           </p>
           <div className="flex flex-col items-center justify-center relative sm:min-w-fit w-full mx-auto">
-            <Input
-              name="Username"
-              setName={setUsername}
-              placeholder="Enter your Username"
-              type="text"
-              iconName="IoPerson"
-              id="username"
-            />
-            <Input
-              name="Email"
-              setName={setEmail}
-              placeholder="Enter your Email"
-              type="email"
-              iconName="IoMail"
-              id="email"
-            />
+              <Input
+                name="Username"
+                setName={setUsername}
+                placeholder="Username must contain at least 4 letters"
+                type="text"
+                iconName="IoPerson"
+                id="username"
+              />
+              <Input
+                name="Email"
+                setName={setEmail}
+                placeholder="Please enter a valid email address"
+                type="email"
+                iconName="IoMail"
+                id="email"
+              />
+
             <Input
               name="Phone"
               setName={setPhone}
-              placeholder="Enter your Phone Number"
+              placeholder="Please enter a valid phone number (10 digits)"
               type="phone"
               iconName="IoPhonePortrait"
               id="phone"
@@ -157,7 +241,7 @@ function Register({ setIsLoading }) {
             <Input
               name="Password"
               setName={setPassword}
-              placeholder="Enter your Password"
+              placeholder="Password must include at least 8 characters, one uppercase letter, one lowercase letter, one number, and one special character"
               type="password"
               iconName="IoLockClosed"
               id="password"
@@ -165,7 +249,7 @@ function Register({ setIsLoading }) {
             <Input
               name="Confirm Password"
               setName={setConfirmPassword}
-              placeholder="Confirm your Password"
+              placeholder="Passwords need to be identical"
               type="password"
               iconName="IoLockClosedSharp"
               id="confirmPassword"
