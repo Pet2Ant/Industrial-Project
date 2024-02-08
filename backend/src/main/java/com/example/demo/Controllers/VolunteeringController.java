@@ -44,4 +44,24 @@ public class VolunteeringController {
         List<VolunteeringDTO> volunteerings = volunteeringService.getVolunteeringById(id,seminarId);
         return new ResponseEntity<>(volunteerings, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteVolunteering(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        volunteeringService.deleteAllVolunteering(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateVolunteering(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Volunteering> volunteerings = volunteeringService.updateVolunteering(userId,seminarId);
+        for(Volunteering volunteering:volunteerings){
+            volunteering.setStatus(1);
+        }
+    }
+
 }

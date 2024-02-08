@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 import com.example.demo.DTO.EducationDTO;
 import com.example.demo.DTO.PersonalDetailsDTO;
+import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.DataService;
 import com.example.demo.Models.Education;
 import com.example.demo.Services.EducationService;
@@ -42,7 +43,6 @@ public class EducationController {
     @GetMapping("/{id}/{seminarId}")
     public ResponseEntity <List<EducationDTO>> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
         List<EducationDTO> education = educationService.getEducationListById(id,seminarId);
-        System.out.println(new ResponseEntity<>(education, HttpStatus.OK));
         return new ResponseEntity<>(education, HttpStatus.OK);
     }
     @PreAuthorize("hasRole('ADMIN')")
@@ -58,13 +58,22 @@ public class EducationController {
         List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
         return new ResponseEntity<>(educationList, HttpStatus.OK);
     }
-//    @PreAuthorize("hasRole('USER')")
-//    @DeleteMapping("/education/delete")
-//    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
-//        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
-//        Long userId = dataService.getUserId(username).getId();
-//        List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
-//        return new ResponseEntity<>(educationList, HttpStatus.OK);
-//    }
-
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteEducation(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        educationService.deleteAllByUserIdAndSeminarId(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/update")
+    public void updateStatus(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Education> educationList = educationService.getEducationListById(userId,seminarId);
+        for(Education education: educationList){
+            education.setStatus(1);
+        }
+    }
 }

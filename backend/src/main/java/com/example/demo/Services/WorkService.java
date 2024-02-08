@@ -1,9 +1,10 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.WorkDTO;
-import com.example.demo.Models.Volunteering;
+
 import com.example.demo.Models.Work;
 import com.example.demo.Repository.WorkRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +23,21 @@ public class WorkService {
     }
 
     public Work saveWork(Work work) {
+        work.setStatus(0);
         return workRepository.save(work);
+    }
+    public List<Work> updateWork(long id ,long seminarId) {
+        return workRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<WorkDTO> getWorkById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<Work> works = workRepository.findByUserIdAndSeminarId(id,seminarId);
         Type listType = new TypeToken<List<WorkDTO>>(){}.getType();
         return modelMapper.map(works, listType);
+    }
+    @Transactional
+    public void deleteAllWork(Long id, Long seminarId) {
+        workRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }
 
 

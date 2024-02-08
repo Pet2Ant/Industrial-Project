@@ -43,4 +43,23 @@ public class WorkController {
         List<WorkDTO> works = workService.getWorkById(id,seminarId);
         return new ResponseEntity<>(works, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteWork(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        workService.deleteAllWork(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateWork(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Work> works = workService.updateWork(userId,seminarId);
+        for(Work work:works){
+            work.setStatus(1);
+        }
+    }
 }

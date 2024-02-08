@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @Entity
 @Table(name = "personal_details")
-public class PersonalDetails {
+public class PersonalDetails  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,5 +42,7 @@ public class PersonalDetails {
 
     @Column(name = "education")
     private String education;
+    @Column(name ="application_status")
+    private long status;
 
 }

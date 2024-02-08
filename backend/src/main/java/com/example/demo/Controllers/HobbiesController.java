@@ -43,5 +43,25 @@ public class HobbiesController {
         List<HobbiesDTO> hobbies = hobbiesService.getHobbiesById(id,seminarId);
         return new ResponseEntity<>(hobbies, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Hobbies> deleteHobbiesById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        hobbiesService.deleteAllHobbies(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateHobbies(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Hobbies> hobbies = hobbiesService.updateHobbies(userId,seminarId);
+        for(Hobbies hobbies1 : hobbies){
+            hobbies1.setStatus(1);
+        }
+
+    }
 }
 

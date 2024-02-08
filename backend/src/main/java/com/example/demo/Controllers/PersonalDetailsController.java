@@ -3,18 +3,18 @@ package com.example.demo.Controllers;
 import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.PersonalDetailsService;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -64,5 +64,31 @@ public class PersonalDetailsController {
         long userId = dataService.getUserId(username).getId();
         PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(userId,seminarId);
         return new ResponseEntity<>(personalDetails, HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<PersonalDetails> deletePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        personalDetailsService.deletePersonalDetails(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+    //get seminarId based on userId
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/seminarId")
+    public ResponseEntity<List<Long>> getSeminarIdByUserId(@RequestHeader("Authorization") String token){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Long> seminarId= personalDetailsService.getSeminarIdByUserId(userId);
+        return new ResponseEntity<>(seminarId, HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/update")
+    public void updatePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+       PersonalDetails personalDetails =personalDetailsService.updatePersonalDetails(userId,seminarId);
+            personalDetails.setStatus(1);
+
     }
 }

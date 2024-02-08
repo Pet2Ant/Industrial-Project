@@ -27,4 +27,6 @@ public class Volunteering {
 
     @Column(name = "end_date")
     private Date endDate;
+    @Column(name ="application_status")
+    private long status;
 }

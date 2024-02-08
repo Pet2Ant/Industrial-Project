@@ -2,6 +2,7 @@ package com.example.demo.Services;
 import com.example.demo.DTO.TechnicalSkillsDTO;
 import com.example.demo.Models.TechnicalSkills;
 import com.example.demo.Repository.TechnicalSkillsRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,21 @@ public class TechnicalSkillsService {
         }
 
         public TechnicalSkills saveTechnicalSkills(TechnicalSkills technicalSkills) {
+            technicalSkills.setStatus(0);
             return technicalSkillsRepository.save(technicalSkills);
+        }
+        public List<TechnicalSkills> updateTechnicalSkills(long id ,long seminarId) {
+            return technicalSkillsRepository.findByUserIdAndSeminarId(id, seminarId);
         }
     public List<TechnicalSkillsDTO> getTechnicalSkillsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findByUserIdAndSeminarId(id,seminarId);
         Type listType = new TypeToken<List<TechnicalSkillsDTO>>(){}.getType();
         return modelMapper.map(technicalSkills, listType);
+    }
+    @Transactional
+    public void deleteAllTechnicalSkills(Long id, Long seminarId) {
+        technicalSkillsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }
 
 

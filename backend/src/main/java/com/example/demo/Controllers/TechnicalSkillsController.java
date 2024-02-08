@@ -43,5 +43,24 @@ public class TechnicalSkillsController {
         List<TechnicalSkillsDTO> technicalSkills = technicalSkillsService.getTechnicalSkillsById(id,seminarId);
         return new ResponseEntity<>(technicalSkills, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @DeleteMapping("/delete")
+    public ResponseEntity<Void> deleteTechnicalSkills(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        technicalSkillsService.deleteAllTechnicalSkills(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateTechnicalSkills(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<TechnicalSkills> technicalSkills = technicalSkillsService.updateTechnicalSkills(userId,seminarId);
+        for(TechnicalSkills technicalSkill:technicalSkills){
+            technicalSkill.setStatus(1);
+        }
+    }
 }
 

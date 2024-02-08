@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.DTO.SeminarsDTO;
 import com.example.demo.Models.Seminars;
 import com.example.demo.Repository.SeminarsRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,11 @@ public class SeminarsService {
         this.seminarsRepository = seminarsRepository;
     }
     public Seminars saveSeminars(Seminars seminars) {
+        seminars.setStatus(0);
         return seminarsRepository.save(seminars);
+    }
+    public List<Seminars> updateSeminars(long id ,long seminarId) {
+        return seminarsRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<SeminarsDTO> getSeminarsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
@@ -30,6 +35,10 @@ public class SeminarsService {
     }
     public Seminars getSeminarByUserId(long id) {
         return  seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+    }
+    @Transactional
+    public void deleteSeminars(Long id, Long seminarId) {
+        seminarsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }
 
 }

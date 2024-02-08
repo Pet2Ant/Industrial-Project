@@ -1,9 +1,9 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.PersonalDetailsDTO;
-import com.example.demo.DTO.SeminarCountDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Repository.PersonalDetailsRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,8 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonalDetailsService {
@@ -25,14 +27,18 @@ public class PersonalDetailsService {
     }
 
     public PersonalDetails savePersonalDetails(PersonalDetails personalDetails) {
+        personalDetails.setStatus(0);
         return personalDetailsRepository.save(personalDetails);
+    }
+    public PersonalDetails updatePersonalDetails(long id , long seminarId) {
+        return personalDetailsRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<PersonalDetails> getPersonalDetails(){
         return personalDetailsRepository.findAll();
     }
     public PersonalDetailsDTO getPersonalDetailsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
-        PersonalDetails personalDetails = personalDetailsRepository.findByUserIdAndSeminarId(id,seminarId).orElseThrow(() -> new RuntimeException("PersonalDetails not found"));
+        PersonalDetails personalDetails = personalDetailsRepository.findByUserIdAndSeminarId(id,seminarId);
         return modelMapper.map(personalDetails, PersonalDetailsDTO.class);
     }
     public List<PersonalDetailsDTO> getPersonalDetailsListById(Long id, Long seminarId)
@@ -48,6 +54,13 @@ public class PersonalDetailsService {
             seminarCounts.put(i, personalDetailsRepository.countBySeminarId((long)i));
         }
         return seminarCounts;
+    }
+    @Transactional
+    public void deletePersonalDetails(Long id, Long seminarId) {
+        personalDetailsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
+    public List<Long> getSeminarIdByUserId(long id) {
+        return personalDetailsRepository.findSeminarIdByUserId(id);
     }
 
 
