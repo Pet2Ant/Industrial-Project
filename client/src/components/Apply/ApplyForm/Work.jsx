@@ -131,7 +131,11 @@ function WorkPage() {
               type="text"
               id="responsibilities"
             />
+            <div
+            className="flex justify-center"
+            >
             <Button onClick={handleWork} buttonName="Add" />
+            </div>
           </div>
         )}
       </div>

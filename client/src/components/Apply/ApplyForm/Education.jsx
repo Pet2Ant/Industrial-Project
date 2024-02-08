@@ -1,10 +1,11 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import RadioButton from "../ApplyRadio";
-import ApplyButton from "../ApplyButton";
 import Input from "../ApplyInput";
 import axios from "axios";
 import Popup from "../../Popup/Popup";
+import Button from "../CalendarButton";
+
 
 function Education() {
   // State variable for selected value
@@ -92,9 +93,6 @@ function Education() {
           timer: 1500,
           showConfirmButton: false,
         });
-        setTimeout(() => {
-        location.reload();
-      } , 1500);
       });
     } catch (error) {
       Popup({
@@ -305,9 +303,8 @@ function Education() {
                 return null;
             }
           })()}
-          <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
-          <ApplyButton onClick={handleEducation} buttonName="Save" />
-            <ApplyButton onClick={() => window.location.reload()} buttonName="Cancel" />
+          <div className="flex justify-center">
+          <Button  onClick={handleEducation} buttonName="Save" />
           </div>
         </form>
       )}

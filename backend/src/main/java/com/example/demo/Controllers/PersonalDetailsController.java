@@ -2,6 +2,7 @@ package com.example.demo.Controllers;
 
 import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Models.PersonalDetails;
+import com.example.demo.Models.Seminars;
 import com.example.demo.Services.PersonalDetailsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -67,7 +68,7 @@ public class PersonalDetailsController {
     }
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/delete")
-    public ResponseEntity<PersonalDetails> deletePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
+    public ResponseEntity<Void> deletePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
         personalDetailsService.deletePersonalDetails(userId,seminarId);
@@ -79,7 +80,13 @@ public class PersonalDetailsController {
     public ResponseEntity<List<Long>> getSeminarIdByUserId(@RequestHeader("Authorization") String token){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
+        System.out.println(userId);
         List<Long> seminarId= personalDetailsService.getSeminarIdByUserId(userId);
+//        output all seminars
+        System.out.println("I amhere");
+        for (Long id: seminarId){
+            System.out.println("SEMINARS ARE: "+id);
+        }
         return new ResponseEntity<>(seminarId, HttpStatus.OK);
     }
     @PreAuthorize("hasRole('USER')")
