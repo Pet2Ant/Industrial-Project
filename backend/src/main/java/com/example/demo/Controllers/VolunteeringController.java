@@ -45,7 +45,7 @@ public class VolunteeringController {
         return new ResponseEntity<>(volunteerings, HttpStatus.OK);
     }
     @PreAuthorize("hasRole('USER')")
-    @GetMapping("/delete")
+    @DeleteMapping("/delete")
     public ResponseEntity<Void> deleteVolunteering(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();

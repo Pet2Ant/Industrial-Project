@@ -1,9 +1,9 @@
 package com.example.demo.Services;
 
 import com.example.demo.DTO.PersonalDetailsDTO;
-import com.example.demo.DTO.SeminarCountDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Repository.PersonalDetailsRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +49,7 @@ public class PersonalDetailsService {
         }
         return seminarCounts;
     }
+    @Transactional
     public void deletePersonalDetails(Long id, Long seminarId) {
         personalDetailsRepository.deletePersonalDetailsByIdAndSeminarId(id, seminarId);
     }

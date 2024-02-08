@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.DTO.HobbiesDTO;
 import com.example.demo.Models.Hobbies;
 import com.example.demo.Repository.HobbiesRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,7 @@ public class HobbiesService {
         Type listType = new TypeToken<List<HobbiesDTO>>(){}.getType();
         return modelMapper.map(hobbies, listType);
     }
+    @Transactional
     public void deleteAllHobbies(Long id, Long seminarId) {
         hobbiesRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }

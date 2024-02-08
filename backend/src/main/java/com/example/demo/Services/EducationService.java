@@ -3,12 +3,10 @@ package com.example.demo.Services;
 import com.example.demo.DTO.*;
 import com.example.demo.Models.Education;
 import com.example.demo.Repository.EducationRepository;
+import org.springframework.transaction.annotation.Transactional;;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -84,6 +82,7 @@ public class EducationService {
 
         return result;
     }
+    @Transactional
     public void deleteAllByUserIdAndSeminarId(Long id, Long seminarId) {
         educationRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }

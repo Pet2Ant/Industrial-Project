@@ -3,6 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.DTO.VolunteeringDTO;
 import com.example.demo.Models.Volunteering;
 import com.example.demo.Repository.VolunteeringRepository;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +32,7 @@ public class VolunteeringService {
         Type listType = new TypeToken<List<VolunteeringDTO>>(){}.getType();
         return modelMapper.map(volunteerings, listType);
     }
+    @Transactional
     public void deleteAllVolunteering(Long id, Long seminarId) {
         volunteeringRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }
