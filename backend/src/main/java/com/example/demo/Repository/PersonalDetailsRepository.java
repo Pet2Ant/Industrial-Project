@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails, Long> {
-   Optional<PersonalDetails> findByUserIdAndSeminarId(Long userId, Long seminarId);
+   PersonalDetails findByUserIdAndSeminarId(Long userId, Long seminarId);
 
    List<PersonalDetails> findAllByUserIdAndSeminarId(Long userId, Long seminarId);
    void deleteAllByUserIdAndSeminarId(Long id, Long seminarId);

@@ -46,5 +46,7 @@ public class Education {
 
     @Column(name = "dissertation_title")
     private String dissertationTitle;
+    @Column(name ="application_status")
+    private long status;
 
 }

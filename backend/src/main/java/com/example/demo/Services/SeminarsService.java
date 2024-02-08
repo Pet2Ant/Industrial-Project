@@ -21,7 +21,11 @@ public class SeminarsService {
         this.seminarsRepository = seminarsRepository;
     }
     public Seminars saveSeminars(Seminars seminars) {
+        seminars.setStatus(0);
         return seminarsRepository.save(seminars);
+    }
+    public List<Seminars> updateSeminars(long id ,long seminarId) {
+        return seminarsRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<SeminarsDTO> getSeminarsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();

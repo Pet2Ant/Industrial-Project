@@ -42,5 +42,7 @@ public class PersonalDetails  {
 
     @Column(name = "education")
     private String education;
+    @Column(name ="application_status")
+    private long status;
 
 }

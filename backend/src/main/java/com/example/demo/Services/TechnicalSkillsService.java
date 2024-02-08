@@ -22,7 +22,11 @@ public class TechnicalSkillsService {
         }
 
         public TechnicalSkills saveTechnicalSkills(TechnicalSkills technicalSkills) {
+            technicalSkills.setStatus(0);
             return technicalSkillsRepository.save(technicalSkills);
+        }
+        public List<TechnicalSkills> updateTechnicalSkills(long id ,long seminarId) {
+            return technicalSkillsRepository.findByUserIdAndSeminarId(id, seminarId);
         }
     public List<TechnicalSkillsDTO> getTechnicalSkillsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();

@@ -7,12 +7,14 @@ import com.example.demo.Services.PersonalDetailsService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 
 @CrossOrigin(origins = "http://localhost:3000")
@@ -86,5 +88,14 @@ public class PersonalDetailsController {
             System.out.println("SEMINARS ARE: "+id);
         }
         return new ResponseEntity<>(seminarId, HttpStatus.OK);
+    }
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/update")
+    public void updatePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+       PersonalDetails personalDetails =personalDetailsService.updatePersonalDetails(userId,seminarId);
+            personalDetails.setStatus(1);
+
     }
 }

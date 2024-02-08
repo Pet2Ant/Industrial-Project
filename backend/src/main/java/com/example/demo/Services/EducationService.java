@@ -3,7 +3,7 @@ package com.example.demo.Services;
 import com.example.demo.DTO.*;
 import com.example.demo.Models.Education;
 import com.example.demo.Repository.EducationRepository;
-import org.springframework.transaction.annotation.Transactional;;
+import org.springframework.transaction.annotation.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +22,7 @@ public class EducationService {
         this.educationRepository = educationRepository;
     }
     public Education saveEducation(Education education) {
+        education.setStatus(0);
         return educationRepository.save(education);
     }
     public List<EducationDTO> getEducationListById(Long id, Long seminarId) {
@@ -60,6 +61,10 @@ public class EducationService {
         }
 
         return dtoList;
+    }
+    public List<Education> getEducationListById(long id, long seminarId) {
+        return educationRepository.findAllByUserIdAndSeminarId(id,seminarId);
+
     }
     
 
