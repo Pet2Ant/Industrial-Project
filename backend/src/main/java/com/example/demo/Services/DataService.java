@@ -26,6 +26,7 @@ public class DataService {
 
     public Data createData(Data data) {
         data.setPassword(bCryptPasswordEncoder.encode(data.getPassword()));
+        data.setRole(data.getRole());
         return dataRepository.save(data);
     }
 
@@ -36,6 +37,8 @@ public class DataService {
                     data.setEmail(newData.getEmail());
                     data.setPhone(newData.getPhone());
                     data.setPassword(newData.getPassword());
+                    // Update the role of the user
+                    data.setRole(newData.getRole());
                     return dataRepository.save(data);
                 })
                 .orElseGet(() -> {

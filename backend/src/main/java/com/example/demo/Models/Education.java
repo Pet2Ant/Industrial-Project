@@ -12,11 +12,12 @@ public class Education {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name ="user_id")
+
+    @Column(name ="user_id", nullable = false)
     private long userId;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id", nullable = false)
     private long seminarId;
-    @Column(name = "education")
+    @Column(name = "education", nullable = false)
     private String education;
 
     @Column(name = "school_name")

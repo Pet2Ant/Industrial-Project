@@ -63,7 +63,7 @@ public class EducationService {
 
         return dtoList;
     }
-
+    
 
     public Map<String, Map<String, Integer>> getEducationCountsPerSeminar() {
 

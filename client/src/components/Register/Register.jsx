@@ -36,30 +36,19 @@ function Register({ setIsLoading }) {
       setIsLoading(false);
       return;
     }
-    console.log("phone:" + phone);
-
-    
-      try {
-        
-        const response = await axios.post("http://localhost:8080/api/data", {
-          username,
-          email,
-          phone,
-          password,
-        });
-
-        if (!localStorage.getItem("token")) {
-          setData([...data, response.data]);
-          Popup({
-            title: "Success!",
-            text: "You have successfully registered!",
-            icon: "success",
-            timer: 1500,
-            showConfirmButton: false,
-          });
-        }
-      } catch (error) {
-        validateFields();
+    const role = "user";
+    try {
+      const response = await axios.post("http://localhost:8080/api/data", {
+        username,
+        email,
+        phone,
+        password,
+        role,
+      });
+      const jwt = response.data.token;
+      console.log("JWT:", jwt);
+      if (!localStorage.getItem("token")) {
+        setData([...data, response.data]);
         Popup({
           title: "Error!",
           text: error.response.data.message,

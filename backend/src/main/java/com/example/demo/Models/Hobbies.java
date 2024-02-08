@@ -12,9 +12,9 @@ public class Hobbies {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id",nullable = false)
     private long seminarId;
-    @Column(name = "user_id")
+    @Column(name = "user_id", nullable = false)
     private long userId;
 
     @Column(name = "hobbies", length = 2000) // Assuming hobbies can be quite long

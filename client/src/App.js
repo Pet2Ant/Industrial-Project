@@ -21,7 +21,7 @@ function App() {
   
   return (
     <AppContext.Provider value={{ user, setUser }}>
-      <div id="App" onLoad={() => setUserKind('user')} className="App font-noi">
+      <div id="App" onLoad={() => setUserKind('admin')} className="App font-noi">
         <Router>
           <Routes>
             {isLoading ? (

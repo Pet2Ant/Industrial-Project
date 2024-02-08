@@ -1,11 +1,13 @@
 package com.example.demo.Controllers;
 import com.example.demo.DTO.EducationDTO;
+import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Services.DataService;
 import com.example.demo.Models.Education;
 import com.example.demo.Services.EducationService;
 import com.example.demo.Util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -27,7 +29,7 @@ public class EducationController {
         this.jwtUtil = jwtUtil;
     }
 
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Education> createEducation(@RequestBody Education education,@RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
@@ -36,22 +38,33 @@ public class EducationController {
         Education savedEducation = educationService.saveEducation(education);
         return new ResponseEntity<>(savedEducation, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/{seminarId}")
     public ResponseEntity <List<EducationDTO>> getEducationById(@PathVariable Long id, @PathVariable Long seminarId){
         List<EducationDTO> education = educationService.getEducationListById(id,seminarId);
         System.out.println(new ResponseEntity<>(education, HttpStatus.OK));
         return new ResponseEntity<>(education, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/educationcount")
     public Map<String, Map<String, Integer>>getEducationCountsPerSeminar(){
         return educationService.getEducationCountsPerSeminar();
     }
-
+    @PreAuthorize("hasRole('USER')")
     @GetMapping("/education/submit")
-    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId) {
+    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
-        List<EducationDTO> educationList = educationService.getEducationListById(userId, seminarId);
+        List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
         return new ResponseEntity<>(educationList, HttpStatus.OK);
     }
+//    @PreAuthorize("hasRole('USER')")
+//    @DeleteMapping("/education/delete")
+//    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+//        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+//        Long userId = dataService.getUserId(username).getId();
+//        List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
+//        return new ResponseEntity<>(educationList, HttpStatus.OK);
+//    }
+
 }

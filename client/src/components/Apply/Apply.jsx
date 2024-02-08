@@ -14,13 +14,11 @@ import SeminarsPage from "./ApplyForm/Seminars";
 import Volunteering from "./ApplyForm/Volunteering";
 import Button from "./ApplyButton";
 import Card from "./ApplyForm/Card";
-
+import {jwtDecode} from "jwt-decode";
 function Apply() {
-  const userKind = useContext(AppContext);
+  const [userKind,setUserKind] = useState("");
 
-  const userKindString = JSON.stringify(userKind);
-  const parsedUserKind = JSON.parse(userKindString);
-  const extractedValue = parsedUserKind.user;
+  
 
   const components = [
     <PersonalDetails />,
@@ -48,8 +46,14 @@ function Apply() {
   };
 
   const [seminar, setSeminar] = useState(localStorage.getItem("seminar"));
-
+ 
   useEffect(() => {
+    const token = localStorage.getItem("token");
+  if (token) {
+    const decodedToken = jwtDecode(token);
+    const role = JSON.stringify(decodedToken.roles).slice(2, -2); // assuming the role is stored in the 'role' property of the token
+    setUserKind(role);
+  }
     setSeminar(localStorage.getItem("seminar"));
   }, [localStorage.getItem("seminar")]);
 
@@ -100,7 +104,7 @@ function Apply() {
 
   return (
     <div className="bg-[#e5e5e5] h-screen min-h-screen max-h-screen overflow-auto scrollbar-hide font-noi">
-      <Navbar isAuthenticated={true} userKind={extractedValue} />
+      <Navbar isAuthenticated={true} userKind={userKind} />
       <div className="items-center h-full w-full flex-1 justify-start">
         {seminar ? <ShowInputs /> : <ShowCards setSeminar={setSeminar} />}
       </div>

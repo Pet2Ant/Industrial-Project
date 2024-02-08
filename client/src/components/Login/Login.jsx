@@ -10,6 +10,7 @@ import { FaLinkedin } from "react-icons/fa";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate, Link } from "react-router-dom";
+import { jwtDecode } from "jwt-decode";
 function isValidJwt(jwt) {
   if (!jwt) {
     return false;
@@ -47,7 +48,8 @@ function Login({ onLogin, setIsLoading }) {
       const jwt = res.data.token;
       if (isValidJwt(jwt)) {
         localStorage.setItem("token", jwt);
-        
+        const decodedToken = jwtDecode(localStorage.getItem("token", jwt));
+        console.log(decodedToken);
         Popup({
           title: "Success!",
           text: "You have successfully logged in!",
