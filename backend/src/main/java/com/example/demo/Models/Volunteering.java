@@ -15,9 +15,9 @@ public class Volunteering {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private long userId;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id",nullable = false)
     private long seminarId;
     @Column(name = "volunteer", length = 2000) // Assuming volunteer work can be quite long
     private String volunteer;

@@ -5,6 +5,7 @@ import com.example.demo.Models.Volunteering;
 import com.example.demo.Services.VolunteeringService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
@@ -26,7 +27,7 @@ public class VolunteeringController {
         this.dataService = dataService;
         this.jwtUtil = jwtUtil;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Volunteering> createVolunteering(@RequestBody Volunteering volunteer, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
@@ -37,7 +38,7 @@ public class VolunteeringController {
         System.out.println(" I saved here ");
         return new ResponseEntity<>(savedVolunteering, HttpStatus.CREATED);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/{seminarId}")
     public ResponseEntity<List<VolunteeringDTO>> getVolunteeringById(@PathVariable Long id, @PathVariable Long seminarId){
         List<VolunteeringDTO> volunteerings = volunteeringService.getVolunteeringById(id,seminarId);

@@ -8,6 +8,7 @@ import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,6 +27,7 @@ public class CommentsController {
         this.dataService = dataService;
         this.jwtUtil = jwtUtil;
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
     public ResponseEntity<Comment> createComment(@RequestBody Comment comment, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
@@ -34,6 +36,7 @@ public class CommentsController {
         Comment savedComment = commentService.saveComment(comment);
         return new ResponseEntity<>(savedComment, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping
     public ResponseEntity<List<CommentDTO>> getComments(@RequestParam Long userId, @RequestParam Long seminarId) {
         List<CommentDTO> comments = commentService.getComments(userId, seminarId);

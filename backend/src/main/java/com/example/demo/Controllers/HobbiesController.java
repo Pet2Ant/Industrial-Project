@@ -5,6 +5,7 @@ import com.example.demo.Models.Hobbies;
 import com.example.demo.Services.HobbiesService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Services.DataService;
 import com.example.demo.Util.JwtUtil;
@@ -27,7 +28,7 @@ public class HobbiesController {
         this.jwtUtil = jwtUtil;
     }
 
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Hobbies> createHobbies(@RequestBody Hobbies hobbies, @RequestHeader("Authorization") String token) {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
@@ -36,6 +37,7 @@ public class HobbiesController {
         Hobbies savedHobbies = hobbiesService.saveHobbies(hobbies);
         return new ResponseEntity<>(savedHobbies, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/{seminarId}")
     public ResponseEntity<List<HobbiesDTO>> getHobbiesById(@PathVariable Long id, @PathVariable Long seminarId){
         List<HobbiesDTO> hobbies = hobbiesService.getHobbiesById(id,seminarId);

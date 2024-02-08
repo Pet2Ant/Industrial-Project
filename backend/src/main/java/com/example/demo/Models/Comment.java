@@ -16,7 +16,7 @@ public class Comment {
     private long id;
     @Column(name = "application_id")
     private long applicationId;
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private long userId;
     @Column(name ="manager_id")
     private long managerId;
@@ -28,6 +28,6 @@ public class Comment {
     private String username;
     @Column(name ="section")
     private int section;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id",nullable = false)
     private long seminarId;
 }

@@ -7,6 +7,7 @@ import com.example.demo.Services.SeminarsService;
 import com.example.demo.Util.JwtUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class SeminarsController {
         this.dataService = dataService;
         this.jwtUtil = jwtUtil;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @PostMapping
     public ResponseEntity<Seminars> createSeminars(@RequestBody Seminars seminars, @RequestHeader("Authorization") String token){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
@@ -35,6 +36,7 @@ public class SeminarsController {
         Seminars savedSeminars = seminarsService.saveSeminars(seminars);
         return new ResponseEntity<>(savedSeminars, HttpStatus.CREATED);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/{id}/{seminarId}")
     public ResponseEntity<List<SeminarsDTO>> getSeminarsById(@PathVariable Long id, @PathVariable Long seminarId){
         List<SeminarsDTO> seminars = seminarsService.getSeminarsById(id,seminarId);
