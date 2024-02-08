@@ -59,7 +59,7 @@ public class EducationController {
     }
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deletePersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+    public ResponseEntity<Void> deleteEducation(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
         educationService.deleteAllByUserIdAndSeminarId(userId,seminarId);

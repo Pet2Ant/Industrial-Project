@@ -45,7 +45,7 @@ public class WorkController {
     }
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/delete")
-    public ResponseEntity<Void> getWorkById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+    public ResponseEntity<Void> deleteWork(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
         workService.deleteAllWork(userId,seminarId);

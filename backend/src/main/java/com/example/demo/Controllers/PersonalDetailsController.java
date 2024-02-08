@@ -67,7 +67,7 @@ public class PersonalDetailsController {
     }
     @PreAuthorize("hasRole('USER')")
     @DeleteMapping("/delete")
-    public ResponseEntity<Void> deletePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
+    public ResponseEntity<PersonalDetails> deletePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
         personalDetailsService.deletePersonalDetails(userId,seminarId);

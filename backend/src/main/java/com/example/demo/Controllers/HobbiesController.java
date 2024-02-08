@@ -45,7 +45,7 @@ public class HobbiesController {
     }
     @PreAuthorize("hasRole('USER')")
     @GetMapping("/delete")
-    public ResponseEntity<List<HobbiesDTO>> getHobbiesById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+    public ResponseEntity<Hobbies> deleteHobbiesById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
         hobbiesService.deleteAllHobbies(userId,seminarId);
