@@ -3,6 +3,7 @@ package com.example.demo.Controllers;
 import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.PersonalDetailsService;
+import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -12,6 +13,8 @@ import com.example.demo.Util.JwtUtil;
 
 import java.util.List;
 import java.util.Map;
+
+import static org.springframework.data.jpa.domain.AbstractPersistable_.id;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
@@ -53,5 +56,13 @@ public class PersonalDetailsController {
     @GetMapping("/seminarcount")
     public Map<Integer,Long> getSeminarCounts(){
         return personalDetailsService.getSeminarCounts();
+    }
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/personalDetailsList/submit")
+    public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(userId,seminarId);
+        return new ResponseEntity<>(personalDetails, HttpStatus.OK);
     }
 }

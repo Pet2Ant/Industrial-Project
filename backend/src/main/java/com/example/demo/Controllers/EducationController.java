@@ -1,5 +1,6 @@
 package com.example.demo.Controllers;
 import com.example.demo.DTO.EducationDTO;
+import com.example.demo.DTO.PersonalDetailsDTO;
 import com.example.demo.Services.DataService;
 import com.example.demo.Models.Education;
 import com.example.demo.Services.EducationService;
@@ -49,4 +50,21 @@ public class EducationController {
     public Map<String, Map<String, Integer>>getEducationCountsPerSeminar(){
         return educationService.getEducationCountsPerSeminar();
     }
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/education/submit")
+    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
+        return new ResponseEntity<>(educationList, HttpStatus.OK);
+    }
+//    @PreAuthorize("hasRole('USER')")
+//    @DeleteMapping("/education/delete")
+//    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+//        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+//        Long userId = dataService.getUserId(username).getId();
+//        List<EducationDTO> educationList = educationService.getEducationListById(userId,seminarId);
+//        return new ResponseEntity<>(educationList, HttpStatus.OK);
+//    }
+
 }

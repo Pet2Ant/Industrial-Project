@@ -31,23 +31,7 @@ public class DataController {
     }
 
 
-//    @PostMapping
-////    @Valid
-////    public ResponseEntity<?> createData(@RequestBody Data data) {
-////        Data newData = dataService.createData(data);
-////        System.out.println("New data: " + newData);
-////        if (newData != null) {
-////            // Generate a JWT for the user
-////            String jwt = jwtUtil.generateToken(newData.getUsername());
-////            System.out.println("Generated JWT: " + jwt);
-////
-////            // Return the JWT in the response
-////            return ResponseEntity.ok().header("Authorization", "Bearer " + jwt).body(newData);
-////        } else {
-////            // Return an error message if the registration failed
-////            return ResponseEntity.badRequest().body("Error: Registration failed!");
-////        }
-////    }
+
 @PostMapping
 @Valid
 public ResponseEntity<?> createData(@RequestBody Data data) {

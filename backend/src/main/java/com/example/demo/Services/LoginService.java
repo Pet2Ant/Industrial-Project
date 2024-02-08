@@ -20,7 +20,7 @@ public class LoginService {
         Data user = userRepository.findByUsernameOrEmail(username, email);
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (user != null && passwordEncoder.matches(password, user.getPassword())) {
-            System.out.printf("User %s logged in successfully!\n with username:", username , "and password:", password);
+            System.out.println("User %s logged in successfully!\n with username:"+ username + "and password:"+ password);
             return jwtUtil.generateToken(username, user.getRole());
         } else {
             return null;

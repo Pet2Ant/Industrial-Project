@@ -9,5 +9,6 @@ import java.util.Optional;
 
 public interface EducationRepository extends JpaRepository<Education, Long> {
     List<Education> findAllByUserIdAndSeminarId(Long userId, Long seminarId);
+    List<Education> deleteAllByUserIdAndSeminarId(Long userId, Long seminarId);
 
 }

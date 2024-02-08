@@ -40,9 +40,6 @@ public class JwtUtil {
         return extractExpiration(token).before(new Date());
     }
 
-//    public String generateToken(String username){
-//        return createToken(username);
-//    }
 
 public String generateToken(String username, String role){
     List<String> roles = Collections.singletonList(role);
