@@ -54,8 +54,8 @@ public class PersonalDetailsService {
     public void deletePersonalDetails(Long id, Long seminarId) {
         personalDetailsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
     }
-    public List<Long> getSeminarIdByUserId(Long id) {
-        return personalDetailsRepository.findByUserId(id).stream().map(PersonalDetails::getSeminarId).collect(Collectors.toList());
+    public List<Long> getSeminarIdByUserId(long id) {
+        return personalDetailsRepository.findSeminarIdByUserId(id);
     }
 
 
