@@ -131,12 +131,21 @@ function Volunteering() {
   };
 
   const updateDetails = (updatedData) => {
-    const token = localStorage.getItem("token");
+    
+    let headers = {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    };
+
+    let params = {
+      seminarId: seminarId,
+    };
+
 
     Promise.all(
       endpoints.map((endpoint) =>
         axios.put(`http://localhost:8080/api/${endpoint}/update`, updatedData, {
-          headers: { Authorization: `Bearer ${token}` },
+          headers,
+          params,
         })
         .then((response) => {
           localStorage.removeItem("seminar");
@@ -150,7 +159,11 @@ function Volunteering() {
         })
       )
     )
+    .then(() => {
+      navigate("/");
+    })
     .catch((error) => {
+      console.log(error);
       Popup({
         title: "Error!",
         text: "There was an error submitting your application.",

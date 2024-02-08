@@ -50,6 +50,7 @@ const GetCV = () => {
         );
         setData(response.data);
       } catch (error) {
+        console.log(error);
       }
     };
 

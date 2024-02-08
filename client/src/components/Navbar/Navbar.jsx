@@ -26,53 +26,90 @@ function isValidJwt(jwt) {
 const AuthenticatedNavbar = ({ userKind, logout }) => {
   const navigate = useNavigate();
 
+
+  const fetchData = async () => {
+    let response ="";
+    const token = localStorage.getItem("token");
+    try {
+       response = await axios.get(
+        `http://localhost:8080/api/cvBuilder`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.status);
+    } catch (error) {
+      console.log(error);
+    }
+    return response.status;
+  };
+
+
+  useEffect(() => {
+  
+  fetchData();
+}, []);
+  
   // show permanent popup with user input image
   const handleImageUpload = async () => {
-    const { value: file } = await Swal.fire({
-      title: 'Please upload a picture of yourself.',
-      text: 'This will be used in the making of your CV. (optional)',
-      input: 'file',
-      inputAttributes: {
-        'accept': 'image/*',
-        'aria-label': 'Upload your profile picture'
-      }
-    });
-
-
+    if(fetchData() === 200){
+      const { value: file } = 
+      await Swal.fire({
+        title: 'Please upload a picture of yourself.',
+        text: 'This will be used in the making of your CV. (optional)',
+        showConfirmButton: true,
+        input: 'file',
+        inputAttributes: {
+          'accept': 'image/*',
+          'aria-label': 'Upload your profile picture'
+        }
+      }).then((result) => {
+        navigate('/CvBuilder');
+      });
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          Swal.fire({
+            title: 'Your uploaded picture',
+            text: 'Your CV will be ready in a few seconds!',
+            imageUrl: e.target.result,
+            showConfirmButton: true,
+            imageAlt: 'The uploaded picture'
+            // on confirm button, save the image to local storage
+          }).then((result) => {
+            if (file.size > 2936012) {
+              Popup({
+                title: "Error!",
+                text: "The file you uploaded is too large. Please upload a file that is less than 2.7MB.",
+                icon: "error",
+                timer: 1500,
+                showConfirmButton: false,
+              });
+              return;
+            } else if (result.isConfirmed) {
+              Swal.fire("Saved!", "", "success");
+              console.log('Image saved to local storage', btoa(e.target.result));
+              localStorage.setItem('image', btoa(e.target.result));
   
-
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        Swal.fire({
-          title: 'Your uploaded picture',
-          text: 'Your CV will be ready in a few seconds!',
-          imageUrl: e.target.result,
-          showConfirmButton: true,
-          imageAlt: 'The uploaded picture'
-          // on confirm button, save the image to local storage
-        }).then((result) => {
-          if (file.size > 2936012) {
-            Popup({
-              title: "Error!",
-              text: "The file you uploaded is too large. Please upload a file that is less than 2.7MB.",
-              icon: "error",
-              timer: 1500,
-              showConfirmButton: false,
-            });
-            return;
-          } else if (result.isConfirmed) {
-            Swal.fire("Saved!", "", "success");
-            console.log('Image saved to local storage', btoa(e.target.result));
-            localStorage.setItem('image', btoa(e.target.result));
-
-            navigate('/CvBuilder');
-          } else if (result.isDenied) {
-            Swal.fire("Changes are not saved", "", "info");
-          }
-        });
-      };
-      reader.readAsDataURL(file);
+              navigate('/CvBuilder');
+            } else if (result.isDenied) {
+              Swal.fire("Changes are not saved", "", "info");
+            }
+          });
+        };
+        reader.readAsDataURL(file);
+      }
+    } else {
+      Popup({
+        title: "Error!",
+        text: "You need to fill in your CV first, by applying to a seminar!",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
     }
   };
 
