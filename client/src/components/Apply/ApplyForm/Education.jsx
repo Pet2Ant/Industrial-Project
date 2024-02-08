@@ -84,17 +84,19 @@ function Education() {
         seminarId,
       }
       
-      );
-      console.log(response);
-      Popup({
-        title: "Success!",
-        text: "You have successfully added your education!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
+      ).then((response) => {
+        Popup({
+          title: "Success!",
+          text: "You have successfully added your education!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+        location.reload();
+      } , 1500);
       });
     } catch (error) {
-      console.log("There was an error!", error);
       Popup({
         title: "Error!",
         text: "There was an error adding your education.",

@@ -50,7 +50,6 @@ function WorkPage() {
         responsibilities,
         seminarId,
       });
-      console.log(response);
       Popup({
         title: "Success!",
         text: "You have successfully added your work experience!",
@@ -59,7 +58,6 @@ function WorkPage() {
         showConfirmButton: false,
       });
     } catch (error) {
-      console.log("There was an error!", error);
       Popup({
         title: "Error!",
         text: "There was an error adding your work experience.",

@@ -19,7 +19,6 @@ function App() {
     setUser(userKind);
   };
   
-  console.log(isLoading);
   return (
     <AppContext.Provider value={{ user, setUser }}>
       <div id="App" onLoad={() => setUserKind('admin')} className="App font-noi">

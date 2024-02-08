@@ -23,9 +23,7 @@ const endpoints = [
   "work",
 ];
 function EditPopup({ userId, seminarId }) {
-  console.log("EditPopup rendered");
-  console.log("userId:", userId);
-  console.log("seminarId:", seminarId);
+
   const [headerText, setHeaderText] = useState("");
   const [serverResponse, setServerResponse] = useState(null);
   const fetchUserDetails = () => {
@@ -52,7 +50,6 @@ function EditPopup({ userId, seminarId }) {
         setServerResponse(data);
       })
       .catch((error) => {
-        console.log("There was an error!", error);
         Popup({
           title: "Error!",
           text: "There was an error fetching the user details.",
@@ -125,11 +122,9 @@ function EditPopup({ userId, seminarId }) {
           }
         )
         .then((response) => {
-          console.log(response);
           fetchComments(userId, seminarId);
         })
         .catch((error) => {
-          console.log("There was an error!", error);
           Popup({
             title: "Error!",
             text: "There was an error adding your comment.",
@@ -150,20 +145,17 @@ function EditPopup({ userId, seminarId }) {
 
   const [comments, setComments] = useState([]);
   useEffect(() => {
-    console.log("i exist now");
     fetchComments(userId, seminarId);
   }, [userId, seminarId]);
 
   const fetchComments = async () => {
     try {
-      console.log("fetching comments");
       const response = await axios.get(`http://localhost:8080/api/comments`, {
         params: {
           userId,
           seminarId,
         },
       });
-      console.log(response.data);
       setComments(response.data);
     } catch (error) {
       console.error(`Error fetching comments: ${error}`);

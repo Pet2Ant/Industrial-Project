@@ -54,7 +54,6 @@ const Input = ({ name, setName, placeholder, type, iconName, id }) => {
   }
 
   const inputProps = useInput(name, type, placeholder);
-  console.log(inputProps.handleChange);
 
 
   return (

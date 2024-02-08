@@ -90,8 +90,6 @@ function Apply() {
   const ShowCards = () => {
     return (
       <>
-        {console.log("show cards")}
-
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 lg:grid-rows-2 px-4 gap-12 my-24">
           <Card seminarId="1" setSeminar={setSeminar}/>
           <Card seminarId="2" setSeminar={setSeminar}/>

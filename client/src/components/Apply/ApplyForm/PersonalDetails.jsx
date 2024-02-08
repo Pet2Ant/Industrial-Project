@@ -104,7 +104,6 @@ function PersonalDetails({ setIsLoading }) {
             pronouns,
           }
         );
-        console.log(response);
         Popup({
           title: "Success!",
           text: "You have successfully added your personal details!",
@@ -113,7 +112,6 @@ function PersonalDetails({ setIsLoading }) {
           showConfirmButton: false,
         });
       } catch (error) {
-        console.log("There was an error!", error);
         Popup({
           title: "Error!",
           text: "There was an error adding your personal details.",
@@ -123,7 +121,7 @@ function PersonalDetails({ setIsLoading }) {
         });
       }
     };
-  }
+  };
 
 
 

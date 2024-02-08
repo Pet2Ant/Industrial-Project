@@ -192,7 +192,6 @@ const Navbar = ({userKind }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user,setUser] = useState("");
   const jwt = localStorage.getItem('token');
-  console.log('JWT:', jwt);
   useEffect(() => {
     const user = localStorage.getItem("token");
     if (user) {
@@ -232,7 +231,6 @@ const Navbar = ({userKind }) => {
       }
     }
     catch (err) {
-      console.log(err);
       Popup({
         title: "Error!",
         text:

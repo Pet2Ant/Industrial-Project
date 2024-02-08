@@ -14,7 +14,6 @@ const MainPageContainer = ({ title, rows }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     if (title === "EDUCATION LEVEL / SEMINAR") {
-      console.log('Fetching data for education levels per seminar');
       axios.get('api/education/educationcount')
         .then(response => {
           console.log('response:', response.data);
@@ -26,10 +25,8 @@ const MainPageContainer = ({ title, rows }) => {
           }));
 
           setData(transformedData);
-          console.log('transformedData:', transformedData);
         })
         .catch(error => {
-          console.error('Error fetching data', error);
         });
     }
   }, [title]);

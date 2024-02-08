@@ -13,13 +13,11 @@ import { useNavigate, Link } from "react-router-dom";
 import { jwtDecode } from "jwt-decode";
 function isValidJwt(jwt) {
   if (!jwt) {
-    console.log('JWT is null or undefined');
     return false;
   }
 
   const parts = jwt.split('.');
   if (parts.length !== 3) {
-    console.log('JWT does not contain exactly 2 periods');
     return false;
   }
 
@@ -76,7 +74,6 @@ function Login({ onLogin, setIsLoading }) {
         });
       }
     } catch (err) {
-      console.log("Error from server:", err);
       Popup({
         title: "Error!",
         text: "An error occurred while trying to login. Please try again.",

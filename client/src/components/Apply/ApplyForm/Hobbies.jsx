@@ -18,7 +18,6 @@ function Hobbies() {
         achievements,
         seminarId,
       });
-      console.log(response);
       Popup({
         title: "Success!",
         text: "You have successfully added your hobbies and achievements!",
@@ -27,7 +26,6 @@ function Hobbies() {
         showConfirmButton: false,
       });
     } catch (error) {
-      console.log("There was an error!", error);
       Popup({
         title: "Error!",
         text: "There was an error adding your hobbies and achievements.",
