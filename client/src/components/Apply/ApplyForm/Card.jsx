@@ -8,7 +8,7 @@ function Card({ seminarId, setSeminar }) {
     
     
   return (
-    <div className="flex flex-col sm:flex-row lg:flex-col w-full">
+    <div id={seminarId} className="flex flex-col sm:flex-row lg:flex-col w-full">
       <div className="bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="relative">
           <a href="/programs/tech-skills/we-lead-bootcamps-front-end-back-end-development">

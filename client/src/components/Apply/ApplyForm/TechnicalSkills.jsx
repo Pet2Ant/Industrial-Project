@@ -22,13 +22,10 @@ function TechnicalSkills() {
         });
         return;
       }
-      const response = axios.post(
-        "http://localhost:8080/api/technicalSkills",
-        {
-          technicalSkills,
-          seminarId,
-        }
-      );
+      const response = axios.post("http://localhost:8080/api/technicalSkills", {
+        technicalSkills,
+        seminarId,
+      });
       Popup({
         title: "Success!",
         text: "You have successfully added your technical skills!",
@@ -36,8 +33,7 @@ function TechnicalSkills() {
         timer: 1500,
         showConfirmButton: false,
       });
-    }
-    catch (error) {
+    } catch (error) {
       Popup({
         title: "Error!",
         text: "There was an error adding your technical skills.",
@@ -61,7 +57,9 @@ function TechnicalSkills() {
           type="text"
           id="technicalSkills"
         />
-        <Button onClick={handleTechnicalSkills} buttonName={"Add"} />
+        <div className="flex justify-center">
+          <Button onClick={handleTechnicalSkills} buttonName={"Add"} />
+        </div>
       </form>
     </>
   );

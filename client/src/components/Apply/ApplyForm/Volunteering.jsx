@@ -5,12 +5,14 @@ import "react-calendar/dist/Calendar.css";
 import Button from "../CalendarButton";
 import axios from "axios";
 import Popup from "../../Popup/Popup";
+import { useNavigate } from "react-router-dom";
 
 function Volunteering() {
   const [volunteer, setVolunteer] = useState("");
   const [dateRange, setDateRange] = useState([null, null]);
   const [showCalendar, setShowCalendar] = useState(false);
   const seminarId = localStorage.getItem("seminar");
+  const navigate = useNavigate();
 
   const startDate = dateRange[0];
   const endDate = dateRange[1];
@@ -23,13 +25,23 @@ function Volunteering() {
     }
   };
 
+  const endpoints = [
+    "personalDetails",
+    "education",
+    "hobbies",
+    "seminars",
+    "technicalSkills",
+    "volunteering",
+    "work",
+  ];
+
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
   };
 
   const handleVolunteering = async (e) => {
     e.preventDefault();
-    try {      
+    try {
       const response = await axios.post(
         "http://localhost:8080/api/volunteering",
         {
@@ -55,6 +67,98 @@ function Volunteering() {
         showConfirmButton: false,
       });
     }
+  };
+
+  const deleteVolunteering = async (e) => {
+
+
+    let headers = {
+      Authorization: "Bearer " + localStorage.getItem("token"),
+    };
+
+    let params = {
+      seminarId: seminarId,
+    };
+
+    let data = {};
+    try {
+      await Promise.all(
+        endpoints.map((endpoint) =>
+          axios
+            .delete(`http://localhost:8080/api/${endpoint}/delete`, {
+              headers,
+              params,
+            })
+            .then((response) => {
+              data[endpoint] = response.data;
+            })
+        )
+      );
+      Popup({
+        title: "Success!",
+        text: "You have successfully cancelled your application.",
+        icon: "success",
+        showConfirmButton: true,
+        showCloseButton: false,
+        allowOutsideClick: false,
+        allowEscapeKey: false,
+        showDenyButton: true,
+        confirmButtonText: "Try Again",
+        denyButtonText: "Go to Main Page",
+        confirmFunction: () => {
+          localStorage.removeItem("seminar");
+          location.reload();
+        },
+        cancelFunction: () => {
+          localStorage.removeItem("seminar");
+          navigate("/");
+        },
+        anotherFunction: () => {
+          return;
+        },
+      });
+    } catch (error) {
+      console.log(error);
+      Popup({
+        title: "Error!",
+        text: "There was an error deleting your volunteering work.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+      
+    }
+  };
+
+  const updateDetails = (updatedData) => {
+    const token = localStorage.getItem("token");
+
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.put(`http://localhost:8080/api/${endpoint}/update`, updatedData, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          localStorage.removeItem("seminar");
+          Popup({
+            title: "Success!",
+            text: "Your application was completed successfully!",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        })
+      )
+    )
+    .catch((error) => {
+      Popup({
+        title: "Error!",
+        text: "There was an error submitting your application.",
+        icon: "error",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    });
   };
 
   return (
@@ -100,22 +204,24 @@ function Volunteering() {
             />
           </div>
         )}
-        {startDate && endDate && (
-          <Button onClick={handleVolunteering} buttonName={"Add"} />
-        )}
-                <div className="flex flex-row justify-center items-center md:gap-16 gap-4">
-        <Button
-          id="submit"
-          className=""
-          buttonName={"Submit"}
-          onClick={() => localStorage.removeItem("seminar") && navigate("/")}
-        />
-        <Button
-          id="delete"
-          className=""
-          buttonName={"Cancel"}
-          onClick={() => localStorage.removeItem("seminar") && navigate("/")}
-        />
+        <div className="flex justify-center">
+          {startDate && endDate && (
+            <Button onClick={handleVolunteering} buttonName={"Add"} />
+          )}
+        </div>
+        <div className="flex flex-row justify-center items-center md:gap-16 gap-4">
+          <Button
+            id="submit"
+            className=""
+            buttonName={"Submit"}
+            onClick={() => updateDetails()}
+          />
+          <Button
+            id="delete"
+            className=""
+            buttonName={"Cancel"}
+            onClick={() => deleteVolunteering()}
+          />
         </div>
       </div>
     </div>

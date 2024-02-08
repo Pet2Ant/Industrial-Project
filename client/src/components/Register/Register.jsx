@@ -71,7 +71,6 @@ function Register({ setIsLoading }) {
       showConfirmButton: false,
     });
   }
-};
   const validatePasswords = () => {
     if (password !== confirmPassword) {
       Popup({
@@ -246,5 +245,5 @@ function Register({ setIsLoading }) {
     </div>
   );
 }
-
+}
 export default Register;

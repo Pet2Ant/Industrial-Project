@@ -38,6 +38,7 @@ function PersonalDetails({ setIsLoading }) {
         showConfirmButton: false,
       });
     }
+    
 
     const inputs = {
       firstName: {
@@ -103,7 +104,8 @@ function PersonalDetails({ setIsLoading }) {
             seminarId,
             pronouns,
           }
-        );
+        ).then((response) => {
+          document.getElementById("save").classList.toggle("hidden");
         Popup({
           title: "Success!",
           text: "You have successfully added your personal details!",
@@ -111,6 +113,7 @@ function PersonalDetails({ setIsLoading }) {
           timer: 1500,
           showConfirmButton: false,
         });
+      });
       } catch (error) {
         Popup({
           title: "Error!",
@@ -205,7 +208,9 @@ function PersonalDetails({ setIsLoading }) {
       </div>
 
       <div className="flex md:flex-row flex-col md:gap-12 gap-2 justify-between mx-auto w-1/2 min-w-24 pb-12">
-        <ApplyButton onClick={handlePersonalDetails} buttonName="Save" />
+        <ApplyButton 
+          id="save"
+        onClick={handlePersonalDetails} buttonName="Save" />
 
       </div>
     </form>
