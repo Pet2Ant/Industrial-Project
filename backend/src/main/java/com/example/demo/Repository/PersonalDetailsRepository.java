@@ -10,7 +10,8 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails
    Optional<PersonalDetails> findByUserIdAndSeminarId(Long userId, Long seminarId);
 
    List<PersonalDetails> findAllByUserIdAndSeminarId(Long userId, Long seminarId);
-   void deletePersonalDetailsByIdAndSeminarId(Long id, Long seminarId);
+   void deleteAllByUserIdAndSeminarId(Long id, Long seminarId);
+   List<PersonalDetails> findByUserId(Long id);
 
    long countBySeminarId(Long seminarId);
 

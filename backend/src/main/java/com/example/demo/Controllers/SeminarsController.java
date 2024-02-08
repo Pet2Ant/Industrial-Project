@@ -51,4 +51,5 @@ public class SeminarsController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
 }

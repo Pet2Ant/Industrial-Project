@@ -73,4 +73,13 @@ public class PersonalDetailsController {
         personalDetailsService.deletePersonalDetails(userId,seminarId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
+    //get seminarId based on userId
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/seminarId")
+    public ResponseEntity<List<Long>> getSeminarIdByUserId(@RequestHeader("Authorization") String token){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Long> seminarId= personalDetailsService.getSeminarIdByUserId(userId);
+        return new ResponseEntity<>(seminarId, HttpStatus.OK);
+    }
 }

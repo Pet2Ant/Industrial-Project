@@ -13,6 +13,7 @@ import java.lang.reflect.Type;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class PersonalDetailsService {
@@ -51,7 +52,10 @@ public class PersonalDetailsService {
     }
     @Transactional
     public void deletePersonalDetails(Long id, Long seminarId) {
-        personalDetailsRepository.deletePersonalDetailsByIdAndSeminarId(id, seminarId);
+        personalDetailsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
+    public List<Long> getSeminarIdByUserId(Long id) {
+        return personalDetailsRepository.findByUserId(id).stream().map(PersonalDetails::getSeminarId).collect(Collectors.toList());
     }
 
 
