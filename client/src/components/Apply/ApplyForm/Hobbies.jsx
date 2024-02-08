@@ -56,7 +56,9 @@ function Hobbies() {
           type="text"
           id="achievements"
         />
-        <Button onClick={handleHobbies} buttonName={"Add"} />
+        <div className="flex justify-center">
+          <Button onClick={handleHobbies} buttonName={"Add"} />
+        </div>
       </form>
     </>
   );

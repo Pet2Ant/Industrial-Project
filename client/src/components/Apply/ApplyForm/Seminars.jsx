@@ -27,8 +27,6 @@ function SeminarsPage() {
     setDateRange(dateRange);
   };
 
- 
-
   const handleSeminars = async (e) => {
     e.preventDefault();
     try {
@@ -99,9 +97,11 @@ function SeminarsPage() {
             />
           </div>
         )}
-        {startDate && endDate && (
-          <Button onClick={handleSeminars} buttonName={"Add"} />
-        )}
+        <div className="flex justify-center">
+          {startDate && endDate && (
+            <Button onClick={handleSeminars} buttonName={"Add"} />
+          )}
+        </div>
       </form>
     </div>
   );

@@ -62,7 +62,16 @@ function Register({ setIsLoading }) {
     setTimeout(() => {
       navigate("/login");
     }, 1500);
-  };
+  } catch (error) {
+    setIsLoading(false);
+    Popup({
+      title: "Error!",
+      text: error.response.data.message,
+      icon: "error",
+      timer: 1500,
+      showConfirmButton: false,
+    });
+  }
 
   const validatePasswords = () => {
     if (password !== confirmPassword) {
@@ -238,5 +247,5 @@ function Register({ setIsLoading }) {
     </div>
   );
 }
-
+}
 export default Register;
