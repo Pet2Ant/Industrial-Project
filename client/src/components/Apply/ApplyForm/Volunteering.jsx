@@ -25,6 +25,16 @@ function Volunteering() {
     }
   };
 
+  const endpoints = [
+    "personalDetails",
+    "education",
+    "hobbies",
+    "seminars",
+    "technicalSkills",
+    "volunteering",
+    "work",
+  ];
+
   const handleDateChange = (dateRange) => {
     setDateRange(dateRange);
   };
@@ -60,15 +70,7 @@ function Volunteering() {
   };
 
   const deleteVolunteering = async (e) => {
-    const endpoints = [
-      "personalDetails",
-      "education",
-      "hobbies",
-      "seminars",
-      "technicalSkills",
-      "volunteering",
-      "work",
-    ];
+
 
     let headers = {
       Authorization: "Bearer " + localStorage.getItem("token"),
@@ -124,37 +126,39 @@ function Volunteering() {
         timer: 1500,
         showConfirmButton: false,
       });
+      
     }
   };
 
-  const saveVolunteering = async (e) => {
-    e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:8080/api/volunteering",
-        {
-          volunteer,
-          startDate,
-          endDate,
-          seminarId,
-        }
-      );
-      Popup({
-        title: "Success!",
-        text: "You have successfully added your volunteering work!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
-      });
-    } catch (error) {
+  const updateDetails = (updatedData) => {
+    const token = localStorage.getItem("token");
+
+    Promise.all(
+      endpoints.map((endpoint) =>
+        axios.put(`http://localhost:8080/api/${endpoint}/update`, updatedData, {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((response) => {
+          localStorage.removeItem("seminar");
+          Popup({
+            title: "Success!",
+            text: "Your application was completed successfully!",
+            icon: "success",
+            timer: 1500,
+            showConfirmButton: false,
+          });
+        })
+      )
+    )
+    .catch((error) => {
       Popup({
         title: "Error!",
-        text: "There was an error adding your volunteering work.",
+        text: "There was an error submitting your application.",
         icon: "error",
         timer: 1500,
         showConfirmButton: false,
       });
-    }
+    });
   };
 
   return (
@@ -210,7 +214,7 @@ function Volunteering() {
             id="submit"
             className=""
             buttonName={"Submit"}
-            onClick={() => localStorage.removeItem("seminar") && navigate("/")}
+            onClick={() => updateDetails()}
           />
           <Button
             id="delete"

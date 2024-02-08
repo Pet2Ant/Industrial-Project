@@ -42,7 +42,7 @@ public class CvBuilderController {
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
         Seminars seminar = seminarsService.getSeminarByUserId(userId);
-        long seminarId = seminar.getSeminarId();
+        Long seminarId = seminar.getSeminarId();
         List<PersonalDetailsDTO> personalDetails =  personalDetailsService.getPersonalDetailsListById(userId,seminarId);
         List<EducationDTO> education = educationService.getEducationListById(userId,seminarId);
         List<SeminarsDTO> seminars = seminarsService.getSeminarsById(userId, seminarId);
