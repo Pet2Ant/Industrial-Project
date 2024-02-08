@@ -24,7 +24,11 @@ public class SeminarsService {
         seminars.setStatus(0);
         return seminarsRepository.save(seminars);
     }
-    public List<Seminars> updateSeminars(long id ,long seminarId) {
+    public Seminars updateSeminars(Seminars seminars) {
+        seminars.setStatus(1);
+        return seminarsRepository.save(seminars);
+    }
+    public List<Seminars> giveSeminars(long id ,long seminarId) {
         return seminarsRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<SeminarsDTO> getSeminarsById(Long id, Long seminarId) {
@@ -33,8 +37,10 @@ public class SeminarsService {
         Type listType = new TypeToken<List<SeminarsDTO>>(){}.getType();
         return modelMapper.map(seminars, listType);
     }
-    public Seminars getSeminarByUserId(long id) {
-        return  seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
+    public Seminars getSeminarByUserId(Long id) {
+        long ids=(long)id;
+
+        return  seminarsRepository.findById(ids).orElseThrow(() -> new RuntimeException("Seminars not found"));
     }
     @Transactional
     public void deleteSeminars(Long id, Long seminarId) {

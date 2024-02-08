@@ -32,95 +32,70 @@ public class TableCleanupTask {
         this.seminarRepository = seminarRepository;
     }
 
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanupTablePesonalDetails () {
-//        List<Education> educations = educationRepository.findAll();
-//        for (Education education : educations) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(education.getUserId(), education.getSeminarId());
-//            if (personalDetailsList.isEmpty()) {
-//                educationRepository.delete(education);
-//                educationRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanupTableEducation () {
-//        List<PersonalDetails> personalDetailsList2 = personalDetailsRepository.findAll();
-//        for (PersonalDetails personalDetails2 : personalDetailsList2) {
-//            List<Education> educations2 = educationRepository.findAllByUserIdAndSeminarId(personalDetails2.getUserId(), personalDetails2.getSeminarId());
-//            if (educations2.isEmpty()) {
-//                personalDetailsRepository.delete(personalDetails2);
-//                personalDetailsRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanUpWork() {
-//        List<Work> works = workRepository.findAll();
-//        for (Work work : works) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            List<Education> educations = educationRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            if (personalDetailsList.isEmpty() && educations.isEmpty()) {
-//                workRepository.delete(work);
-//                workRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanUpVolunteering(){
-//        List<Volunteering> works = volunteerRepository.findAll();
-//        for (Volunteering work : works) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            List<Education> educations = educationRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            if (personalDetailsList.isEmpty() && educations.isEmpty()) {
-//                volunteerRepository.delete(work);
-//                volunteerRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanUpHobbies(){
-//        List<Hobbies> works = hobbiesRepository.findAll();
-//        for (Hobbies work : works) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            List<Education> educations = educationRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            if (personalDetailsList.isEmpty() && educations.isEmpty()) {
-//                hobbiesRepository.delete(work);
-//                hobbiesRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanUpTechnicalSkills(){
-//        List<TechnicalSkills> works = technicalSkillsRepository.findAll();
-//        for (TechnicalSkills work : works) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            List<Education> educations = educationRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            if (personalDetailsList.isEmpty() && educations.isEmpty()) {
-//                technicalSkillsRepository.delete(work);
-//                technicalSkillsRepository.flush();
-//            }
-//        }
-//    }
-//    @Transactional
-//    @Scheduled(fixedRate = 1800000)
-//    public void cleanUpSeminars(){
-//        List<Seminars> works = seminarRepository.findAll();
-//        for (Seminars work : works) {
-//            List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            List<Education> educations = educationRepository.findAllByUserIdAndSeminarId(work.getUserId(), work.getSeminarId());
-//            if (personalDetailsList.isEmpty() && educations.isEmpty()) {
-//                seminarRepository.delete(work);
-//                seminarRepository.flush();
-//            }
-//        }
-//    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanupTablePesonalDetails () {
+        List<Education> educations = educationRepository.findAllByStatus(0);
+        for (Education education : educations) {
+            educationRepository.delete(education);
+        }
+        educationRepository.flush();
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanupTableEducation () {
+        List<PersonalDetails> personalDetails = personalDetailsRepository.findAllByStatus(0);
+        for (PersonalDetails personalDetail : personalDetails) {
+            personalDetailsRepository.delete(personalDetail);
+        }
+        personalDetailsRepository.flush();
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpWork() {
+        List<Work> works = workRepository.findAllByStatus(0);
+        for (Work work : works) {
+            workRepository.delete(work);
+        }
+        workRepository.flush();
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpVolunteering(){
+        List<Volunteering> volunteerings = volunteerRepository.findAllByStatus(0);
+        for (Volunteering volunteering : volunteerings) {
+            volunteerRepository.delete(volunteering);
+        }
+        volunteerRepository.flush();
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpHobbies(){
+        List<Hobbies> hobbies = hobbiesRepository.findAllByStatus(0);
+        for (Hobbies hobby : hobbies) {
+            hobbiesRepository.delete(hobby);
+        }
+        hobbiesRepository.flush();
+
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpTechnicalSkills(){
+       List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findAllByStatus(0);
+        for (TechnicalSkills technicalSkill : technicalSkills) {
+            technicalSkillsRepository.delete(technicalSkill);
+        }
+        technicalSkillsRepository.flush();
+    }
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpSeminars(){
+        List<Seminars> seminars = seminarRepository.findAllByStatus(0);
+        for (Seminars seminar : seminars) {
+            seminarRepository.delete(seminar);
+        }
+        seminarRepository.flush();
+    }
 
 
 

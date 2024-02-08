@@ -55,9 +55,9 @@ public class SeminarsController {
     public void updateSeminars(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-        List<Seminars> seminars = seminarsService.updateSeminars(userId,seminarId);
+        List<Seminars> seminars = seminarsService.giveSeminars(userId,seminarId);
         for(Seminars seminar:seminars){
-            seminar.setStatus(1);
+            seminarsService.updateSeminars(seminar);
         }
     }
 

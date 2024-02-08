@@ -17,4 +17,7 @@ public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails
 
    long countBySeminarId(Long seminarId);
 
+    Optional<PersonalDetails> findById(long id);
+   List<PersonalDetails> findAllByStatus(long applicationStatus);
+
 }

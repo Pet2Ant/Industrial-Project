@@ -57,9 +57,10 @@ public class HobbiesController {
     public void updateHobbies(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-        List<Hobbies> hobbies = hobbiesService.updateHobbies(userId,seminarId);
+        List<Hobbies> hobbies = hobbiesService.giveHobbies(userId,seminarId);
+        System.out.println("Im being called?");
         for(Hobbies hobbies1 : hobbies){
-            hobbies1.setStatus(1);
+            hobbiesService.updateHobbies(hobbies1);
         }
 
     }

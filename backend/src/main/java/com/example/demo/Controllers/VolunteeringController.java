@@ -58,9 +58,9 @@ public class VolunteeringController {
     public void updateVolunteering(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-        List<Volunteering> volunteerings = volunteeringService.updateVolunteering(userId,seminarId);
+        List<Volunteering> volunteerings = volunteeringService.giveVolunteering(userId,seminarId);
         for(Volunteering volunteering:volunteerings){
-            volunteering.setStatus(1);
+            volunteeringService.updateVolunteering(volunteering);
         }
     }
 

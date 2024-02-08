@@ -30,7 +30,16 @@ public class PersonalDetailsService {
         personalDetails.setStatus(0);
         return personalDetailsRepository.save(personalDetails);
     }
-    public PersonalDetails updatePersonalDetails(long id , long seminarId) {
+    public long getPersonalDetailsByUserId(long id) {
+        Optional<PersonalDetails> personalDetails = personalDetailsRepository.findById(id);
+        List<Long> ids = personalDetailsRepository.findSeminarIdByUserId(id);
+        return ids.get(0);
+    }
+    public PersonalDetails updatePersonalDetails(PersonalDetails personalDetails) {
+        personalDetails.setStatus(1);
+        return personalDetailsRepository.save(personalDetails);
+    }
+    public PersonalDetails givePersonalDetails(long id , long seminarId) {
         return personalDetailsRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<PersonalDetails> getPersonalDetails(){

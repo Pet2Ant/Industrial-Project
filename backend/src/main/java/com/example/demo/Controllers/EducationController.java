@@ -71,9 +71,9 @@ public class EducationController {
     public void updateStatus(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-        List<Education> educationList = educationService.getEducationListById(userId,seminarId);
+        List<Education> educationList = educationService.getEducationListByIds(userId,seminarId);
         for(Education education: educationList){
-            education.setStatus(1);
+            educationService.updateEducation(education);
         }
     }
 }

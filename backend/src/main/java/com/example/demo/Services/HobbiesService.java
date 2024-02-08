@@ -25,13 +25,17 @@ public class HobbiesService {
         hobbies.setStatus(0);
         return hobbiesRepository.save(hobbies);
     }
+    public Hobbies updateHobbies(Hobbies hobbies) {
+        hobbies.setStatus(1);
+        return hobbiesRepository.save(hobbies);
+    }
     public List<HobbiesDTO> getHobbiesById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<Hobbies> hobbies = hobbiesRepository.findByUserIdAndSeminarId(id,seminarId);
         Type listType = new TypeToken<List<HobbiesDTO>>(){}.getType();
         return modelMapper.map(hobbies, listType);
     }
-    public List<Hobbies> updateHobbies(long id ,long seminarId) {
+    public List<Hobbies> giveHobbies(long id ,long seminarId) {
         return hobbiesRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     @Transactional
