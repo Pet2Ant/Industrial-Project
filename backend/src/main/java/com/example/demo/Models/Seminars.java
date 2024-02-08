@@ -29,5 +29,7 @@ public class Seminars {
 
     @Column(name = "user_id",nullable = false)
     private long userId;
+    @Column(name ="application_status")
+    private long status;
 
 }

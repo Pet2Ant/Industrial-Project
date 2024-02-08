@@ -23,7 +23,11 @@ public class WorkService {
     }
 
     public Work saveWork(Work work) {
+        work.setStatus(0);
         return workRepository.save(work);
+    }
+    public List<Work> updateWork(long id ,long seminarId) {
+        return workRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<WorkDTO> getWorkById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();

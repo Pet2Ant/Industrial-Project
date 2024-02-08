@@ -19,5 +19,6 @@ public class TechnicalSkills {
 
     @Column(name = "technical_skills", length = 2000) // Assuming skills can be quite long
     private String technicalSkills;
-
+    @Column(name ="application_status")
+    private long status;
 }

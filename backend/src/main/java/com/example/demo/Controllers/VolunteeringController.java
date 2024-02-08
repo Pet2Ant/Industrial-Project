@@ -53,4 +53,15 @@ public class VolunteeringController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateVolunteering(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Volunteering> volunteerings = volunteeringService.updateVolunteering(userId,seminarId);
+        for(Volunteering volunteering:volunteerings){
+            volunteering.setStatus(1);
+        }
+    }
+
 }

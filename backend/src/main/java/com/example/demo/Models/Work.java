@@ -32,4 +32,6 @@ public class Work {
 
     @Column(name = "responsibilities", length = 2000) // Assuming responsibilities can be quite long
     private String responsibilities;
+    @Column(name ="application_status")
+    private long status;
 }

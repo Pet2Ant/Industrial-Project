@@ -52,5 +52,15 @@ public class TechnicalSkillsController {
         return new ResponseEntity<>(HttpStatus.OK);
 
     }
+    @PreAuthorize("hasRole('ADMIN')")
+    @PutMapping("/update")
+    public void updateTechnicalSkills(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<TechnicalSkills> technicalSkills = technicalSkillsService.updateTechnicalSkills(userId,seminarId);
+        for(TechnicalSkills technicalSkill:technicalSkills){
+            technicalSkill.setStatus(1);
+        }
+    }
 }
 

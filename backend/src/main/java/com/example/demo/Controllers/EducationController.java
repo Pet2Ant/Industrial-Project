@@ -1,6 +1,7 @@
 package com.example.demo.Controllers;
 import com.example.demo.DTO.EducationDTO;
 import com.example.demo.DTO.PersonalDetailsDTO;
+import com.example.demo.Models.PersonalDetails;
 import com.example.demo.Services.DataService;
 import com.example.demo.Models.Education;
 import com.example.demo.Services.EducationService;
@@ -65,5 +66,14 @@ public class EducationController {
         educationService.deleteAllByUserIdAndSeminarId(userId,seminarId);
         return new ResponseEntity<>(HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('USER')")
+    @PutMapping("/update")
+    public void updateStatus(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        List<Education> educationList = educationService.getEducationListById(userId,seminarId);
+        for(Education education: educationList){
+            education.setStatus(1);
+        }
+    }
 }

@@ -22,5 +22,7 @@ public class Hobbies  {
 
     @Column(name = "achievements", length = 2000) // Assuming achievements can be quite long
     private String achievements;
+    @Column(name ="application_status")
+    private long status;
 
 }

@@ -23,9 +23,12 @@ public class VolunteeringService {
 
     public Volunteering saveVolunteering(Volunteering volunteering)
     {
+        volunteering.setStatus(0);
         return volunteeringRepository.save(volunteering);
     }
-    //get volunteering by id
+    public List<Volunteering> updateVolunteering(long id ,long seminarId) {
+        return volunteeringRepository.findByUserIdAndSeminarId(id, seminarId);
+    }
     public List<VolunteeringDTO> getVolunteeringById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<Volunteering> volunteerings = volunteeringRepository.findByUserIdAndSeminarId(id,seminarId);
