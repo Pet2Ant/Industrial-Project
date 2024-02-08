@@ -87,8 +87,11 @@ public class PersonalDetailsController {
     public void updatePersonalDetails(@RequestHeader("Authorization") String token,@RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-       PersonalDetails personalDetails =personalDetailsService.updatePersonalDetails(userId,seminarId);
-            personalDetails.setStatus(1);
+       PersonalDetails personalDetails =personalDetailsService.givePersonalDetails(userId,seminarId);
+         personalDetailsService.updatePersonalDetails(personalDetails);
+
+
+
 
     }
 }

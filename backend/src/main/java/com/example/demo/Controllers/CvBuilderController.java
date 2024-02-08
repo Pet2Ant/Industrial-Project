@@ -5,6 +5,7 @@ import com.example.demo.Services.*;
 import com.example.demo.Util.JwtUtil;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import com.example.demo.Models.*;
 import java.util.List;
@@ -35,16 +36,17 @@ public class CvBuilderController {
         this.dataService = dataService;
         this.jwtUtil = jwtUtil;
     }
-
+    @PreAuthorize("hasRole('USER')")
     @GetMapping
     public ResponseEntity<CvDTO> generateCv(@RequestHeader("Authorization") String token) {
 
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         Long userId = dataService.getUserId(username).getId();
-        Seminars seminar = seminarsService.getSeminarByUserId(userId);
-        long seminarId = seminar.getSeminarId();
+        System.out.println("userId: " + userId);
+        long seminarId =  personalDetailsService.getPersonalDetailsByUserId(userId);
+        System.out.println(seminarId);
         List<PersonalDetailsDTO> personalDetails =  personalDetailsService.getPersonalDetailsListById(userId,seminarId);
-        List<EducationDTO> education = educationService.getEducationListById(userId,seminarId);
+        List<EducationDTO> education = educationService.getEducationListById(userId,(Long)seminarId);
         List<SeminarsDTO> seminars = seminarsService.getSeminarsById(userId, seminarId);
         List<WorkDTO> work = workService.getWorkById(userId, seminarId);
         List<VolunteeringDTO> volunteering = volunteeringService.getVolunteeringById(userId, seminarId);

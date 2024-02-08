@@ -57,9 +57,9 @@ public class TechnicalSkillsController {
     public void updateTechnicalSkills(@RequestHeader("Authorization") String token, @RequestParam long seminarId){
         String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
         long userId = dataService.getUserId(username).getId();
-        List<TechnicalSkills> technicalSkills = technicalSkillsService.updateTechnicalSkills(userId,seminarId);
+        List<TechnicalSkills> technicalSkills = technicalSkillsService.giveTechnicalSkills(userId,seminarId);
         for(TechnicalSkills technicalSkill:technicalSkills){
-            technicalSkill.setStatus(1);
+            technicalSkillsService.updateTechnicalSkills(technicalSkill);
         }
     }
 }

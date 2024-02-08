@@ -26,7 +26,11 @@ public class VolunteeringService {
         volunteering.setStatus(0);
         return volunteeringRepository.save(volunteering);
     }
-    public List<Volunteering> updateVolunteering(long id ,long seminarId) {
+    public Volunteering updateVolunteering(Volunteering volunteering) {
+        volunteering.setStatus(1);
+        return volunteeringRepository.save(volunteering);
+    }
+    public List<Volunteering> giveVolunteering(long id ,long seminarId) {
         return volunteeringRepository.findByUserIdAndSeminarId(id, seminarId);
     }
     public List<VolunteeringDTO> getVolunteeringById(Long id, Long seminarId) {

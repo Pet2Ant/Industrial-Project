@@ -25,6 +25,10 @@ public class EducationService {
         education.setStatus(0);
         return educationRepository.save(education);
     }
+    public Education updateEducation(Education education) {
+        education.setStatus(1);
+        return educationRepository.save(education);
+    }
     public List<EducationDTO> getEducationListById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<Education> educationList = educationRepository.findAllByUserIdAndSeminarId(id,seminarId);
@@ -62,7 +66,7 @@ public class EducationService {
 
         return dtoList;
     }
-    public List<Education> getEducationListById(long id, long seminarId) {
+    public List<Education> getEducationListByIds(long id, long seminarId) {
         return educationRepository.findAllByUserIdAndSeminarId(id,seminarId);
 
     }

@@ -25,9 +25,15 @@ public class TechnicalSkillsService {
             technicalSkills.setStatus(0);
             return technicalSkillsRepository.save(technicalSkills);
         }
-        public List<TechnicalSkills> updateTechnicalSkills(long id ,long seminarId) {
+    public TechnicalSkills updateTechnicalSkills(TechnicalSkills technicalSkills) {
+        technicalSkills.setStatus(1);
+        return technicalSkillsRepository.save(technicalSkills);
+    }
+
+        public List<TechnicalSkills> giveTechnicalSkills(long id ,long seminarId) {
             return technicalSkillsRepository.findByUserIdAndSeminarId(id, seminarId);
         }
+
     public List<TechnicalSkillsDTO> getTechnicalSkillsById(Long id, Long seminarId) {
         ModelMapper modelMapper = new ModelMapper();
         List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findByUserIdAndSeminarId(id,seminarId);
