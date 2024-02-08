@@ -49,12 +49,14 @@ function Register({ setIsLoading }) {
         setIsLoading(false);
         return;
     }
+    const role = "user";
     try {
       const response = await axios.post("http://localhost:8080/api/data", {
         username,
         email,
         phone,
         password,
+        role,
       });
       const jwt = response.data.token;
       console.log("JWT:", jwt);

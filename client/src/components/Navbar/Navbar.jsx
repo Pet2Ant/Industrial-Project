@@ -1,154 +1,154 @@
-import React, {useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../assets/images/logoNav.png";
 import { useNavigate } from 'react-router-dom';
 import Swal from "sweetalert2";
 import axios from "axios";
 import Popup from "../Popup/Popup";
+import {jwtDecode }from "jwt-decode";
+
+
 
 function isValidJwt(jwt) {
   if (!jwt) {
-    console.log('JWT is null or undefined');
     return false;
   }
 
   const parts = jwt.split('.');
   if (parts.length !== 3) {
-    console.log('JWT does not contain exactly 2 periods');
     return false;
   }
-
-
 
   return true;
 }
 
 
-
-
-    
-const AuthenticatedNavbar = ({ userKind,logout }) => {
+const AuthenticatedNavbar = ({ userKind, logout }) => {
   const navigate = useNavigate();
+
+  // show permanent popup with user input image
+  const handleImageUpload = async () => {
+    const { value: file } = await Swal.fire({
+      title: 'Please upload a picture of yourself.',
+      text: 'This will be used in the making of your CV. (optional)',
+      input: 'file',
+      inputAttributes: {
+        'accept': 'image/*',
+        'aria-label': 'Upload your profile picture'
+      }
+    });
+
+
   
-// show permanent popup with user input image
-const handleImageUpload = async () => {
-  const { value: file } = await Swal.fire({
-    title: 'Please upload a picture of yourself.',
-    text: 'This will be used in the making of your CV. (optional)',
-    input: 'file',
-    inputAttributes: {
-      'accept': 'image/*',
-      'aria-label': 'Upload your profile picture'
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        Swal.fire({
+          title: 'Your uploaded picture',
+          text: 'Your CV will be ready in a few seconds!',
+          imageUrl: e.target.result,
+          showConfirmButton: true,
+          imageAlt: 'The uploaded picture'
+          // on confirm button, save the image to local storage
+        }).then((result) => {
+          if (file.size > 2936012) {
+            Popup({
+              title: "Error!",
+              text: "The file you uploaded is too large. Please upload a file that is less than 2.7MB.",
+              icon: "error",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+            return;
+          } else if (result.isConfirmed) {
+            Swal.fire("Saved!", "", "success");
+            console.log('Image saved to local storage', btoa(e.target.result));
+            localStorage.setItem('image', btoa(e.target.result));
+
+            navigate('/CvBuilder');
+          } else if (result.isDenied) {
+            Swal.fire("Changes are not saved", "", "info");
+          }
+        });
+      };
+      reader.readAsDataURL(file);
     }
-  });
+  };
 
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      Swal.fire({
-        title: 'Your uploaded picture',
-        text: 'Your CV will be ready in a few seconds!',
-        imageUrl: e.target.result,
-        showConfirmButton: true,
-        imageAlt: 'The uploaded picture'
-        // on confirm button, save the image to local storage
-      }).then((result) => {
-        if (file.size > 2936012) {
-          Popup({
-            title: "Error!",
-            text: "The file you uploaded is too large. Please upload a file that is less than 2.7MB.",
-            icon: "error",
-            timer: 1500,
-            showConfirmButton: false,
-          });
-          return;
-        } else if (result.isConfirmed) {
-          Swal.fire("Saved!", "", "success");
-          console.log('Image saved to local storage', btoa(e.target.result));
-          localStorage.setItem('image', btoa(e.target.result));
+  return (
+    userKind === "admin" ? (
+      <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
+        <Link
+          to="https://www.joinwelead.org/el/blog"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          blog
+        </Link>
+        <Link
+          to="https://www.joinwelead.org/el/sxetika-me-emas"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          about us
+        </Link>
+        <Link
+          to="https://www.joinwelead.org/el/programmata"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          seminars
+        </Link>
+        <Link
+          to="/Applications"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
+            See applications
+          </button>
+        </Link>
+        <Link to="/" className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
+          <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
+            Log out
+          </button>
+        </Link>
+      </div>
+    ) : userKind === "user" ? (
+      <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center ">
+        <Link
+          to="https://www.joinwelead.org/el/blog"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          blog
+        </Link>
+        <Link
+          to="https://www.joinwelead.org/el/sxetika-me-emas"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          about us
+        </Link>
+        <Link
+          to="https://www.joinwelead.org/el/programmata"
+          className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
+        >
+          seminars
+        </Link>
 
-          navigate('/CvBuilder');
-        } else if (result.isDenied) {
-          Swal.fire("Changes are not saved", "", "info");
-        }});
-    };
-    reader.readAsDataURL(file);
-  }
-};
-
-return (
-  userKind === "admin" ? (
-    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
-      <Link
-        to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        blog
-      </Link>
-      <Link
-        to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        about us
-      </Link>
-      <Link
-        to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        seminars
-      </Link>
-      <Link
-        to="/Applications"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        <button className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2">
-          See applications
-        </button>
-      </Link>
-      <Link to="/"  className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
-        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] rounded-full px-4 py-2">
-          Log out
-        </button>
-      </Link>
-    </div>
-  ) : userKind === "user" ? (
-    <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center ">
-      <Link
-        to="https://www.joinwelead.org/el/blog"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        blog
-      </Link>
-      <Link
-        to="https://www.joinwelead.org/el/sxetika-me-emas"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        about us
-      </Link>
-      <Link
-        to="https://www.joinwelead.org/el/programmata"
-        className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300"
-      >
-        seminars
-      </Link>
-
-      <Link to="/apply" className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
-        Apply for a seminar
-      </Link>
-        <button 
-        onClick={handleImageUpload}
-        className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2 hover:bg-indigo-400 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
+        <Link to="/apply" className="text-[#143727] hover:text-gray-400 p-2 ease-in-out duration-300">
+          Apply for a seminar
+        </Link>
+        <button
+          onClick={handleImageUpload}
+          className="bg-[#8D93D9] text-[#143727] rounded-full px-4 py-2 hover:bg-indigo-400 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
           CV Builder
         </button>
-      <Link to="/" className="text-[#143727] hover:text-gray-400 p-2">
-        <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] hover:bg-green-900 rounded-full px-4 py-2 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
-          Log out
-        </button>
-      </Link>
-    </div>
-  ) : (
-    <UnauthenticatedNavbar />
-  ));
+        <Link to="/" className="text-[#143727] hover:text-gray-400 p-2">
+          <button onClick={logout} className="bg-[#143727] text-[#e5e5e5] hover:bg-green-900 rounded-full px-4 py-2 hover:scale-105 shadow-xl transform transition duration-500 ease-in-out">
+            Log out
+          </button>
+        </Link>
+      </div>
+    ) : (
+      <UnauthenticatedNavbar />
+    ));
 };
 const UnauthenticatedNavbar = () => (
   <div className="flex md:flex-row flex-col items-center mx-auto justify-center text-center">
@@ -185,34 +185,39 @@ const UnauthenticatedNavbar = () => (
 );
 
 //commit,
-const Navbar = ({ userKind }) => {
-  
+const Navbar = ({userKind }) => {
+
   const navigate = useNavigate();
   const [isOpen, setIsOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user,setUser] = useState("");
   const jwt = localStorage.getItem('token');
   console.log('JWT:', jwt);
   useEffect(() => {
-    const user = localStorage.getItem("token") ;
+    const user = localStorage.getItem("token");
+    if (user) {
+      const decodedToken = jwtDecode(user);
+      const role = JSON.stringify(decodedToken.roles).slice(2, -2);
+      setUser(role);
+    }
     if (user !== null) {
       setIsAuthenticated(true);
-      if(jwt)
-      {
+      if (jwt) {
         axios.defaults.headers.common["Authorization"] = "Bearer " + jwt;
       }
     }
-  
+
   }, []);
 
 
 
   const logout = async () => {
     try {
-     if (isValidJwt(jwt)) {
+      if (isValidJwt(jwt)) {
         localStorage.removeItem("token");
         setIsAuthenticated(false);
-      // Remove the Authorization header
-      delete axios.defaults.headers.common["Authorization"];
+        // Remove the Authorization header
+        delete axios.defaults.headers.common["Authorization"];
         Popup({
           title: "Success!",
           text: "You have successfully logged out!",
@@ -221,10 +226,10 @@ const Navbar = ({ userKind }) => {
           showConfirmButton: false,
         });
         setTimeout(() => {
-          
+
           navigate('/login');
         }, 1500);
-      } 
+      }
     }
     catch (err) {
       console.log(err);
@@ -277,13 +282,12 @@ const Navbar = ({ userKind }) => {
 
         {/* menu */}
         <div
-          className={` ${
-            isOpen ? "flex" : "hidden"
-          } md:flex md:items-center md:w-auto w-full
+          className={` ${isOpen ? "flex" : "hidden"
+            } md:flex md:items-center md:w-auto w-full
         `}
         >
           {isAuthenticated ? (
-            <AuthenticatedNavbar logout={logout} userKind={userKind} />
+            <AuthenticatedNavbar logout={logout} userKind={user} />
           ) : (
             <UnauthenticatedNavbar />
           )}

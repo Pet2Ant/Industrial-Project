@@ -1,18 +1,23 @@
-import React from "react";
+import React, { useState,useEffect } from "react";
 import { useContext } from "react";
 import { AppContext } from "../../AppContext";
 import Navbar from "../Navbar/Navbar";
 import MainPageContainer from "./MainPageContainer";
+import {jwtDecode} from "jwt-decode";
+
 
 function MainPage() {
   let isAuthenticated = false;
-  const userKind = useContext(AppContext);
+  const [userKind, setUserKind] = useState("");
 
-  const userKindString = JSON.stringify(userKind);
-  const parsedUserKind = JSON.parse(userKindString);
-  const extractedValue = parsedUserKind.user;
-
-
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const role = JSON.stringify(decodedToken.roles).slice(2, -2);
+      setUserKind(role);
+    }
+  }, []);
 
   (localStorage.getItem("token") === null)
     ? isAuthenticated = false
@@ -20,9 +25,9 @@ function MainPage() {
 
   return (
     <div className="w-screen h-screen">
-      <Navbar isAuthenticated={isAuthenticated} userKind={extractedValue} />
+      <Navbar isAuthenticated={isAuthenticated} userKind={userKind} />
       <div className="bg-[#143727] h-screen m-auto flex md:flex-row flex-col md:py-0 py-12 overflow-y-auto overflow-x-hidden items-center mx-auto ">
-        {extractedValue === "user" ? (
+        {userKind === "user" ? (
           <>
             <MainPageContainer
               title="News"
@@ -47,7 +52,7 @@ function MainPage() {
               ]}
             />
           </>
-        ) : extractedValue === "admin" ? (
+        ) : userKind === "admin" ? (
           <>
             <MainPageContainer title="EDUCATION LEVEL / SEMINAR"/>
             <MainPageContainer title="SEMINARS BY POPULARITY" />
