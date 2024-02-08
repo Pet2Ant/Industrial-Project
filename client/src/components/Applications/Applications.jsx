@@ -5,13 +5,10 @@ import Table from "./ApplicationTable/ApplicationsTable";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import EditPopup from "./EditPopup";
-
+import {jwtDecode }from "jwt-decode";
 const Applications = () => {
-  const userKind = useContext(AppContext);
-
-  const userKindString = JSON.stringify(userKind);
-  const parsedUserKind = JSON.parse(userKindString);
-  const extractedValue = parsedUserKind.user;  const [headerText, setHeaderText] = useState("Applications");
+  const [userKind,setUserKind] = useState("");
+ const [headerText, setHeaderText] = useState("Applications");
   
   const [subHeaderText, setSubHeaderText] = useState(
     "Here you can view all the applications that each user has submitted."
@@ -30,6 +27,12 @@ const Applications = () => {
   });
   
   useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      const role = JSON.stringify(decodedToken.roles).slice(2, -2);
+      setUserKind(role);
+    }
     handlePersonalDetails();
   }, []);
 
@@ -126,7 +129,7 @@ const Applications = () => {
   return (
     <div className="min-h-screen bg-[#e5e5e5]">
       <div className="grid grid-cols-1 grid-rows-1">
-        <Navbar isAuthenticated={true} userKind={extractedValue} />
+        <Navbar isAuthenticated={true} userKind={userKind} />
         <div className="min-h-fit justify-center relative overflow-hidden transition-all duration-300 ease-in-out xl:mx-36 lg:mx-24">
           <div className="grid grid-cols-1 gap-2  sm:pt-24 pt-36  md:pl-0 mx-8 lg:mx-auto flex lg:flex-row flex-col items-center">
             <Table
