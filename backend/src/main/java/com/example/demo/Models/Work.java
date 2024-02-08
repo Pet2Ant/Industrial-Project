@@ -14,9 +14,9 @@ public class Work {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private long userId;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id",nullable = false)
     private long seminarId;
     @Column(name = "work_place")
     private String workPlace;

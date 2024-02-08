@@ -15,6 +15,8 @@ public class PersonalDetailsDTO {
     private String country;
     @JsonProperty("City: ")
     private String city;
+    @JsonProperty("Pronouns: ")
+    private String pronouns;
     @JsonProperty("Email: ")
     private String email;
     @JsonProperty("Phone: ")
@@ -25,16 +27,6 @@ public class PersonalDetailsDTO {
     private String education;
     @JsonProperty("Seminar: ")
     private long seminarId;
-    public String toPdfString() {
-        return "First name: " + firstName + ""+
-                ", Last name: " + lastName +""+
-                ", Country: " + country +""+
-                ", City: " + city +""+
-                ", Email: " + email +""+
-                ", Phone: " + phone +""+
-                ", External links: " + externalLinks +""+
-                ", Education: " + education +""+
-                ", Seminar: " + seminarId;
-    }
+
 
 }

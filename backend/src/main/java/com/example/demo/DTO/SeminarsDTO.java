@@ -13,9 +13,5 @@ public class SeminarsDTO {
     private String startDate;
     @JsonProperty("End date")
     private String endDate;
-    public String toPdfString() {
-        return "Seminars: " + seminar +""+
-                ", Start date: " + startDate +""+
-                ", End date: " + endDate+"";
-    }
+
 }

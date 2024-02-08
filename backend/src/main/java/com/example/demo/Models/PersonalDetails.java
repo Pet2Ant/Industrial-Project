@@ -14,16 +14,17 @@ public class PersonalDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    @Column(name = "user_id")
+    @Column(name = "user_id",nullable = false)
     private long userId;
 
-    @Column(name = "first_name")
+    @Column(name = "first_name",nullable = false)
     private String firstName;
-    @Column(name = "seminar_id")
+    @Column(name = "seminar_id",nullable = false)
     private long seminarId;
     @Column(name = "last_name")
     private String lastName;
-
+    @Column(name = "pronouns")
+    private String pronouns;
     @Column(name = "country")
     private String country;
 
