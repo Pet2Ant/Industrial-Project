@@ -46,4 +46,12 @@ public class EducationController {
     public Map<String, Map<String, Integer>>getEducationCountsPerSeminar(){
         return educationService.getEducationCountsPerSeminar();
     }
+
+    @GetMapping("/education/submit")
+    public ResponseEntity<List<EducationDTO>> getPersonalDetailsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId) {
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        List<EducationDTO> educationList = educationService.getEducationListById(userId, seminarId);
+        return new ResponseEntity<>(educationList, HttpStatus.OK);
+    }
 }

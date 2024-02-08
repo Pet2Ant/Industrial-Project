@@ -84,13 +84,17 @@ function Education() {
         seminarId,
       }
       
-      );
-      Popup({
-        title: "Success!",
-        text: "You have successfully added your education!",
-        icon: "success",
-        timer: 1500,
-        showConfirmButton: false,
+      ).then((response) => {
+        Popup({
+          title: "Success!",
+          text: "You have successfully added your education!",
+          icon: "success",
+          timer: 1500,
+          showConfirmButton: false,
+        });
+        setTimeout(() => {
+        location.reload();
+      } , 1500);
       });
     } catch (error) {
       Popup({

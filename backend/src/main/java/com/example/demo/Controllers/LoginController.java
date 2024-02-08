@@ -22,7 +22,7 @@ public class LoginController {
 
     @PostMapping
     ResponseEntity<?> login(@RequestBody Data data) {
-        String token = loginService.login(data.getUsername(), data.getPassword());
+        String token = loginService.login(data.getUsername(), data.getEmail(), data.getPassword());
         System.out.println("Token: " + token);
         if (token != null) {
             Map<String, String> map = new HashMap<>();

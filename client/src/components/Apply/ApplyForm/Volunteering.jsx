@@ -103,6 +103,20 @@ function Volunteering() {
         {startDate && endDate && (
           <Button onClick={handleVolunteering} buttonName={"Add"} />
         )}
+                <div className="flex flex-row justify-center items-center md:gap-16 gap-4">
+        <Button
+          id="submit"
+          className=""
+          buttonName={"Submit"}
+          onClick={() => localStorage.removeItem("seminar") && navigate("/")}
+        />
+        <Button
+          id="delete"
+          className=""
+          buttonName={"Cancel"}
+          onClick={() => localStorage.removeItem("seminar") && navigate("/")}
+        />
+        </div>
       </div>
     </div>
   );

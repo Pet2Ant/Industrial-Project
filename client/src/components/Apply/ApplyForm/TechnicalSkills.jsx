@@ -46,7 +46,7 @@ function TechnicalSkills() {
         showConfirmButton: false,
       });
     }
-  }
+  };
 
   return (
     <>

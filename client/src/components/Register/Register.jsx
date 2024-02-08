@@ -7,19 +7,7 @@ import Input from "../Input/Input";
 import axios from "axios";
 import Popup from "../Popup/Popup";
 import { useNavigate } from "react-router-dom";
-import { get } from "lodash";
 
-function isValidJwt(jwt) {
-  if (!jwt) {
-    return false;
-  }
-
-  const parts = jwt.split(".");
-  if (parts.length !== 3) {
-    return false;
-  }
-  return true;
-}
 function Register({ setIsLoading }) {
   const [data, setData] = useState([]);
   const [email, setEmail] = useState("");

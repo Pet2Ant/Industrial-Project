@@ -3,7 +3,7 @@ import { COUNTRIES } from "./ApplyForm/Countries/countries";
 import TextareaAutosize from "react-textarea-autosize";
 
 
-const ApplyInput = ({ name, setName, placeholder, type, id, handleWorkChange, initialValue }) => {
+const ApplyInput = ({ name, setName, onClick, placeholder, type, id, handleWorkChange, initialValue }) => {
   const [inputValue, setInputValue] = useState(initialValue || "");
   const [error, setError] = useState("");
 

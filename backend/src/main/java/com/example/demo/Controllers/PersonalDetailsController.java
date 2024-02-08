@@ -50,4 +50,12 @@ public class PersonalDetailsController {
     public Map<Integer,Long> getSeminarCounts(){
         return personalDetailsService.getSeminarCounts();
     }
+
+    @GetMapping("/personalDetailsList/submit")
+    public ResponseEntity<PersonalDetailsDTO> getPersonalDetailsById(@RequestHeader("Authorization") String token,@RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        long userId = dataService.getUserId(username).getId();
+        PersonalDetailsDTO personalDetails = personalDetailsService.getPersonalDetailsById(userId,seminarId);
+        return new ResponseEntity<>(personalDetails, HttpStatus.OK);
+    }
 }
