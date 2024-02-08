@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface WorkRepository extends JpaRepository<Work, Long> {
     List<Work> findByUserIdAndSeminarId(Long userId, Long seminarId);
+    void deleteAllByUserIdAndSeminarId(Long userId, Long seminarId);
 }

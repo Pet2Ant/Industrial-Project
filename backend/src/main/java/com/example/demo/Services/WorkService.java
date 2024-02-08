@@ -30,6 +30,9 @@ public class WorkService {
         Type listType = new TypeToken<List<WorkDTO>>(){}.getType();
         return modelMapper.map(works, listType);
     }
+    public void deleteAllWork(Long id, Long seminarId) {
+        workRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 
 }

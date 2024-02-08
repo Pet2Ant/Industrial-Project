@@ -31,6 +31,9 @@ public class VolunteeringService {
         Type listType = new TypeToken<List<VolunteeringDTO>>(){}.getType();
         return modelMapper.map(volunteerings, listType);
     }
+    public void deleteAllVolunteering(Long id, Long seminarId) {
+        volunteeringRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 
 }

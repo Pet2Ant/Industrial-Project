@@ -31,5 +31,8 @@ public class SeminarsService {
     public Seminars getSeminarByUserId(long id) {
         return  seminarsRepository.findById(id).orElseThrow(() -> new RuntimeException("Seminars not found"));
     }
+    public void deleteSeminars(Long id, Long seminarId) {
+        seminarsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 }

@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface VolunteeringRepository extends JpaRepository<Volunteering, Long> {
     List<Volunteering> findByUserIdAndSeminarId(Long userId, Long seminarId);
+    void deleteAllByUserIdAndSeminarId(Long userId, Long seminarId);
 }

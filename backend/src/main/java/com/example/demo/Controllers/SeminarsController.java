@@ -42,5 +42,13 @@ public class SeminarsController {
         List<SeminarsDTO> seminars = seminarsService.getSeminarsById(id,seminarId);
         return new ResponseEntity<>(seminars, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/delete")
+    public ResponseEntity<Void> getSeminarsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        seminarsService.deleteSeminars(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

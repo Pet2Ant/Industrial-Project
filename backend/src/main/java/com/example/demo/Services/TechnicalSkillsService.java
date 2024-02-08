@@ -29,6 +29,9 @@ public class TechnicalSkillsService {
         Type listType = new TypeToken<List<TechnicalSkillsDTO>>(){}.getType();
         return modelMapper.map(technicalSkills, listType);
     }
+    public void deleteAllTechnicalSkills(Long id, Long seminarId) {
+        technicalSkillsRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 
 }

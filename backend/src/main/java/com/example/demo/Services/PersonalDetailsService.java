@@ -49,6 +49,9 @@ public class PersonalDetailsService {
         }
         return seminarCounts;
     }
+    public void deletePersonalDetails(Long id, Long seminarId) {
+        personalDetailsRepository.deletePersonalDetailsByIdAndSeminarId(id, seminarId);
+    }
 
 
 

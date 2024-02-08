@@ -84,5 +84,8 @@ public class EducationService {
 
         return result;
     }
+    public void deleteAllByUserIdAndSeminarId(Long id, Long seminarId) {
+        educationRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 }

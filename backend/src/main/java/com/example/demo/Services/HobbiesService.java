@@ -29,6 +29,9 @@ public class HobbiesService {
         Type listType = new TypeToken<List<HobbiesDTO>>(){}.getType();
         return modelMapper.map(hobbies, listType);
     }
+    public void deleteAllHobbies(Long id, Long seminarId) {
+        hobbiesRepository.deleteAllByUserIdAndSeminarId(id, seminarId);
+    }
 
 
 }

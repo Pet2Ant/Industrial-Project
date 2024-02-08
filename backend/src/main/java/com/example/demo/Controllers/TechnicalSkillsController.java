@@ -43,5 +43,14 @@ public class TechnicalSkillsController {
         List<TechnicalSkillsDTO> technicalSkills = technicalSkillsService.getTechnicalSkillsById(id,seminarId);
         return new ResponseEntity<>(technicalSkills, HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('USER')")
+    @GetMapping("/delete")
+    public ResponseEntity<Void> getTechnicalSkillsById(@RequestHeader("Authorization") String token, @RequestParam Long seminarId){
+        String username = jwtUtil.extractUsername(token.replace("Bearer ", ""));
+        Long userId = dataService.getUserId(username).getId();
+        technicalSkillsService.deleteAllTechnicalSkills(userId,seminarId);
+        return new ResponseEntity<>(HttpStatus.OK);
+
+    }
 }
 

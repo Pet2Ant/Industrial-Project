@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface HobbiesRepository extends JpaRepository<Hobbies, Long> {
     List<Hobbies> findByUserIdAndSeminarId(Long userId, Long seminarId);
+    void deleteAllByUserIdAndSeminarId(Long userId, Long seminarId);
 }

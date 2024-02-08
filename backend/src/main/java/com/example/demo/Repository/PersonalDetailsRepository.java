@@ -9,6 +9,9 @@ import java.util.Optional;
 public interface PersonalDetailsRepository extends JpaRepository<PersonalDetails, Long> {
    Optional<PersonalDetails> findByUserIdAndSeminarId(Long userId, Long seminarId);
 
-   List<PersonalDetails> findAllByUserIdAndSeminarId(Long userId, Long seminarId);
+   void findAllByUserIdAndSeminarId(Long userId, Long seminarId);
+   Optional<PersonalDetails> deletePersonalDetailsByIdAndSeminarId(Long id, Long seminarId);
+
    long countBySeminarId(Long seminarId);
+
 }

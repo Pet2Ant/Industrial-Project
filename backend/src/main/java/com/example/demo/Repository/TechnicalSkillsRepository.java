@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface TechnicalSkillsRepository extends JpaRepository<TechnicalSkills, Long> {
     List<TechnicalSkills> findByUserIdAndSeminarId(Long userId, Long seminarId);
+    void deleteAllByUserIdAndSeminarId(Long userId, Long seminarId);
 }
