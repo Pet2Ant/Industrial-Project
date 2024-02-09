@@ -2,9 +2,12 @@ package com.example.demo.Scheduling;
 import com.example.demo.Models.*;
 
 import com.example.demo.Repository.*;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +33,75 @@ public class TableCleanupTask {
         this.volunteerRepository = volunteerRepository;
         this.technicalSkillsRepository = technicalSkillsRepository;
         this.seminarRepository = seminarRepository;
+    }
+
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpRecords() {
+        List<PersonalDetails> personalDetailsList = personalDetailsRepository.findAll();
+        Set<Long> userIdsWithPersonalDetails = personalDetailsList.stream()
+                .map(PersonalDetails::getUserId)
+                .collect(Collectors.toSet());
+
+        // Check each table and delete records that don't have a corresponding PersonalDetails record
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, educationRepository, Education.class);
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, workRepository, Work.class);
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, volunteerRepository, Volunteering.class);
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, hobbiesRepository, Hobbies.class);
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, technicalSkillsRepository, TechnicalSkills.class);
+        deleteIfNoPersonalDetails(userIdsWithPersonalDetails, seminarRepository, Seminars.class);
+    }
+
+
+    private void deleteIfNoPersonalDetails(Set<Long> userIdsWithPersonalDetails, JpaRepository repository, Class<?> entityClass) {
+        List<?> records = repository.findAll();
+        for (Object record : records) {
+            Long userId;
+            Long seminarId;
+            if (entityClass.equals(Education.class)) {
+                userId = ((Education) record).getUserId();
+                seminarId = ((Education) record).getSeminarId();
+            } else if (entityClass.equals(Work.class)) {
+                userId = ((Work) record).getUserId();
+                seminarId = ((Work) record).getSeminarId();
+            } else if (entityClass.equals(Volunteering.class)) {
+                userId = ((Volunteering) record).getUserId();
+                seminarId = ((Volunteering) record).getSeminarId();
+            } else if (entityClass.equals(Hobbies.class)) {
+                userId = ((Hobbies) record).getUserId();
+                seminarId = ((Hobbies) record).getSeminarId();
+            } else if (entityClass.equals(TechnicalSkills.class)) {
+                userId = ((TechnicalSkills) record).getUserId();
+                seminarId = ((TechnicalSkills) record).getSeminarId();
+            } else if (entityClass.equals(Seminars.class)) {
+                userId = ((Seminars) record).getUserId();
+                seminarId = ((Seminars) record).getSeminarId();
+            } else {
+                throw new IllegalArgumentException("Unsupported entity class: " + entityClass);
+            }
+            PersonalDetails personalDetails = personalDetailsRepository.findByUserIdAndSeminarId(userId, seminarId);
+            if (personalDetails == null) {
+                repository.delete(record);
+            }
+        }
+        repository.flush();
+    }
+
+
+
+    @Transactional
+    @Scheduled(fixedRate = 1800000)
+    public void cleanUpAll() {
+        List<PersonalDetails> personalDetails = personalDetailsRepository.findAllByStatus(0);
+        if (personalDetails.isEmpty()) {
+            cleanupTablePesonalDetails();
+            cleanupTableEducation();
+            cleanUpWork();
+            cleanUpVolunteering();
+            cleanUpHobbies();
+            cleanUpTechnicalSkills();
+            cleanUpSeminars();
+        }
     }
 
     @Transactional
@@ -81,7 +153,7 @@ public class TableCleanupTask {
     @Transactional
     @Scheduled(fixedRate = 1800000)
     public void cleanUpTechnicalSkills(){
-       List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findAllByStatus(0);
+        List<TechnicalSkills> technicalSkills = technicalSkillsRepository.findAllByStatus(0);
         for (TechnicalSkills technicalSkill : technicalSkills) {
             technicalSkillsRepository.delete(technicalSkill);
         }
