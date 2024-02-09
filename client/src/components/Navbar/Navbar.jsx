@@ -63,10 +63,17 @@ const AuthenticatedNavbar = ({ userKind, logout }) => {
         title: 'Please upload a picture of yourself.',
         text: 'This will be used in the making of your CV. (optional)',
         showConfirmButton: true,
+        confirmButtonText: 'Take me to my CV!',
         input: 'file',
         inputAttributes: {
           'accept': 'image/*',
           'aria-label': 'Upload your profile picture'
+        }
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/CvBuilder');
+        } else if (result.isDenied) {
+          return;
         }
       });
 
