@@ -71,14 +71,7 @@ const AuthenticatedNavbar = ({ userKind, logout }) => {
         }
       }).then((result) => {
         if (result.isConfirmed) {
-          navigate('/CvBuilder');
-        } else if (result.isDenied) {
-          return;
-        }
-      });
-
-      if (result) {
-        const { value: file } = result;
+          const { value: file } = result;
         if (file) {
           const reader = new FileReader();
           reader.onload = (e) => {
@@ -111,8 +104,18 @@ const AuthenticatedNavbar = ({ userKind, logout }) => {
             });
           };
           reader.readAsDataURL(file);
+          setTimeout(() => {
+            navigate('/CvBuilder');
+          }
+          , 1500);
+        } else{
+          navigate('/CvBuilder');
         }
-      }
+          
+        } else if (result.isDenied) {
+          return;
+        }
+      });
     } else {
       Popup({
         title: "Error!",
